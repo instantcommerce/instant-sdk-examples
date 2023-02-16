@@ -2,6 +2,7 @@ import { defineBlock, useBlockState, useTheme } from '@instantcommerce/sdk';
 import cx from 'classnames';
 
 import { Button } from '../../components/Button';
+import { Overlay } from '../../components/Overlay';
 import { Paragraph } from '../../components/Paragraph';
 import { Title } from '../../components/Title';
 import { setThemeColors } from '../../config/setThemeColors';
@@ -18,119 +19,131 @@ import {
 } from './heroStyles';
 
 const HeroBlock = () => {
-  const { content, customizer } = useBlockState();
+  const {
+    content: { image, mobileImage, pretitle, title, subtitle, buttons },
+    customizer: {
+      theme,
+      backgroundColor,
+      variant,
+      width,
+      height,
+      verticalAlign,
+      horizontalAlign,
+      pretitleSize,
+      pretitleColor,
+      titleSize,
+      titleColor,
+      subtitleSize,
+      subtitleColor,
+      firstButtonType,
+      secondButtonType
+    }
+  } = useBlockState();
 
   return (
     <div
       className={cx('relative w-full bg-theme-bg')}
-      style={
-        {
-          ...setThemeColors(),
-          ...setBlockTheme(customizer?.theme),
-          backgroundColor: customizer?.backgroundColor
-        }
-      }
+      style={{
+        ...setThemeColors(),
+        ...setBlockTheme(theme),
+        ...(!!backgroundColor ? { backgroundColor } : {})
+      }}
     >
       <div
         className={cx(
           'hidden md:flex bg-cover absolute top-0 bottom-0',
-          heroImageStyles[customizer?.variant]
+          heroImageStyles[variant]
         )}
-        style={{ backgroundImage: `url(${content?.image?.filename})` }}
+        style={{ backgroundImage: `url(${image?.filename})` }}
       />
       <div
         className={cx(
           'flex w-full',
-          heroVariantStyles[customizer?.variant],
-          heroWidthStyles[customizer?.width],
-          heroHeightStyles[customizer?.height]
+          heroVariantStyles[variant],
+          heroWidthStyles[width],
+          heroHeightStyles[height]
         )}
       >
         <div
           className={cx(
-            'flex bg-cover md:!bg-none',
-            heroImageMobileStyles[customizer?.variant]
+            'flex bg-cover relative md:!bg-none',
+            heroImageMobileStyles[variant]
           )}
-          style={{ backgroundImage: `url(${content?.mobileImage?.filename})` }}
+          style={{ backgroundImage: `url(${mobileImage?.filename})` }}
         />
         <div
           className={cx(
             'flex flex-col px-2 py-6 md:py-100 z-10 sm:max-w-[50%] lg:max-w-[640px] md:flex-1',
-            !(
-              customizer?.width === 'contained' &&
-              customizer?.variant === 'cover'
-            )
-              ? 'md:px-10'
-              : '',
-            heroVerticalStyles[customizer?.verticalAlign],
-            heroHorizontalStyles[customizer?.horizontalAlign]
+            !(width === 'contained' && variant === 'cover') ? 'md:px-10' : '',
+            heroVerticalStyles[verticalAlign],
+            heroHorizontalStyles[horizontalAlign]
           )}
         >
-          {content?.pretitle && (
+          {pretitle && (
             <Paragraph
               className={cx('font-medium mb-1 text-theme-pretitle')}
-              size={customizer?.pretitleSize}
-              style={{ color: customizer?.pretitleColor }}
+              size={pretitleSize}
+              style={!!pretitleColor ? { color: pretitleColor } : {}}
             >
-              {content?.pretitle}
+              {pretitle}
             </Paragraph>
           )}
 
-          {content?.title && (
+          {title && (
             <Title
               className={cx('font-medium text-theme-title')}
-              size={customizer?.titleSize}
-              style={{ color: customizer?.titleColor }}
+              size={titleSize}
+              style={!!titleColor ? { color: titleColor } : {}}
               variant="display"
               as="h1"
             >
-              {content?.title}
+              {title}
             </Title>
           )}
 
-          {content?.subtitle && (
+          {subtitle && (
             <Paragraph
               className={cx('mb-2 text-theme-subtitle')}
-              size={customizer?.subtitleSize}
-              style={{ color: customizer?.subtitleColor }}
+              size={subtitleSize}
+              style={!!subtitleColor ? { color: subtitleColor } : {}}
             >
-              {content?.subtitle}
+              {subtitle}
             </Paragraph>
           )}
 
-          {content?.buttons && (
+          {buttons && (
             <div
               className={cx('hero__buttons-wrapper flex flex-wrap gap-2 mt-4')}
             >
-              {content?.buttons?.[0]?.value?.text && (
+              {buttons?.[0]?.value?.text && (
                 <Button
                   size={
                     ['link', 'linkPrimary', 'linkInverted'].includes(
-                      customizer?.firstButtonType
+                      firstButtonType
                     )
                       ? 'sm'
                       : 'md'
                   }
-                  variant={customizer?.firstButtonType}
-                  to={content?.buttons?.[0]?.value?.link}
+                  variant={firstButtonType}
+                  to={buttons?.[0]?.value?.link}
                 >
-                  {content?.buttons?.[0]?.value?.text}
+                  {buttons?.[0]?.value?.text}
                 </Button>
               )}
 
-              {content?.buttons?.[1]?.value?.text && (
+              {buttons?.[1]?.value?.text && (
                 <Button
                   size={
                     ['link', 'linkPrimary', 'linkInverted'].includes(
-                      customizer?.secondButtonType
+                      secondButtonType
                     )
                       ? 'sm'
                       : 'md'
                   }
-                  variant={customizer?.secondButtonType}
-                  to={content?.buttons?.[1]?.value?.link}
+                  variant={secondButtonType}
+                  to={buttons?.[1]?.value?.link}
                 >
-                  {content?.buttons?.[1]?.value?.text}
+                  {buttons?.[1]?.value?.text}
                 </Button>
               )}
             </div>
@@ -163,16 +176,19 @@ export default defineBlock({
           { label: 'Image text', value: 'imageText' },
           { label: 'Text image', value: 'textImage' }
         ],
-        preview: 'imageText'
+        preview: 'cover'
       },
-      imageOverlayColor: { type: 'color', label: 'Image overlay color' },
-      imageOpacityColor: {
+      overlayColor: {
+        type: 'color',
+        label: 'Image overlay color',
+        preview: '#000'
+      },
+      overlayOpacity: {
         type: 'number',
         label: 'Image overlay opacity',
         min: 0,
         max: 100,
-        fractionDigits: 0,
-        preview: 0
+        preview: 10
       },
       width: {
         type: 'select',
