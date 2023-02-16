@@ -20,6 +20,8 @@ import {
 const HeroBlock = () => {
   const { content, customizer } = useBlockState();
 
+  console.log(content)
+
   return (
     <div
       className={cx('relative w-full', themes[customizer?.theme]?.bg)}
@@ -49,7 +51,7 @@ const HeroBlock = () => {
         />
         <div
           className={cx(
-            'flex flex-col px-2 py-6 md:py-100z-10 sm:max-w-[50%] lg:max-w-[640px] md:flex-1',
+            'flex flex-col px-2 py-6 md:py-100 z-10 sm:max-w-[50%] lg:max-w-[640px] md:flex-1',
             !(
               customizer?.width === 'contained' &&
               customizer?.variant === 'cover'
