@@ -72,7 +72,7 @@ const HeroBlock = () => {
       >
         <div
           className={cx(
-            'flex bg-cover relative md:!bg-none',
+            'flex bg-cover md:!bg-none',
             heroImageMobileStyles[variant]
           )}
           style={{ backgroundImage: `url(${mobileImage?.filename})` }}

@@ -23,8 +23,8 @@ export const heroImageStyles = {
 
 export const heroImageMobileStyles = {
   cover: 'absolute top-0 bottom-0 right-0 left-0 md:hidden',
-  textImage: 'min-h-[204px] w-full md:w-2/4 h-full flex-1 md:flex-none',
-  imageText: 'min-h-[204px] w-full md:w-2/4 h-full flex-1 md:flex-none'
+  textImage: 'relative min-h-[204px] w-full md:w-2/4 h-full flex-1 md:flex-none',
+  imageText: 'relative min-h-[204px] w-full md:w-2/4 h-full flex-1 md:flex-none'
 };
 
 export const heroVerticalStyles = {
