@@ -24,6 +24,8 @@ const HeroBlock = () => {
     customizer: {
       theme,
       backgroundColor,
+      overlayColor,
+      overlayOpacity,
       variant,
       width,
       height,
@@ -55,7 +57,11 @@ const HeroBlock = () => {
           heroImageStyles[variant]
         )}
         style={{ backgroundImage: `url(${image?.filename})` }}
-      />
+      >
+        {overlayColor && (
+          <Overlay color={overlayColor} opacity={overlayOpacity} />
+        )}
+      </div>
       <div
         className={cx(
           'flex w-full',
@@ -70,7 +76,15 @@ const HeroBlock = () => {
             heroImageMobileStyles[variant]
           )}
           style={{ backgroundImage: `url(${mobileImage?.filename})` }}
-        />
+        >
+          {overlayColor && (
+            <Overlay
+              className="md:hidden"
+              color={overlayColor}
+              opacity={overlayOpacity}
+            />
+          )}
+        </div>
         <div
           className={cx(
             'flex flex-col px-2 py-6 md:py-100 z-10 sm:max-w-[50%] lg:max-w-[640px] md:flex-1',
