@@ -1,1 +1,8 @@
-{}
+{
+	"organization": "instant-demos",
+	"blocks": {
+		"HeroBlock": {
+			"id": "05029722-4477-413d-9234-9686cea1c63b"
+		}
+	}
+}

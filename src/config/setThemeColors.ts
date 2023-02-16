@@ -28,7 +28,7 @@ const grayscaleColors = {
   s900: '#18181B',
 };
 
-export const setThemeVars = () => {
+export const setThemeColors = () => {
   const { colors } = useTheme();
 
   // remove `s` to match tailwind colors (e.g. s500 -> 500)
@@ -38,6 +38,7 @@ export const setThemeVars = () => {
       o
     ])
   );
+
   const grayscaleObject = Object.fromEntries(
     Object.entries(colors?.grayscale || grayscaleColors).map(([k, o]) => [
       `--color-gray-${k.substring(1)}`,
@@ -46,7 +47,9 @@ export const setThemeVars = () => {
   );
 
   return {
+    '--color-white': '#fff',
     ...primaryObject,
-    ...grayscaleObject
+    ...grayscaleObject,
+    '--color-black': '#000',
   };
 };

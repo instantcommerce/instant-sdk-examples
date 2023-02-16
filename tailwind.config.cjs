@@ -31,6 +31,21 @@ module.exports = {
           900: 'var(--color-gray-900)'
         },
         black: '#000',
+        theme: {
+          bg: 'var(--color-bg)',
+          bgCard: 'var(--color-bgCard)',
+          bgContrast: 'var(--color-bgContrast)',
+          pretitle: 'var(--color-pretitle)',
+          title: 'var(--color-title)',
+          subtitle: 'var(--color-subtitle)',
+          icon: 'var(--color-icon)',
+          highlightedText: 'var(--color-highlightedText)',
+          text: 'var(--color-text)',
+          border: 'var(--color-border)',
+          inactiveElement: 'var(--color-inactiveElement)',
+          activeElement: 'var(--color-activeElement)',
+          link: 'var(--color-link)'
+        }
       }
     },
     borderRadius: {

@@ -1,77 +1,97 @@
 export const themes = {
   themeLight: {
-    bg: 'bg-white',
-    bgCard: 'bg-white',
-    bgContrast: 'bg-gray-100',
-    pretitle: 'text-gray-600',
-    title: 'text-gray-900',
-    subtitle: 'text-gray-600',
-    icon: 'text-gray-800',
-    highlightedText: 'text-gray-800',
-    text: 'text-gray-500',
-    border: 'border-gray-400',
-    inactiveElement: 'bg-gray-300',
-    activeElement: 'bg-gray-900',
-    link: 'text-gray-900'
+    bg: 'white',
+    bgCard: 'white',
+    bgContrast: 'gray-100',
+    pretitle: 'gray-600',
+    title: 'gray-900',
+    subtitle: 'gray-600',
+    icon: 'gray-800',
+    highlightedText: 'gray-800',
+    text: 'gray-500',
+    border: 'gray-400',
+    inactiveElement: 'gray-300',
+    activeElement: 'gray-900',
+    link: 'gray-900'
   },
   themeGray: {
-    bg: 'bg-gray-100',
-    bgCard: 'bg-white',
-    bgContrast: 'bg-gray-200',
-    pretitle: 'text-gray-600',
-    title: 'text-gray-900',
-    subtitle: 'text-gray-600',
-    icon: 'text-gray-800',
-    highlightedText: 'text-gray-800',
-    text: 'text-gray-600',
-    border: 'border-gray-300',
-    inactiveElement: 'bg-gray-400',
-    activeElement: 'bg-gray-900',
-    link: 'text-gray-900'
+    bg: 'gray-100',
+    bgCard: 'white',
+    bgContrast: 'gray-200',
+    pretitle: 'gray-600',
+    title: 'gray-900',
+    subtitle: 'gray-600',
+    icon: 'gray-800',
+    highlightedText: 'gray-800',
+    text: 'gray-600',
+    border: 'gray-300',
+    inactiveElement: 'gray-400',
+    activeElement: 'gray-900',
+    link: 'gray-900'
   },
   themePrimaryLight: {
-    bg: 'bg-primary-100',
-    bgCard: 'bg-white',
-    bgContrast: 'bg-primary-200',
-    pretitle: 'text-primary-600',
-    title: 'text-gray-900',
-    subtitle: 'text-gray-600',
-    icon: 'text-gray-800',
-    highlightedText: 'text-gray-800',
-    text: 'text-gray-500',
-    border: 'border-primary-300',
-    inactiveElement: 'bg-gray-400',
-    activeElement: 'bg-primary-600',
-    link: 'text-primary-600'
+    bg: 'primary-100',
+    bgCard: 'white',
+    bgContrast: 'primary-200',
+    pretitle: 'primary-600',
+    title: 'gray-900',
+    subtitle: 'gray-600',
+    icon: 'gray-800',
+    highlightedText: 'gray-800',
+    text: 'gray-500',
+    border: 'primary-300',
+    inactiveElement: 'gray-400',
+    activeElement: 'primary-600',
+    link: 'primary-600'
   },
   themePrimary: {
-    bg: 'bg-primary-700',
-    bgCard: 'bg-primary-600',
-    bgContrast: 'bg-primary-600',
-    pretitle: 'text-primary-200',
-    title: 'text-white',
-    subtitle: 'text-gray-50',
-    icon: 'text-gray-300',
-    highlightedText: 'text-gray-300',
-    text: 'text-gray-200',
-    border: 'border-primary-500',
-    inactiveElement: 'bg-gray-300',
-    activeElement: 'bg-gray-50',
-    link: 'text-gray-50'
+    bg: 'primary-700',
+    bgCard: 'primary-600',
+    bgContrast: 'primary-600',
+    pretitle: 'primary-200',
+    title: 'white',
+    subtitle: 'gray-50',
+    icon: 'gray-300',
+    highlightedText: 'gray-300',
+    text: 'gray-200',
+    border: 'primary-500',
+    inactiveElement: 'gray-300',
+    activeElement: 'gray-50',
+    link: 'gray-50'
   },
   themeDark: {
-    bg: 'bg-black',
-    bgCard: 'bg-gray-800',
-    bgContrast: 'bg-gray-800',
-    pretitle: 'text-primary-300',
-    title: 'text-white',
-    subtitle: 'text-gray-50',
-    icon: 'text-gray-300',
-    highlightedText: 'text-gray-300',
-    text: 'text-gray-400',
-    border: 'border-gray-700',
-    inactiveElement: 'bg-gray-300',
-    activeElement: 'bg-gray-400',
-    link: 'text-primary-400'
+    bg: 'black',
+    bgCard: 'gray-800',
+    bgContrast: 'gray-800',
+    pretitle: 'primary-300',
+    title: 'white',
+    subtitle: 'gray-50',
+    icon: 'gray-300',
+    highlightedText: 'gray-300',
+    text: 'gray-400',
+    border: 'gray-700',
+    inactiveElement: 'gray-300',
+    activeElement: 'gray-400',
+    link: 'primary-400'
   }
+};
+
+type themes =
+  | 'themeLight'
+  | 'themeGray'
+  | 'themePrimaryLight'
+  | 'themePrimary'
+  | 'themeDark';
+
+export const setBlockTheme = (theme?: themes) => {
+  const themeObject = Object.fromEntries(
+    Object.entries(themes[theme || 'themeLight']).map(([k, o]) => [
+      `--color-${k}`,
+      `var(--color-${o})`
+    ])
+  );
+
+  return {
+    ...themeObject
+  };
 };

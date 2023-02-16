@@ -36,5 +36,5 @@ export const heroVerticalStyles = {
 export const heroHorizontalStyles = {
   left: 'items-start mr-auto',
   center: 'items-center mx-auto text-center',
-  right:'items-end mr-auto text-right',
+  right:'items-end ml-auto text-right',
 };

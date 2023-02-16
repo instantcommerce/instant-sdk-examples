@@ -4,8 +4,8 @@ import cx from 'classnames';
 import { Button } from '../../components/Button';
 import { Paragraph } from '../../components/Paragraph';
 import { Title } from '../../components/Title';
-import { setThemeVars } from '../../config/setThemeVars';
-import { themes } from '../../config/themeMapping';
+import { setThemeColors } from '../../config/setThemeColors';
+import { setBlockTheme } from '../../config/themeMapping';
 import '../../styles/global.css';
 import {
   heroVariantStyles,
@@ -20,12 +20,16 @@ import {
 const HeroBlock = () => {
   const { content, customizer } = useBlockState();
 
-  console.log(content)
-
   return (
     <div
-      className={cx('relative w-full', themes[customizer?.theme]?.bg)}
-      style={{ ...setThemeVars() } as any}
+      className={cx('relative w-full bg-theme-bg')}
+      style={
+        {
+          ...setThemeColors(),
+          ...setBlockTheme(customizer?.theme),
+          backgroundColor: customizer?.backgroundColor
+        }
+      }
     >
       <div
         className={cx(
@@ -44,7 +48,7 @@ const HeroBlock = () => {
       >
         <div
           className={cx(
-            'flex bg-cover',
+            'flex bg-cover md:!bg-none',
             heroImageMobileStyles[customizer?.variant]
           )}
           style={{ backgroundImage: `url(${content?.mobileImage?.filename})` }}
@@ -64,11 +68,9 @@ const HeroBlock = () => {
         >
           {content?.pretitle && (
             <Paragraph
-              className={cx(
-                'font-medium mb-1',
-                themes[customizer?.theme]?.pretitle
-              )}
+              className={cx('font-medium mb-1 text-theme-pretitle')}
               size={customizer?.pretitleSize}
+              style={{ color: customizer?.pretitleColor }}
             >
               {content?.pretitle}
             </Paragraph>
@@ -76,8 +78,9 @@ const HeroBlock = () => {
 
           {content?.title && (
             <Title
-              className={cx('font-medium', themes[customizer?.theme]?.title)}
+              className={cx('font-medium text-theme-title')}
               size={customizer?.titleSize}
+              style={{ color: customizer?.titleColor }}
               variant="display"
               as="h1"
             >
@@ -87,8 +90,9 @@ const HeroBlock = () => {
 
           {content?.subtitle && (
             <Paragraph
-              className={cx('mb-2', themes[customizer?.theme]?.subtitle)}
+              className={cx('mb-2 text-theme-subtitle')}
               size={customizer?.subtitleSize}
+              style={{ color: customizer?.subtitleColor }}
             >
               {content?.subtitle}
             </Paragraph>
