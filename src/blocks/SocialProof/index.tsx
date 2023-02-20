@@ -26,7 +26,6 @@ const SocialProof = () => {
       subtitleColor,
     },
   } = useBlockState();
-  console.log(dividerColor);
 
   return (
     <div
@@ -94,9 +93,10 @@ const SocialProof = () => {
               : "justify-center md:gap-x-10"
           )}
         >
-          {logos?.map((logo: any) => {
+          {logos?.map((logo, i) => {
             return (
               <img
+                key={i}
                 className="max-h-8 object-contain"
                 src={logo?.value?.logo?.filename?.preview}
               />
