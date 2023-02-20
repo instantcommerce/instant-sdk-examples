@@ -19,7 +19,6 @@ const SocialProof = () => {
       headerAlignment,
       headerSize,
       mobileScrollDirection,
-      // custom styling
       backgroundColor,
       dividerColor,
       pretitleColor,
