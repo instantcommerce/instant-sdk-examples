@@ -1,19 +1,20 @@
 import { defineBlock, useBlockState } from '@instantcommerce/sdk';
 
 import { Container } from '../../components';
-import { setThemeColors, setBlockTheme, themeTypes } from '../../config';
+import { setThemeColors, setBlockTheme } from '../../config';
 import '../../styles/global.css';
 
 const ProductSlider = () => {
   const {
     content: { ...headerContent },
-    customizer: { backgroundColor, theme, ...headerCustomizations }
+    customizer: { backgroundColor, theme, width, ...headerCustomizations }
   } = useBlockState();
 
   return (
     <Container
       backgroundColor={backgroundColor}
-      className="product-slider"
+      wrapperClassName="product-slider"
+      className={width === 'contained' ? 'max-w-7xl' : 'max-w-none'}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
       style={{
         ...setThemeColors(),
@@ -39,6 +40,14 @@ export default defineBlock({
           { label: 'Dark', value: 'themeDark' }
         ],
         preview: 'themeDark'
+      },
+      width: {
+        type: 'select',
+        options: [
+          { label: 'Boxed', value: 'contained' },
+          { label: 'Full width', value: 'full' }
+        ],
+        preview: 'contained'
       },
       headerAlignment: {
         type: 'select',

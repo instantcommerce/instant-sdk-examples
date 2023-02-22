@@ -7,8 +7,8 @@ import { themeTypes } from '../../config';
 type ContainerProps = {
   headerProps?: HeaderPropswithSDKSchema;
   backgroundColor?: string;
-  innerClassName?: string;
-  innerStyle?: any;
+  wrapperClassName?: string;
+  wrapperStyle?: any;
   style?: any;
   theme?: themeTypes;
 } & Pick<AllHTMLAttributes<HTMLElement>, 'className' | 'children'>;
@@ -18,24 +18,24 @@ export const Container = ({
   children,
   className,
   headerProps,
-  innerClassName,
-  innerStyle,
-  style
+  style,
+  wrapperClassName,
+  wrapperStyle,
 }: ContainerProps) => (
   // feel free to overwrite the container layout with other classnames
   <section
-    className={cx('section w-full bg-theme-bg', className)}
+    className={cx('section w-full bg-theme-bg', wrapperClassName)}
     style={{
-      ...style,
+      ...wrapperStyle,
       ...(!!backgroundColor ? { backgroundColor } : {})
     }}
   >
     <div
       className={cx(
-        'section-inner flex flex-col max-w-7xl mx-auto py-9 px-2',
-        innerClassName
+        'section-inner flex flex-col w-full mx-auto py-9 px-2',
+        className
       )}
-      style={{ ...innerStyle }}
+      style={{ ...style }}
     >
       {!!headerProps?.pretitle ||
       !!headerProps?.title ||
