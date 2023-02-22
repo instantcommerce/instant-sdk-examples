@@ -97,7 +97,7 @@ const SocialProof = () => {
               "flex md:flex-row items-center mt-4 md:gap-y-0",
               mobileScrollDirection === "vertical"
                 ? "flex-col gap-y-6"
-                : "gap-x-6 pl-2",
+                : "gap-x-6 pl-2 md:pl-0",
               contentAlignment === "left"
                 ? "sm:justify-between"
                 : "sm:justify-center sm:gap-x-10"
@@ -217,7 +217,7 @@ export default defineBlock({
               logo: {
                 type: "image",
                 preview:
-                  "https://a.storyblok.com/f/145828/1280x457/5475d43099/logo_nike.png",
+                  "https://a.storyblok.com/f/145828/248x73/cb00a9dc8f/rugg-ed.png",
               },
             },
           },
@@ -227,7 +227,7 @@ export default defineBlock({
               logo: {
                 type: "image",
                 preview:
-                  "https://a.storyblok.com/f/145828/48x56/1fa37346e5/apple_logo.png",
+                  "https://a.storyblok.com/f/145828/166x46/05bc6e4e11/hypemode.png",
               },
             },
           },
@@ -237,7 +237,7 @@ export default defineBlock({
               logo: {
                 type: "image",
                 preview:
-                  "https://a.storyblok.com/f/145828/281x28/20a3c59ff8/louis_vuitton_logo.png",
+                  "https://a.storyblok.com/f/145828/211x37/386e98b4a8/chalk.png",
               },
             },
           },
@@ -247,7 +247,7 @@ export default defineBlock({
               logo: {
                 type: "image",
                 preview:
-                  "https://a.storyblok.com/f/145828/212x37/e1d8452ad5/chalk.png",
+                  "https://a.storyblok.com/f/145828/292x30/a9237d40ed/outhouse.png",
               },
             },
           },
