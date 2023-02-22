@@ -1,9 +1,18 @@
 import { Link, LinkProps } from '@instantcommerce/sdk';
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 import cx from 'classnames';
-import { baseStyles, buttonSizeStyles, linkSizeStyles, variantStyles } from './buttonStyles';
+import {
+  baseStyles,
+  buttonCornerStyles,
+  buttonSizeStyles,
+  buttonWeightStyles,
+  linkSizeStyles,
+  variantStyles
+} from './buttonStyles';
 
 type BaseProps = {
+  corners?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'full';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   variant?:
     | 'primary'
     | 'secondary'
@@ -12,7 +21,7 @@ type BaseProps = {
     | 'linkPrimary'
     | 'linkInverted'
     | 'unstyled';
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  weight?: 'base' | 'medium' | 'bold';
 };
 
 type ElementProps =
@@ -22,13 +31,15 @@ type ElementProps =
       HTMLButtonElement
     >;
 
-type ButtonProps = BaseProps & ElementProps;
+export type ButtonProps = BaseProps & ElementProps;
 
 export const Button = ({
   children,
   className,
+  corners = 'none',
   size,
   variant = 'unstyled',
+  weight = 'medium',
   ...props
 }: ButtonProps) => {
   let hasButtonStyles;
@@ -46,6 +57,8 @@ export const Button = ({
         : size
         ? linkSizeStyles[size]
         : '',
+      buttonCornerStyles[corners],
+      buttonWeightStyles[weight],
       className
     )
   };
