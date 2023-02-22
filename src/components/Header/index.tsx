@@ -14,6 +14,8 @@ type HeaderProps = {
   alignment?: 'left' | 'center';
   buttonLocation?: 'top' | 'bottom';
   buttonType: ButtonProps['variant'];
+  buttonRadius?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'full';
+  buttonWeight?: 'base' | 'medium' | 'bold';
   hasDivider?: boolean;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   //overrides
@@ -47,6 +49,8 @@ export const Header = ({
   buttonLocation,
   buttonType,
   buttonText,
+  buttonRadius,
+  buttonWeight,
   className,
   children,
   dividerColor,
@@ -65,14 +69,16 @@ export const Header = ({
       variant={buttonType}
       size={size === 'md' ? 'sm' : 'md'}
       className={cx(
-        'header__button whitespace-normal max-w-xs',
+        `header__button whitespace-normal max-w-xs rounded-${buttonRadius} font-${buttonWeight}`,
         !!subtitle ? 'order-3' : 'order-2',
         !!subtitle
           ? alignment === 'center' || buttonLocation === 'bottom'
             ? 'mt-4'
             : 'mt-4, md:mt-0 ml-auto'
           : `mt-1.5 md:mt-${
-              alignment === 'center' || buttonLocation === 'bottom' ? 1.5 : '0 ml-auto'
+              alignment === 'center' || buttonLocation === 'bottom'
+                ? 1.5
+                : '0 ml-auto'
             }`,
         alignment === 'center'
           ? 'text-center self-center'
@@ -132,7 +138,7 @@ export const Header = ({
               }
               className={cx(
                 'header__title text-theme-title max-w-xl flex-1 order-1',
-                size === 'xl' ? 'font-bold' : 'font-medium',
+                size === 'xl' ? 'font-bold' : 'font-medium'
               )}
               style={!!titleColor ? { color: titleColor } : {}}
             >
@@ -157,7 +163,7 @@ export const Header = ({
               size={size === 'md' ? 'sm' : 'md'}
               className={cx(
                 'header_subtitle text-theme-subtitle max-w-xl order-2 flex-1',
-                `pr-0 md:pr-${buttonText && alignment !== 'center' ? 4 : 0}`,
+                `pr-0 md:pr-${buttonText && alignment !== 'center' ? 4 : 0}`
               )}
               style={!!subtitleColor ? { color: subtitleColor } : {}}
             >

@@ -1,12 +1,8 @@
-import { defineBlock, useBlockState, useTheme } from '@instantcommerce/sdk';
+import { defineBlock, useBlockState } from '@instantcommerce/sdk';
 import cx from 'classnames';
 
-import { Button } from '../../components/Button';
-import { Overlay } from '../../components/Overlay';
-import { Paragraph } from '../../components/Paragraph';
-import { Title } from '../../components/Title';
-import { setThemeColors } from '../../config/setThemeColors';
-import { setBlockTheme } from '../../config/themeMapping';
+import { Button, Overlay, Paragraph, Title } from '../../components';
+import { setThemeColors,  setBlockTheme } from '../../config';
 import '../../styles/global.css';
 import {
   heroVariantStyles,
@@ -38,12 +34,14 @@ const HeroBlock = () => {
       subtitleSize,
       subtitleColor,
       firstButtonType,
-      secondButtonType
+      secondButtonType,
+      buttonRadius,
+      buttonWeight,
     }
   } = useBlockState();
 
   return (
-    <div
+    <section
       className={cx('relative w-full bg-theme-bg')}
       style={{
         ...setThemeColors(),
@@ -140,6 +138,7 @@ const HeroBlock = () => {
                   }
                   variant={firstButtonType}
                   to={buttons?.[0]?.value?.link}
+                  className={cx(`rounded-${buttonRadius} font-${buttonWeight}`)}
                 >
                   {buttons?.[0]?.value?.text}
                 </Button>
@@ -156,6 +155,7 @@ const HeroBlock = () => {
                   }
                   variant={secondButtonType}
                   to={buttons?.[1]?.value?.link}
+                  className={cx(`rounded-${buttonRadius} font-${buttonWeight}`)}
                 >
                   {buttons?.[1]?.value?.text}
                 </Button>
@@ -164,7 +164,7 @@ const HeroBlock = () => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
@@ -293,6 +293,26 @@ export default defineBlock({
           { label: 'Link inverted', value: 'linkInverted' }
         ],
         preview: 'linkInverted'
+      },
+      buttonRadius: {
+        type: 'select',
+        options: [
+          { label: 'None', value: 'none' },
+          { label: 'Small', value: 'xs' },
+          { label: 'Medium', value: 'md' },
+          { label: 'Large', value: 'lg' },
+          { label: 'Full', value: 'full' }
+        ],
+        preview: 'none'
+      },
+      buttonWeight: {
+        type: 'select',
+        options: [
+          { label: 'Regular', value: 'base' },
+          { label: 'Medium', value: 'medium' },
+          { label: 'Bold', value: 'bold' },
+        ],
+        preview: 'medium'
       }
     }
   },

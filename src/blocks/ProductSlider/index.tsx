@@ -13,6 +13,7 @@ const ProductSlider = () => {
   return (
     <Container
       backgroundColor={backgroundColor}
+      className="product-slider"
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
       style={{
         ...setThemeColors(),
@@ -71,6 +72,26 @@ export default defineBlock({
           { label: 'Link inverted', value: 'linkInverted' }
         ],
         preview: 'primary'
+      },
+      buttonRadius: {
+        type: 'select',
+        options: [
+          { label: 'None', value: 'none' },
+          { label: 'Small', value: 'xs' },
+          { label: 'Medium', value: 'md' },
+          { label: 'Large', value: 'lg' },
+          { label: 'Full', value: 'full' }
+        ],
+        preview: 'none'
+      },
+      buttonWeight: {
+        type: 'select',
+        options: [
+          { label: 'Regular', value: 'base' },
+          { label: 'Medium', value: 'medium' },
+          { label: 'Bold', value: 'bold' }
+        ],
+        preview: 'medium'
       },
       buttonLocation: {
         type: 'select',
