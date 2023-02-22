@@ -133,7 +133,7 @@ export default defineBlock({
         ],
         preview: "primary",
       },
-      buttonRadius: {
+      buttonCorners: {
         type: "select",
         options: [
           { label: "None", value: "none" },
