@@ -13,10 +13,10 @@ const ProductSlider = () => {
   return (
     <Container
       backgroundColor={backgroundColor}
-      wrapperClassName="product-slider"
       className={width === 'contained' ? 'max-w-7xl' : 'max-w-none'}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
-      style={{
+      wrapperClassName="product-slider"
+      wrapperStyle={{
         ...setThemeColors(),
         ...setBlockTheme(theme)
       }}
