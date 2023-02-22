@@ -84,24 +84,35 @@ const SocialProof = () => {
 
         <div
           className={cx(
-            "w-full flex md:flex-row items-center mt-4 md:gap-y-0",
-            mobileScrollDirection === "vertical"
-              ? "flex-col gap-y-6"
-              : "gap-x-6 overflow-x-auto snap-x",
-            contentAlignment === "left"
-              ? "justify-between"
-              : "justify-center md:gap-x-10"
+            mobileScrollDirection === "horizontal" &&
+              "w-[calc(100% + 32px)] md:w-full -mx-2 md:mx-0 overflow-x-auto snap-x"
           )}
+          style={{
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
         >
-          {logos?.map((logo, i) => {
-            return (
-              <img
-                key={i}
-                className="max-h-5 object-contain"
-                src={logo?.value?.logo?.filename?.preview}
-              />
-            );
-          })}
+          <div
+            className={cx(
+              "flex md:flex-row items-center mt-4 md:gap-y-0",
+              mobileScrollDirection === "vertical"
+                ? "flex-col gap-y-6"
+                : "gap-x-6 pl-2",
+              contentAlignment === "left"
+                ? "sm:justify-between"
+                : "sm:justify-center sm:gap-x-10"
+            )}
+          >
+            {logos?.map((logo, i) => {
+              return (
+                <img
+                  key={i}
+                  className="max-h-5 object-contain"
+                  src={logo?.value?.logo?.filename?.preview}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
