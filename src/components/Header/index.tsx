@@ -14,8 +14,8 @@ type HeaderProps = {
   alignment?: 'left' | 'center';
   buttonLocation?: 'top' | 'bottom';
   buttonType: ButtonProps['variant'];
-  buttonRadius?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'full';
-  buttonWeight?: 'base' | 'medium' | 'bold';
+  buttonCorners?: ButtonProps['corners'];
+  buttonWeight?: ButtonProps['weight'];
   hasDivider?: boolean;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   //overrides
@@ -49,7 +49,7 @@ export const Header = ({
   buttonLocation,
   buttonType,
   buttonText,
-  buttonRadius,
+  buttonCorners,
   buttonWeight,
   className,
   children,
@@ -67,19 +67,19 @@ export const Header = ({
   const button = (
     <Button
       variant={buttonType}
+      corners={buttonCorners}
+      weight={buttonWeight}
       size={size === 'md' ? 'sm' : 'md'}
       className={cx(
-        `header__button whitespace-normal max-w-xs rounded-${buttonRadius} font-${buttonWeight}`,
+        `header__button whitespace-normal max-w-xs`,
         !!subtitle ? 'order-3' : 'order-2',
         !!subtitle
           ? alignment === 'center' || buttonLocation === 'bottom'
             ? 'mt-3 md:mt-4'
             : 'mt-3 md:mt-0 md:ml-auto'
-          : `mt-1.5 md:mt-${
-              alignment === 'center' || buttonLocation === 'bottom'
-                ? '1.5'
-                : '0 md:ml-auto'
-            }`,
+          : alignment === 'center' || buttonLocation === 'bottom'
+          ? 'mt-1.5 md:mt-1.5'
+          : 'mt-1.5 md:mt-0 md:ml-auto',
         alignment === 'center'
           ? 'text-center self-center'
           : buttonLocation === 'top'
@@ -119,11 +119,10 @@ export const Header = ({
         {!!title && (
           <div
             className={cx(
-              'header__title-wrapper flex w-full',
-              `items-${
-                alignment === 'center' ? 'center' : 'start'
-              } md:items-center`,
-              `flex-col md:flex-${alignment === 'center' ? 'col' : 'row'}`
+              'header__title-wrapper flex w-full flex-col md:items-center',
+              alignment === 'center'
+                ? 'items-center md:flex-col'
+                : 'items-start md:flex-row'
             )}
           >
             <Title
@@ -152,18 +151,19 @@ export const Header = ({
         {!!subtitle && (
           <div
             className={cx(
-              'header__subtitle-wrapper flex w-full',
-              alignment === 'center' ? 'items-center' : 'items-start',
-              `flex-col md:flex-${alignment === 'center' ? 'col' : 'row'}`,
-              `mt-${!!title ? (alignment === 'center' ? 1.5 : 1) : 0}`
+              'header__subtitle-wrapper flex w-full flex-col',
+              alignment === 'center'
+                ? 'items-center md:flex-col'
+                : 'items-start md:flex-row',
+              !!title ? (alignment === 'center' ? 'mt-1.5' : 'mt-1') : 'mt-0'
             )}
           >
             <Paragraph
               as="p"
               size={size === 'md' ? 'sm' : 'md'}
               className={cx(
-                'header_subtitle text-theme-subtitle max-w-xl order-2 flex-1',
-                `pr-0 md:pr-${buttonText && alignment !== 'center' ? 4 : 0}`
+                'header__subtitle text-theme-subtitle max-w-xl order-2 flex-1 pr-0',
+                buttonText && alignment !== 'center' ? 'md:pr-4' : 'md:pr-0'
               )}
               style={!!subtitleColor ? { color: subtitleColor } : {}}
             >

@@ -35,7 +35,7 @@ const HeroBlock = () => {
       subtitleColor,
       firstButtonType,
       secondButtonType,
-      buttonRadius,
+      buttonCorners,
       buttonWeight,
     }
   } = useBlockState();
@@ -138,7 +138,8 @@ const HeroBlock = () => {
                   }
                   variant={firstButtonType}
                   to={buttons?.[0]?.value?.link}
-                  className={cx(`rounded-${buttonRadius} font-${buttonWeight}`)}
+                  corners={buttonCorners}
+                  weight={buttonWeight}
                 >
                   {buttons?.[0]?.value?.text}
                 </Button>
@@ -155,7 +156,8 @@ const HeroBlock = () => {
                   }
                   variant={secondButtonType}
                   to={buttons?.[1]?.value?.link}
-                  className={cx(`rounded-${buttonRadius} font-${buttonWeight}`)}
+                  corners={buttonCorners}
+                  weight={buttonWeight}
                 >
                   {buttons?.[1]?.value?.text}
                 </Button>
@@ -294,7 +296,7 @@ export default defineBlock({
         ],
         preview: 'linkInverted'
       },
-      buttonRadius: {
+      buttonCorners: {
         type: 'select',
         options: [
           { label: 'None', value: 'none' },
