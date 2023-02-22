@@ -84,7 +84,7 @@ export const Header = ({
           ? 'text-center self-center'
           : buttonLocation === 'top'
           ? 'text-right'
-          : 'text-left'
+          : 'text-left self-start'
       )}
       to={buttonLink}
     >
@@ -98,7 +98,7 @@ export const Header = ({
         className={cx(
           'header w-full',
           alignment === 'center' ? 'text-center' : 'text-left',
-          !!pretitle || !!title || !!subtitle ? 'mb-5' : 'mb-0',
+          !!pretitle || !!title || !!subtitle ? 'mb-4 md:mb-5' : 'mb-0',
           className
         )}
         style={{ ...style }}
