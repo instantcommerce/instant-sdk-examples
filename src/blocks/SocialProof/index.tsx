@@ -26,7 +26,7 @@ const SocialProof = () => {
       wrapperClassName="social-proof"
       className={containerWidth === "contained" ? "max-w-7xl" : "max-w-none"}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
-      style={{ ...setThemeColors(), ...setBlockTheme(theme) }}
+      wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
       <div
         className={cx(
