@@ -97,7 +97,7 @@ const SocialProof = () => {
             return (
               <img
                 key={i}
-                className="max-h-8 object-contain"
+                className="max-h-5 object-contain"
                 src={logo?.value?.logo?.filename?.preview}
               />
             );
