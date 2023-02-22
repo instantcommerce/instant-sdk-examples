@@ -1,7 +1,8 @@
 import { defineBlock, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
-import { Paragraph } from "../../components/Paragraph";
 
+import { Container } from "../../components";
+import { Paragraph } from "../../components/Paragraph";
 import { Title } from "../../components/Title";
 import { setThemeColors } from "../../config/setThemeColors";
 import { setBlockTheme } from "../../config/themeMapping";
@@ -10,78 +11,33 @@ import "../../styles/global.css";
 
 const SocialProof = () => {
   const {
-    content: { pretitle, title, subtitle, logos },
+    content: { logos, ...headerContent },
     customizer: {
       theme,
       contentAlignment,
       containerWidth,
-      divider,
-      headerAlignment,
-      headerSize,
       mobileScrollDirection,
       backgroundColor,
-      dividerColor,
-      pretitleColor,
-      titleColor,
-      subtitleColor,
+      ...headerCustomizations
     },
   } = useBlockState();
 
   return (
-    <div
-      className={cx("relative w-full bg-theme-bg")}
-      style={{
-        ...setThemeColors(),
-        ...setBlockTheme(theme),
-        ...(!!backgroundColor ? { backgroundColor } : {}),
-      }}
+    <Container
+      backgroundColor={backgroundColor}
+      wrapperClassName="social-proof"
+      className={containerWidth === "contained" ? "max-w-7xl" : "max-w-none"}
+      headerProps={{ ...headerContent, ...headerCustomizations, theme }}
+      style={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
       <div
-        className={cx(
-          "w-full px-2 mx-auto py-9",
-          containerWidth === "contained" && "max-w-7xl"
-        )}
+        className={cx("relative w-full bg-theme-bg")}
+        style={{
+          ...setThemeColors(),
+          ...setBlockTheme(theme),
+          ...(!!backgroundColor ? { backgroundColor } : {}),
+        }}
       >
-        <div className={`text-${headerAlignment}`}>
-          {pretitle && (
-            <Paragraph
-              className={cx("font-medium mb-1.5 text-theme-pretitle")}
-              size="md"
-              style={!!pretitleColor ? { color: pretitleColor } : {}}
-            >
-              {pretitle}
-            </Paragraph>
-          )}
-          {title && (
-            <Title
-              className={cx("font-medium text-theme-title")}
-              uppercase
-              size={headerSize}
-              style={!!titleColor ? { color: titleColor } : {}}
-              variant="heading"
-              as="h2"
-            >
-              {title}
-            </Title>
-          )}
-          {subtitle && (
-            <Paragraph
-              className={cx("mt-1.5 text-theme-subtitle")}
-              size="lg"
-              style={!!subtitleColor ? { color: subtitleColor } : {}}
-            >
-              {subtitle}
-            </Paragraph>
-          )}
-        </div>
-
-        {!!divider && (
-          <div
-            className="w-full border-b mt-4"
-            style={!!dividerColor ? { borderColor: dividerColor } : {}}
-          />
-        )}
-
         <div
           className={cx(
             mobileScrollDirection === "horizontal" &&
@@ -115,7 +71,7 @@ const SocialProof = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
