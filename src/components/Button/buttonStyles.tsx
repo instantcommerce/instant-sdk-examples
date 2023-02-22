@@ -1,4 +1,4 @@
-export const baseStyles = 'relative flex flex-row justify-center items-center text-center font-medium whitespace-no-wrap overflow-hidden';
+export const baseStyles = 'relative flex flex-row justify-center items-center text-center whitespace-no-wrap overflow-hidden';
 
 export const variantStyles = {
   primary:
@@ -20,6 +20,21 @@ export const buttonSizeStyles = {
   lg: 'h-6 px-2.5 text-base',
   xl: 'h-[52px] px-3 text-base',
   '2xl': 'h-7 px-4 text-base'
+};
+
+export const buttonCornerStyles = {
+  none: 'rounded-none',
+  xs: 'rounded-xs',
+  sm: 'rounded-sm',
+  md: 'rounded-md',
+  lg: 'rounded-lg',
+  full: 'rounded-full',
+};
+
+export const buttonWeightStyles = {
+  base: 'font-base',
+  medium: 'font-medium',
+  bold: 'font-bold',
 };
 
 export const linkSizeStyles = {
