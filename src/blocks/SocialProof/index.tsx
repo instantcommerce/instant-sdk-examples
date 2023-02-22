@@ -2,8 +2,6 @@ import { defineBlock, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
 import { Container } from "../../components";
-import { Paragraph } from "../../components/Paragraph";
-import { Title } from "../../components/Title";
 import { setThemeColors } from "../../config/setThemeColors";
 import { setBlockTheme } from "../../config/themeMapping";
 
@@ -31,44 +29,31 @@ const SocialProof = () => {
       style={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
       <div
-        className={cx("relative w-full bg-theme-bg")}
-        style={{
-          ...setThemeColors(),
-          ...setBlockTheme(theme),
-          ...(!!backgroundColor ? { backgroundColor } : {}),
-        }}
+        className={cx(
+          mobileScrollDirection === "horizontal" &&
+            "w-[calc(100% + 32px)] md:w-full -mx-2 md:mx-0 overflow-x-auto snap-x"
+        )}
       >
         <div
           className={cx(
-            mobileScrollDirection === "horizontal" &&
-              "w-[calc(100% + 32px)] md:w-full -mx-2 md:mx-0 overflow-x-auto snap-x"
+            "flex md:flex-row items-center md:gap-y-0",
+            mobileScrollDirection === "vertical"
+              ? "flex-col gap-y-6"
+              : "gap-x-6 px-2 md:px-0",
+            contentAlignment === "left"
+              ? "sm:justify-between"
+              : "sm:justify-center sm:gap-x-10"
           )}
-          style={{
-            msOverflowStyle: "none",
-            scrollbarWidth: "none",
-          }}
         >
-          <div
-            className={cx(
-              "flex md:flex-row items-center mt-4 md:gap-y-0",
-              mobileScrollDirection === "vertical"
-                ? "flex-col gap-y-6"
-                : "gap-x-6 pl-2 md:pl-0",
-              contentAlignment === "left"
-                ? "sm:justify-between"
-                : "sm:justify-center sm:gap-x-10"
-            )}
-          >
-            {logos?.map((logo, i) => {
-              return (
-                <img
-                  key={i}
-                  className="max-h-5 object-contain"
-                  src={logo?.value?.logo?.filename?.preview}
-                />
-              );
-            })}
-          </div>
+          {logos?.map((logo, i) => {
+            return (
+              <img
+                key={i}
+                className="max-h-5 object-contain"
+                src={logo?.value?.logo?.filename?.preview}
+              />
+            );
+          })}
         </div>
       </div>
     </Container>
@@ -106,9 +91,13 @@ export default defineBlock({
         ],
         preview: "contained",
       },
-      divider: {
-        type: "toggle",
-        preview: false,
+      mobileScrollDirection: {
+        type: "select",
+        options: [
+          { label: "Vertical", value: "vertical" },
+          { label: "Horizontal", value: "horizontal" },
+        ],
+        preview: "vertical",
       },
       headerAlignment: {
         type: "select",
@@ -121,25 +110,58 @@ export default defineBlock({
       headerSize: {
         type: "select",
         options: [
-          { label: "Small", value: "md" },
-          { label: "Medium", value: "lg" },
-          { label: "Large", value: "xl" },
+          { label: "Small", value: "sm" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
         ],
-        preview: "lg",
+        preview: "md",
       },
-      mobileScrollDirection: {
+      pretitleColor: { type: "color", label: "Pretitle color" },
+      titleColor: { type: "color", label: "Title color" },
+      subtitleColor: { type: "color", label: "Description color" },
+      backgroundColor: { type: "color", label: "Background color" },
+      buttonType: {
         type: "select",
         options: [
-          { label: "Vertical", value: "vertical" },
-          { label: "Horizontal", value: "horizontal" },
+          { label: "Primary", value: "primary" },
+          { label: "Secondary", value: "secondary" },
+          { label: "Gray", value: "gray" },
+          { label: "Link", value: "link" },
+          { label: "Link primary", value: "linkPrimary" },
+          { label: "Link inverted", value: "linkInverted" },
         ],
-        preview: "vertical",
+        preview: "primary",
       },
-      backgroundColor: { type: "color", label: "Background color" },
+      buttonRadius: {
+        type: "select",
+        options: [
+          { label: "None", value: "none" },
+          { label: "Small", value: "xs" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+          { label: "Full", value: "full" },
+        ],
+        preview: "none",
+      },
+      buttonWeight: {
+        type: "select",
+        options: [
+          { label: "Regular", value: "base" },
+          { label: "Medium", value: "medium" },
+          { label: "Bold", value: "bold" },
+        ],
+        preview: "medium",
+      },
+      buttonLocation: {
+        type: "select",
+        options: [
+          { label: "Top", value: "top" },
+          { label: "Bottom", value: "bottom" },
+        ],
+        preview: "top",
+      },
       dividerColor: { type: "color", label: "Divider color" },
-      pretitleColor: { type: "color", label: "Header pretitle color" },
-      titleColor: { type: "color", label: "Header title color" },
-      subtitleColor: { type: "color", label: "Header subtitle color" },
+      hasDivider: { type: "toggle", label: "Has divider", preview: true },
     },
   },
   contentSchema: {
@@ -161,6 +183,20 @@ export default defineBlock({
         label: "Description",
         preview: "Lorem ipsum dolor sit amet",
         isTranslatable: true,
+      },
+      buttons: {
+        type: "subschema",
+        allowed: ["button"],
+        max: 1,
+        preview: [
+          {
+            subschema: "button",
+            value: {
+              text: "Button text",
+              link: "https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg",
+            },
+          },
+        ],
       },
       logos: {
         type: "subschema",
@@ -211,6 +247,23 @@ export default defineBlock({
       },
     },
     subschemas: {
+      button: {
+        fields: {
+          text: {
+            type: "text",
+            label: "Text",
+            isTranslatable: true,
+            isRequired: true,
+            maxLength: 40,
+          },
+          link: {
+            type: "link",
+            label: "Link",
+            isTranslatable: true,
+            isRequired: true,
+          },
+        },
+      },
       logo: {
         fields: {
           logo: {
