@@ -60,9 +60,9 @@ export default defineBlock({
       headerSize: {
         type: 'select',
         options: [
-          { label: 'Small', value: 'sm' },
-          { label: 'Medium', value: 'md' },
-          { label: 'Large', value: 'lg' }
+          { label: 'Small', value: 'md' },
+          { label: 'Medium', value: 'lg' },
+          { label: 'Large', value: 'xl' }
         ],
         preview: 'md'
       },
