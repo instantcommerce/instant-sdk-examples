@@ -36,6 +36,7 @@ const SocialProof = () => {
       >
         <div
           className={cx(
+            "logo-wrapper",
             "flex md:flex-row items-center md:gap-y-0",
             mobileScrollDirection === "vertical"
               ? "flex-col gap-y-6"
@@ -49,7 +50,7 @@ const SocialProof = () => {
             return (
               <img
                 key={i}
-                className="max-h-5 object-contain"
+                className="logo-image max-h-5 object-contain"
                 src={logo?.value?.logo?.filename?.preview}
               />
             );
