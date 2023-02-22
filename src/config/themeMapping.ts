@@ -76,14 +76,14 @@ export const themes = {
   }
 };
 
-type themes =
+export type themeTypes =
   | 'themeLight'
   | 'themeGray'
   | 'themePrimaryLight'
   | 'themePrimary'
   | 'themeDark';
 
-export const setBlockTheme = (theme?: themes) => {
+export const setBlockTheme = (theme?: themeTypes) => {
   const themeObject = Object.fromEntries(
     Object.entries(themes[theme || 'themeLight']).map(([k, o]) => [
       `--color-${k}`,

@@ -22,7 +22,7 @@ type ElementProps =
       HTMLButtonElement
     >;
 
-type ButtonProps = BaseProps & ElementProps;
+export type ButtonProps = BaseProps & ElementProps;
 
 export const Button = ({
   children,
