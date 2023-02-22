@@ -73,18 +73,18 @@ export const Header = ({
         !!subtitle ? 'order-3' : 'order-2',
         !!subtitle
           ? alignment === 'center' || buttonLocation === 'bottom'
-            ? 'mt-4'
-            : 'mt-4, md:mt-0 ml-auto'
+            ? 'mt-3 md:mt-4'
+            : 'mt-3 md:mt-0 md:ml-auto'
           : `mt-1.5 md:mt-${
               alignment === 'center' || buttonLocation === 'bottom'
-                ? 1.5
-                : '0 ml-auto'
+                ? '1.5'
+                : '0 md:ml-auto'
             }`,
         alignment === 'center'
           ? 'text-center self-center'
           : buttonLocation === 'top'
           ? 'text-right'
-          : 'text-left'
+          : 'text-left self-start'
       )}
       to={buttonLink}
     >
@@ -98,7 +98,7 @@ export const Header = ({
         className={cx(
           'header w-full',
           alignment === 'center' ? 'text-center' : 'text-left',
-          !!pretitle || !!title || !!subtitle ? 'mb-5' : 'mb-0',
+          !!pretitle || !!title || !!subtitle ? 'mb-4 md:mb-5' : 'mb-0',
           className
         )}
         style={{ ...style }}
@@ -176,7 +176,7 @@ export const Header = ({
 
         {hasDivider && (title || subtitle) && (
           <Divider
-            className="header__divider mt-4"
+            className="header__divider mt-3 md:mt-4"
             style={!!dividerColor ? { backgroundColor: dividerColor } : {}}
           />
         )}
