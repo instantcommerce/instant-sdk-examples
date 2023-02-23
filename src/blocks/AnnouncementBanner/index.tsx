@@ -66,7 +66,7 @@ const AnnouncementBanner = () => {
         {!!links?.[0]?.value?.label && (
           <a
             href={links[0]?.value?.link}
-            className="ml-1 text-theme-link"
+            className="sm:ml-1 text-theme-link"
             style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
           >
             {links[0].value.label}
