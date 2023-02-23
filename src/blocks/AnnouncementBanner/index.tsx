@@ -50,7 +50,7 @@ const AnnouncementBanner = () => {
     >
       <div
         className={cx(
-          "flex flex-col sm:flex-row max-w-7xl px-2 mx-auto justify-center",
+          "flex flex-col sm:flex-row max-w-7xl px-6 mx-auto justify-center",
           alignment == "center" ? "sm:justify-center" : "sm:justify-start"
         )}
       >
@@ -77,7 +77,7 @@ const AnnouncementBanner = () => {
       {!!dismissable && (
         <button
           onClick={() => setDismissed(true)}
-          className="w-2.5 absolute right-2 top-1/2 -translate-y-1/2"
+          className="w-2.5 absolute right-2 top-1/2 -translate-y-1/2 text-theme-icon"
         >
           <CloseIcon />
         </button>
