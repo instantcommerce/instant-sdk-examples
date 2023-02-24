@@ -34,6 +34,7 @@ const AnnouncementBanner = () => {
   return (
     <div
       className={cx(
+        "announcement-banner",
         "relative w-full bg-theme-bg py-1.25 text-sm",
         `text-${alignment}`,
         dismissed && "hidden",
@@ -50,13 +51,14 @@ const AnnouncementBanner = () => {
     >
       <div
         className={cx(
+          "banner_text-wrapper",
           "flex flex-col sm:flex-row max-w-7xl px-6 mx-auto justify-center",
           alignment == "center" ? "sm:justify-center" : "sm:justify-start"
         )}
       >
         {!!text && (
           <div
-            className="text-theme-title"
+            className="banner__text text-theme-title"
             style={{ ...(!!textColor ? { color: textColor } : {}) }}
           >
             {text}
@@ -66,7 +68,7 @@ const AnnouncementBanner = () => {
         {!!links?.[0]?.value?.label && (
           <a
             href={links[0]?.value?.link}
-            className="sm:ml-1 text-theme-link"
+            className="banner__link sm:ml-1 text-theme-link"
             style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
           >
             {links[0].value.label}
@@ -77,7 +79,7 @@ const AnnouncementBanner = () => {
       {!!dismissable && (
         <button
           onClick={() => setDismissed(true)}
-          className="w-2.5 absolute right-2 top-1/2 -translate-y-1/2 text-theme-icon"
+          className="banner__icon w-2.5 absolute right-2 top-1/2 -translate-y-1/2 text-theme-icon"
         >
           <CloseIcon />
         </button>
