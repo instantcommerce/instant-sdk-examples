@@ -1,7 +1,7 @@
 import { defineBlock, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { Container, Button } from "../../components";
+import { Container, Button, Overlay } from "../../components";
 import { ArrowRightIcon } from "../../components/Icons";
 import { setBlockTheme, setThemeColors } from "../../config";
 import "../../styles/global.css";
@@ -9,7 +9,14 @@ import "../../styles/global.css";
 const ContentCard = () => {
   const {
     content: { cards, ...headerContent },
-    customizer: { backgroundColor, theme, width, ...headerCustomizations },
+    customizer: {
+      backgroundColor,
+      theme,
+      width,
+      overlayColor,
+      overlayOpacity,
+      ...headerCustomizations
+    },
   } = useBlockState();
 
   console.log(cards);
@@ -27,20 +34,24 @@ const ContentCard = () => {
           <a
             href={card?.value?.link?.url}
             className={cx(
-              "w-full bg-cover bg-center p-5 h-[360px] flex flex-col",
+              "w-full bg-cover bg-center p-5 h-[360px] flex flex-col relative",
               "justify-end"
             )}
             style={{ backgroundImage: `url(${card?.value?.image?.filename})` }}
           >
+            {overlayColor && (
+              <Overlay color={overlayColor} opacity={overlayOpacity} />
+            )}
+
             {!!card?.value?.title && (
-              <div className="text-white text-5xl font-semibold">
+              <div className="text-white text-5xl font-semibold relative z-20">
                 {card.value.title}
               </div>
             )}
             <Button
               variant="unstyled"
               size="sm"
-              className="self-start text-white flex items-center text-left"
+              className="self-start text-white flex items-center text-left relative z-20"
             >
               <ArrowRightIcon className="w-1.5 mr-1.25" />
               Discover the collection
@@ -81,7 +92,7 @@ export default defineBlock({
           { label: "Left", value: "left" },
           { label: "Center", value: "center" },
         ],
-        preview: "center",
+        preview: "left",
       },
       headerSize: {
         type: "select",
@@ -90,7 +101,19 @@ export default defineBlock({
           { label: "Medium", value: "lg" },
           { label: "Large", value: "xl" },
         ],
-        preview: "md",
+        preview: "lg",
+      },
+      overlayColor: {
+        type: "color",
+        label: "Image overlay color",
+        preview: "#000",
+      },
+      overlayOpacity: {
+        type: "number",
+        label: "Image overlay opacity",
+        min: 0,
+        max: 100,
+        preview: 10,
       },
       pretitleColor: { type: "color", label: "Pretitle color" },
       titleColor: { type: "color", label: "Title color" },
@@ -106,7 +129,7 @@ export default defineBlock({
           { label: "Link primary", value: "linkPrimary" },
           { label: "Link inverted", value: "linkInverted" },
         ],
-        preview: "primary",
+        preview: "link",
       },
       buttonCorners: {
         type: "select",
@@ -137,7 +160,7 @@ export default defineBlock({
         preview: "top",
       },
       dividerColor: { type: "color", label: "Divider color" },
-      hasDivider: { type: "toggle", label: "Has divider", preview: true },
+      hasDivider: { type: "toggle", label: "Has divider", preview: false },
     },
   },
   contentSchema: {
@@ -203,15 +226,6 @@ export default defineBlock({
               image:
                 "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
               title: "Shop women",
-              link: "https://instantcommerce.io/",
-            },
-          },
-          {
-            subschema: "card",
-            value: {
-              image:
-                "https://a.storyblok.com/f/145828/3360x1890/b3fc3c826b/image-2.png",
-              title: "Sale 2023",
               link: "https://instantcommerce.io/",
             },
           },
