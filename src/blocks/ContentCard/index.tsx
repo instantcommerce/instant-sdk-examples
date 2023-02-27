@@ -19,8 +19,6 @@ const ContentCard = () => {
     },
   } = useBlockState();
 
-  console.log(cards);
-
   return (
     <Container
       backgroundColor={backgroundColor}
@@ -29,12 +27,12 @@ const ContentCard = () => {
       wrapperClassName="content-card"
       wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
-      <div className="w-full flex flex-col gap-y-2 md:gap-y-0 md:flex-row md:gap-x-4">
+      <div className="content-card__container w-full flex flex-col gap-y-2 md:gap-y-0 md:flex-row md:gap-x-4">
         {cards?.map((card) => (
           <a
             href={card?.value?.link?.url}
             className={cx(
-              "w-full bg-cover bg-center p-5 h-[360px] flex flex-col relative",
+              "content-card__card w-full bg-cover bg-center p-5 h-[360px] flex flex-col relative",
               "justify-end"
             )}
             style={{ backgroundImage: `url(${card?.value?.image?.filename})` }}
@@ -44,16 +42,16 @@ const ContentCard = () => {
             )}
 
             {!!card?.value?.title && (
-              <div className="text-white text-5xl font-semibold relative z-20">
+              <div className="content-card__title text-white text-5xl font-semibold relative z-20">
                 {card.value.title}
               </div>
             )}
             <Button
               variant="unstyled"
               size="sm"
-              className="self-start text-white flex items-center text-left relative z-20"
+              className="content-card__button self-start text-white flex items-center text-left relative z-20"
             >
-              <ArrowRightIcon className="w-1.5 mr-1.25" />
+              <ArrowRightIcon className="content-card__arrow w-1.5 mr-1.25" />
               Discover the collection
             </Button>
           </a>
