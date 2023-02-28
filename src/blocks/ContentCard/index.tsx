@@ -13,6 +13,7 @@ const ContentCard = () => {
       backgroundColor,
       theme,
       width,
+      contentAlignment,
       overlayColor,
       overlayOpacity,
       ...headerCustomizations
@@ -32,8 +33,10 @@ const ContentCard = () => {
           <a
             href={card?.value?.link?.url}
             className={cx(
-              "content-card__card w-full bg-cover bg-center p-5 h-[360px] flex flex-col relative",
-              "justify-end"
+              "content-card__card w-full bg-cover bg-center p-5 h-[360px] flex flex-col relative gap-y-2",
+              contentAlignment === "center"
+                ? "justify-center items-center text-center"
+                : "justify-end"
             )}
             style={{ backgroundImage: `url(${card?.value?.image?.filename})` }}
           >
@@ -49,7 +52,7 @@ const ContentCard = () => {
             <Button
               variant="unstyled"
               size="sm"
-              className="content-card__button self-start text-white flex items-center text-left relative z-20"
+              className="content-card__button text-white flex items-center text-left relative z-20"
             >
               <ArrowRightIcon className="content-card__arrow w-1.5 mr-1.25" />
               Discover the collection
@@ -100,6 +103,15 @@ export default defineBlock({
           { label: "Large", value: "xl" },
         ],
         preview: "lg",
+      },
+      contentAlignment: {
+        type: "select",
+        label: "Card content alignment",
+        options: [
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" },
+        ],
+        preview: "left",
       },
       overlayColor: {
         type: "color",
