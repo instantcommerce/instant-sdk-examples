@@ -15,6 +15,7 @@ const ContentCard = () => {
       width,
       contentAlignment,
       contentSize,
+      imageHeight,
       overlayColor,
       overlayOpacity,
       ...headerCustomizations
@@ -34,10 +35,15 @@ const ContentCard = () => {
           <a
             href={card?.value?.link?.url}
             className={cx(
-              "content-card__card w-full bg-cover bg-center p-5 h-[360px] flex flex-col relative gap-y-2",
+              "content-card__card w-full bg-cover bg-center p-5 flex flex-col relative gap-y-2",
               contentAlignment === "center"
                 ? "justify-center items-center text-center"
-                : "justify-end"
+                : "justify-end",
+              imageHeight === "sm"
+                ? "h-[240px]"
+                : imageHeight == "lg"
+                ? "h-[480px]"
+                : "h-[360px]"
             )}
             style={{ backgroundImage: `url(${card?.value?.image?.filename})` }}
           >
@@ -134,6 +140,15 @@ export default defineBlock({
           { label: "Large", value: "xl" },
         ],
         preview: "lg",
+      },
+      imageHeight: {
+        type: "select",
+        options: [
+          { label: "Small", value: "sm" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+        ],
+        preview: "md",
       },
       overlayColor: {
         type: "color",
