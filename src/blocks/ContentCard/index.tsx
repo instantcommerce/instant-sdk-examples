@@ -8,7 +8,7 @@ import "../../styles/global.css";
 
 const ContentCard = () => {
   const {
-    content: { cards, ...headerContent },
+    content: { cards, cta, ...headerContent },
     customizer: {
       backgroundColor,
       theme,
@@ -18,6 +18,7 @@ const ContentCard = () => {
       imageHeight,
       overlayColor,
       overlayOpacity,
+      linkType,
       ...headerCustomizations
     },
   } = useBlockState();
@@ -63,6 +64,7 @@ const ContentCard = () => {
                 {card.value.title}
               </div>
             )}
+
             <Button
               variant="unstyled"
               className={cx(
@@ -72,8 +74,13 @@ const ContentCard = () => {
                 contentSize === "xl" && "text-base"
               )}
             >
-              <ArrowRightIcon className="content-card__arrow w-1.5 mr-1.25" />
-              Discover the collection
+              {linkType === "left" && (
+                <ArrowRightIcon className="content-card__arrow w-1.5 mr-1.25" />
+              )}
+              {cta}
+              {linkType === "right" && (
+                <ArrowRightIcon className="content-card__arrow w-1.5 ml-1.25" />
+              )}
             </Button>
           </a>
         ))}
@@ -162,6 +169,16 @@ export default defineBlock({
         max: 100,
         preview: 10,
       },
+      linkType: {
+        type: "select",
+        label: "Card link arrow",
+        options: [
+          { label: "None", value: "none" },
+          { label: "Left", value: "left" },
+          { label: "Right", value: "right" },
+        ],
+        preview: "left",
+      },
       pretitleColor: { type: "color", label: "Pretitle color" },
       titleColor: { type: "color", label: "Title color" },
       subtitleColor: { type: "color", label: "Description color" },
@@ -229,6 +246,13 @@ export default defineBlock({
         label: "Description",
         preview: "Shop the latest trends.",
         isTranslatable: true,
+      },
+      cta: {
+        type: "text",
+        label: "CTA text",
+        preview: "Discover the collection",
+        isTranslatable: true,
+        isRequired: true,
       },
       buttons: {
         type: "subschema",
