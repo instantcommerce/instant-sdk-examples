@@ -14,6 +14,7 @@ const ContentCard = () => {
       theme,
       width,
       contentAlignment,
+      contentSize,
       overlayColor,
       overlayOpacity,
       ...headerCustomizations
@@ -45,14 +46,25 @@ const ContentCard = () => {
             )}
 
             {!!card?.value?.title && (
-              <div className="content-card__title text-white text-5xl font-semibold relative z-20">
+              <div
+                className={cx(
+                  "content-card__title text-white font-semibold relative z-20",
+                  contentSize === "md" && "text-xl",
+                  contentSize === "lg" && "text-2xl",
+                  contentSize === "xl" && "text-3xl"
+                )}
+              >
                 {card.value.title}
               </div>
             )}
             <Button
               variant="unstyled"
-              size="sm"
-              className="content-card__button text-white flex items-center text-left relative z-20"
+              className={cx(
+                "content-card__button text-white flex items-center text-left relative z-20",
+                contentSize === "md" && "text-xs",
+                contentSize === "lg" && "text-sm",
+                contentSize === "xl" && "text-base"
+              )}
             >
               <ArrowRightIcon className="content-card__arrow w-1.5 mr-1.25" />
               Discover the collection
@@ -112,6 +124,16 @@ export default defineBlock({
           { label: "Center", value: "center" },
         ],
         preview: "left",
+      },
+      contentSize: {
+        type: "select",
+        label: "Card text size",
+        options: [
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" },
+        ],
+        preview: "lg",
       },
       overlayColor: {
         type: "color",
@@ -217,7 +239,7 @@ export default defineBlock({
             value: {
               image:
                 "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg",
-              title: "Shop women",
+              title: "SHOP WOMEN",
               link: "https://instantcommerce.io/",
             },
           },
@@ -226,7 +248,7 @@ export default defineBlock({
             value: {
               image:
                 "https://a.storyblok.com/f/145828/4390x3245/6fa2d27260/force-majeure-8eu-hahcrhk-unsplash.jpg",
-              title: "Shop men",
+              title: "SHOP MEN",
               link: "https://instantcommerce.io/",
             },
           },
@@ -235,7 +257,7 @@ export default defineBlock({
             value: {
               image:
                 "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
-              title: "Shop women",
+              title: "SHOP WOMEN",
               link: "https://instantcommerce.io/",
             },
           },
