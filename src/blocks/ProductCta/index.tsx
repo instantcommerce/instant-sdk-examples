@@ -16,6 +16,7 @@ const ProductCta = () => {
       imageAlignment,
       imageRatio,
       contentAlignment,
+      textAlignment,
     },
   } = useBlockState();
 
@@ -49,7 +50,8 @@ const ProductCta = () => {
             "flex-1 h-full py-5 lg:py-14 px-3",
             width === "full" && "sm:px-2",
             contentAlignment === "center" && "self-center",
-            contentAlignment === "bottom" && "self-end"
+            contentAlignment === "bottom" && "self-end",
+            textAlignment === "center" && "text-center"
           )}
         >
           <div className="max-w-[352px] mx-auto h-full flex flex-col justify-center">
@@ -134,6 +136,14 @@ export default defineBlock({
           { label: "Bottom", value: "bottom" },
         ],
         preview: "center",
+      },
+      textAlignment: {
+        type: "select",
+        options: [
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" },
+        ],
+        preview: "left",
       },
       backgroundColor: { type: "color", label: "Background color" },
     },
