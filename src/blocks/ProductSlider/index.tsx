@@ -1,14 +1,62 @@
 import { defineBlock, useBlockState } from '@instantcommerce/sdk';
+import cx from 'classnames';
 
-import { Container } from '../../components';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+import { variantStyles as buttonVariantStyles } from '../../components/Button/buttonStyles';
+import { Button, Container, ProductCard } from '../../components';
 import { setThemeColors, setBlockTheme } from '../../config';
+import { ShopifyProducts, productsQuery } from '../../lib/shopify';
+
 import '../../styles/global.css';
+
+import { useShopifyClient } from '@instantcommerce/sdk';
+import { useEffect, useState } from 'react';
 
 const ProductSlider = () => {
   const {
-    content: { ...headerContent },
-    customizer: { backgroundColor, theme, width, ...headerCustomizations }
+    content: { productTag, ...headerContent },
+    customizer: {
+      backgroundColor,
+      theme,
+      width,
+      // product card
+      imageAspectRatio,
+      imageFillBehavior,
+      productLabelPosition,
+      hoverEffect,
+      pretitleType,
+      textAlignment,
+      textSize,
+      descriptionType,
+      sliderButtonType,
+      ...headerCustomizations
+    }
   } = useBlockState();
+  const swiper = useSwiper();
+
+  const shopifyClient = useShopifyClient();
+
+  const [products, setProducts] = useState<ShopifyProducts['products']>();
+
+  const loadProducts = async () => {
+    try {
+      const result = await shopifyClient.request<ShopifyProducts>(
+        productsQuery,
+        { query: productTag && `tag:${productTag}` }
+      );
+
+      setProducts(result.products);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
 
   return (
     <Container
@@ -21,7 +69,37 @@ const ProductSlider = () => {
         ...setBlockTheme(theme)
       }}
     >
-      hi
+      {/* <Button variant={sliderButtonType || 'gray'}>Next</Button>
+      <Button variant={sliderButtonType || 'gray'}>Prev</Button> */}
+      {!!products?.edges?.[0]?.node?.title && (
+        <Swiper
+          navigation
+          className="w-full"
+          breakpoints={{
+            768: { slidesPerView: 1.1, spaceBetween: 16 },
+            1024: { slidesPerView: 2.1, spaceBetween: 16 },
+            1280: { slidesPerView: 4, spaceBetween: 32 }
+          }}
+        >
+          {products.edges.map((product) => (
+            <SwiperSlide key={product?.node?.id}>
+              <ProductCard
+                {...{
+                  imageAspectRatio,
+                  imageFillBehavior,
+                  productLabelPosition,
+                  hoverEffect,
+                  pretitleType,
+                  textAlignment,
+                  textSize,
+                  descriptionType
+                }}
+                product={product?.node}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </Container>
   );
 };
@@ -55,7 +133,7 @@ export default defineBlock({
           { label: 'Left', value: 'left' },
           { label: 'Center', value: 'center' }
         ],
-        preview: 'center'
+        preview: 'left'
       },
       headerSize: {
         type: 'select',
@@ -111,7 +189,90 @@ export default defineBlock({
         preview: 'top'
       },
       dividerColor: { type: 'color', label: 'Divider color' },
-      hasDivider: { type: 'toggle', label: 'Has divider', preview: true }
+      hasDivider: { type: 'toggle', label: 'Has divider', preview: false },
+      // Product slider
+      sliderButtonType: {
+        type: 'select',
+        options: [
+          { label: 'Light', value: 'gray' },
+          { label: 'Primary', value: 'primary' },
+          { label: 'Secondary', value: 'secondary' },
+          { label: 'Dark', value: 'dark' }
+        ],
+        preview: 'gray'
+      },
+      // Product card
+      imageAspectRatio: {
+        type: 'select',
+        options: [
+          { label: 'Landscape', value: 'landscape' },
+          { label: 'Portrait', value: 'portrait' },
+          { label: 'Square', value: 'square' }
+        ],
+        preview: 'square'
+      },
+      imageFillBehavior: {
+        type: 'select',
+        options: [
+          { label: 'Contain', value: 'contain' },
+          { label: 'Cover', value: 'cover' }
+        ],
+        preview: 'cover'
+      },
+      productLabelPosition: {
+        type: 'select',
+        options: [
+          { label: 'Bottom image', value: 'bottomImage' },
+          { label: 'Bottom left image', value: 'bottomLeftImage' },
+          { label: 'Top left image', value: 'topLeftImage' },
+          { label: 'None', value: 'none' }
+        ],
+        preview: 'topLeftImage'
+      },
+      hoverEffect: {
+        type: 'select',
+        options: [
+          { label: 'None', value: 'none' },
+          { label: 'Second image', value: 'secondImage' },
+          { label: 'Zoom', value: 'zoom' }
+        ],
+        preview: 'none'
+      },
+      // hasRating: { type: 'toggle', label: 'Has rating', preview: false },
+      pretitleType: {
+        type: 'select',
+        options: [
+          { label: 'None', value: 'none' },
+          { label: 'Product type', value: 'productType' },
+          { label: 'Vendor', value: 'vendor' }
+        ],
+        preview: 'vendor'
+      },
+      textAlignment: {
+        type: 'select',
+        options: [
+          { label: 'Left', value: 'left' },
+          { label: 'Center', value: 'center' }
+        ],
+        preview: 'left'
+      },
+      textSize: {
+        type: 'select',
+        options: [
+          { label: 'Small', value: 'sm' },
+          { label: 'Medium', value: 'md' },
+          { label: 'Large', value: 'lg' }
+        ],
+        preview: 'md'
+      },
+      descriptionType: {
+        type: 'select',
+        options: [
+          { label: 'Description', value: 'description' },
+          { label: 'None', value: 'none' }
+        ],
+        preview: 'none'
+      }
     }
   },
   contentSchema: {
@@ -148,6 +309,12 @@ export default defineBlock({
             }
           }
         ]
+      },
+      productTag: {
+        type: 'text',
+        label: 'Product tag',
+        preview: 'best sellers,sale',
+        isTranslatable: true
       }
     },
     subschemas: {
