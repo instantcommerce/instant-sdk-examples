@@ -8,7 +8,15 @@ import "../../styles/global.css";
 const ProductCta = () => {
   const {
     content: { image },
-    customizer: { backgroundColor, theme, width, buttonType, imageAlignment },
+    customizer: {
+      backgroundColor,
+      theme,
+      width,
+      buttonType,
+      imageAlignment,
+      imageRatio,
+      contentAlignment,
+    },
   } = useBlockState();
 
   return (
@@ -16,8 +24,9 @@ const ProductCta = () => {
       <div
         className={cx(
           "section w-full bg-theme-bg flex flex-col",
-          "h-[640px]",
-          imageAlignment === "right" ? "md:flex-row-reverse" : "md:flex-row"
+          width === "contained" && "max-w-7xl mx-auto",
+          // "h-[640px]",
+          imageAlignment === "right" ? "sm:flex-row-reverse" : "sm:flex-row"
         )}
         style={{
           ...setThemeColors(),
@@ -27,12 +36,22 @@ const ProductCta = () => {
       >
         {!!image?.filename && (
           <div
-            className="flex-1 bg-cover bg-center"
+            className={cx(
+              "flex-1 bg-cover bg-center",
+              imageRatio === "portrait" ? "aspect-[4/5]" : "aspect-square"
+            )}
             style={{ backgroundImage: `url(${image?.filename})` }}
           />
         )}
 
-        <div className="flex-1 h-full">
+        <div
+          className={cx(
+            "flex-1 h-full py-5 lg:py-14 px-3",
+            width === "full" && "sm:px-2",
+            contentAlignment === "center" && "self-center",
+            contentAlignment === "bottom" && "self-end"
+          )}
+        >
           <div className="max-w-[352px] mx-auto h-full flex flex-col justify-center">
             <Title as="h2" className="text-theme-title">
               Minimal black sweater
@@ -98,6 +117,23 @@ export default defineBlock({
           { label: "Background", value: "bg" },
         ],
         preview: "left",
+      },
+      imageRatio: {
+        type: "select",
+        options: [
+          { label: "Square", value: "square" },
+          { label: "Portrait", value: "portrait" },
+        ],
+        preview: "square",
+      },
+      contentAlignment: {
+        type: "select",
+        options: [
+          { label: "Top", value: "top" },
+          { label: "Center", value: "center" },
+          { label: "Bottom", value: "bottom" },
+        ],
+        preview: "center",
       },
       backgroundColor: { type: "color", label: "Background color" },
     },
