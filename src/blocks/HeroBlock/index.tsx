@@ -2,7 +2,7 @@ import { defineBlock, useBlockState } from '@instantcommerce/sdk';
 import cx from 'classnames';
 
 import { Button, Overlay, Paragraph, Title } from '../../components';
-import { setThemeColors,  setBlockTheme } from '../../config';
+import { setThemeColors, setBlockTheme } from '../../config';
 import '../../styles/global.css';
 import {
   heroVariantStyles,
@@ -36,7 +36,7 @@ const HeroBlock = () => {
       firstButtonType,
       secondButtonType,
       buttonCorners,
-      buttonWeight,
+      buttonWeight
     }
   } = useBlockState();
 
@@ -103,7 +103,7 @@ const HeroBlock = () => {
 
           {title && (
             <Title
-              className={cx('font-medium text-theme-title')}
+              className={cx('font-medium leading-snug text-theme-title ')}
               size={titleSize}
               style={!!titleColor ? { color: titleColor } : {}}
               variant="display"
@@ -115,7 +115,7 @@ const HeroBlock = () => {
 
           {subtitle && (
             <Paragraph
-              className={cx('mb-2 text-theme-subtitle')}
+              className={cx('mt-2 text-theme-subtitle')}
               size={subtitleSize}
               style={!!subtitleColor ? { color: subtitleColor } : {}}
             >
@@ -312,7 +312,7 @@ export default defineBlock({
         options: [
           { label: 'Regular', value: 'base' },
           { label: 'Medium', value: 'medium' },
-          { label: 'Bold', value: 'bold' },
+          { label: 'Bold', value: 'bold' }
         ],
         preview: 'medium'
       }
@@ -323,31 +323,31 @@ export default defineBlock({
       pretitle: {
         type: 'text',
         label: 'Pretitle',
-        preview: 'Hero pretitle',
+        preview: 'FW22 Collection',
         isTranslatable: true
       },
       title: {
         type: 'text',
         label: 'Title',
-        preview: 'Hero title',
+        preview: 'We bring a new revolution of fashion.',
         isTranslatable: true
       },
       subtitle: {
         type: 'text',
         label: 'Description',
         preview:
-          'Hero subtitle dolor sit amet, consectetur adipiscing elit. Cras dui ligula, sollicitudin eu scelerisque non, ullamcorper sit amet massa. Aliquam et neque malesuada, tempus lorem gravida, rutrum urna.',
+          'Experience every detail with our new fabrics. We made them lightweight yet warm for the coming season.',
         isTranslatable: true
       },
       image: {
         type: 'image',
         preview:
-          'https://images.unsplash.com/photo-1563693998336-93c10e5d8f91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80'
+          'https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg'
       },
       mobileImage: {
         type: 'image',
         preview:
-          'https://images.unsplash.com/photo-1563693998336-93c10e5d8f91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80'
+          'https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg'
       },
       buttons: {
         type: 'subschema',
@@ -357,15 +357,15 @@ export default defineBlock({
           {
             subschema: 'button',
             value: {
-              text: 'Button text',
-              link: 'https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg'
+              text: 'Explore the Campaign',
+              link: 'https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg'
             }
           },
           {
             subschema: 'button',
             value: {
-              text: 'Second button text',
-              link: 'https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg'
+              text: 'Discover other campaigns',
+              link: 'https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg'
             }
           }
         ]
