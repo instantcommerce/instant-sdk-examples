@@ -46,7 +46,6 @@ export interface UseMoneyValue {
  */
 export const useMoney = (
   money?: MoneyV2,
-  includeEstimatedTax: boolean = true
 ): UseMoneyValue | undefined => {
   const { locale } = useRequestData();
 
@@ -59,10 +58,6 @@ export const useMoney = (
   );
 
   let amount = parseFloat(money?.amount);
-
-  // if (includeEstimatedTax && (store as PublicStore)?.estimatedVatPercentage) {
-  // 	amount = amount * (1 + store.estimatedVatPercentage / 100.0);
-  // }
 
   const value = useMemo(
     () =>
