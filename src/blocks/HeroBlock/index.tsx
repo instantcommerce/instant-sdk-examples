@@ -2,7 +2,7 @@ import { defineBlock, useBlockState } from '@instantcommerce/sdk';
 import cx from 'classnames';
 
 import { Button, Overlay, Paragraph, Title } from '../../components';
-import { setThemeColors,  setBlockTheme } from '../../config';
+import { setThemeColors, setBlockTheme } from '../../config';
 import '../../styles/global.css';
 import {
   heroVariantStyles,
@@ -36,7 +36,7 @@ const HeroBlock = () => {
       firstButtonType,
       secondButtonType,
       buttonCorners,
-      buttonWeight,
+      buttonWeight
     }
   } = useBlockState();
 
@@ -312,7 +312,7 @@ export default defineBlock({
         options: [
           { label: 'Regular', value: 'base' },
           { label: 'Medium', value: 'medium' },
-          { label: 'Bold', value: 'bold' },
+          { label: 'Bold', value: 'bold' }
         ],
         preview: 'medium'
       }
