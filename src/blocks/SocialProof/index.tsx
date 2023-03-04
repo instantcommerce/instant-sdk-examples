@@ -30,27 +30,29 @@ const SocialProof = () => {
     >
       <div
         className={cx(
+          "logo-container__wrapper",
           mobileScrollDirection === "horizontal" &&
-            "w-[calc(100% + 32px)] md:w-full -mx-2 md:mx-0 overflow-x-auto snap-x"
+            "md:w-full -mx-2 md:mx-0 overflow-x-auto md:overflow-x-visible snap-x md:snap-none"
         )}
       >
         <div
           className={cx(
-            "logo-wrapper",
-            "flex md:flex-row items-center md:gap-y-0",
+            "logo-container",
+            "flex md:flex-row flex-wrap items-center gap-6",
             mobileScrollDirection === "vertical"
-              ? "flex-col gap-y-6"
-              : "gap-x-6 px-2 md:px-0",
+              ? "w-full flex-col"
+              : "min-w-max md:min-w-0 md:w-full px-2 md:px-0",
             contentAlignment === "left"
-              ? "sm:justify-between"
-              : "sm:justify-center sm:gap-x-10"
+              ? "justify-between"
+              : "justify-center md:gap-x-10"
           )}
         >
-          {logos?.map((logo, i) => {
+          {logos?.map((logo) => {
             return (
               <img
-                key={i}
-                className="logo-image max-h-5 object-contain"
+                key={logo?.value?.logo?.id}
+                alt={logo?.value?.logo?.alt}
+                className="logo max-h-5 object-contain"
                 src={logo?.value?.logo?.filename?.preview}
               />
             );
