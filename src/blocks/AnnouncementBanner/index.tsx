@@ -1,13 +1,11 @@
 import {
   defineBlock,
-  RichText,
   useBlockState,
-  MARK_BOLD,
-  MARK_ITALIC,
-  MARK_LINK,
+  Link,
 } from "@instantcommerce/sdk";
 import cx from "classnames";
 import { useState } from "react";
+import { Paragraph } from "../../components";
 import { CloseIcon } from "../../components/Icons";
 
 import { setThemeColors } from "../../config/setThemeColors";
@@ -26,6 +24,7 @@ const AnnouncementBanner = () => {
       backgroundColor,
       textColor,
       linkColor,
+      closeColor,
     },
   } = useBlockState();
 
@@ -34,9 +33,8 @@ const AnnouncementBanner = () => {
   return (
     <div
       className={cx(
-        "announcement-banner",
-        "relative w-full bg-theme-bg py-1.25 text-sm",
-        `text-${alignment}`,
+        "announcement-banner relative w-full bg-theme-bg py-1.25 text-sm",
+        alignment == "center" ? 'text-center' : 'text-left',
         dismissed && "hidden",
         backgroundImage && "bg-cover"
       )}
@@ -51,35 +49,36 @@ const AnnouncementBanner = () => {
     >
       <div
         className={cx(
-          "banner_text-wrapper",
-          "flex flex-col sm:flex-row max-w-7xl px-6 mx-auto justify-center",
-          alignment == "center" ? "sm:justify-center" : "sm:justify-start"
+          "announcement-banner__text-wrapper flex flex-col sm:flex-row mx-auto justify-center",
+          alignment == "center" ? "sm:justify-center px-6" : "sm:justify-start pl-2 pr-6 md:pl-6"
         )}
       >
-        {!!text && (
-          <div
-            className="banner__text text-theme-title"
+        {(!!text || !!links?.[0]?.value?.label) && (
+          <Paragraph
+            className="announcement-banner__text font-medium text-sm text-theme-title"
             style={{ ...(!!textColor ? { color: textColor } : {}) }}
           >
             {text}
-          </div>
+            {!!links?.[0]?.value?.label && (
+              // @ts-ignore
+              <Link
+                to={links[0]?.value?.link}
+                className={cx("announcement-banner__link inline sm:ml-1 text-sm font-medium underline text-theme-link transition-opacity hover:opacity-70", text ? 'ml-0.5' : '')}
+                style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
+              >
+                {links[0].value.label}
+              </Link>
+            )}
+          </Paragraph>
         )}
 
-        {!!links?.[0]?.value?.label && (
-          <a
-            href={links[0]?.value?.link}
-            className="banner__link sm:ml-1 text-theme-link"
-            style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
-          >
-            {links[0].value.label}
-          </a>
-        )}
       </div>
 
       {!!dismissable && (
         <button
           onClick={() => setDismissed(true)}
-          className="banner__icon w-2.5 absolute right-2 top-1/2 -translate-y-1/2 text-theme-icon"
+          className="announcement-banner__icon w-2.5 absolute right-2 top-1/2 -translate-y-1/2 text-theme-icon"
+          style={{ ...(!!closeColor ? { color: closeColor } : {}) }}
         >
           <CloseIcon />
         </button>
@@ -122,6 +121,7 @@ export default defineBlock({
       backgroundColor: { type: "color", label: "Background color" },
       textColor: { type: "color", label: "Text color" },
       linkColor: { type: "color", label: "Link color" },
+      closeColor: { type: "color", label: "Close button color" },
     },
   },
   contentSchema: {
