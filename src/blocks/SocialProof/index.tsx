@@ -76,14 +76,6 @@ export default defineBlock({
         ],
         preview: "themeLight",
       },
-      contentAlignment: {
-        type: "select",
-        options: [
-          { label: "Left", value: "left" },
-          { label: "Center", value: "center" },
-        ],
-        preview: "center",
-      },
       containerWidth: {
         type: "select",
         options: [
@@ -91,14 +83,6 @@ export default defineBlock({
           { label: "Full width", value: "full" },
         ],
         preview: "contained",
-      },
-      mobileScrollDirection: {
-        type: "select",
-        options: [
-          { label: "Vertical", value: "vertical" },
-          { label: "Horizontal", value: "horizontal" },
-        ],
-        preview: "vertical",
       },
       headerAlignment: {
         type: "select",
@@ -115,7 +99,7 @@ export default defineBlock({
           { label: "Medium", value: "md" },
           { label: "Large", value: "lg" },
         ],
-        preview: "md",
+        preview: "lg",
       },
       pretitleColor: { type: "color", label: "Pretitle color" },
       titleColor: { type: "color", label: "Title color" },
@@ -162,7 +146,24 @@ export default defineBlock({
         preview: "top",
       },
       dividerColor: { type: "color", label: "Divider color" },
-      hasDivider: { type: "toggle", label: "Has divider", preview: true },
+      hasDivider: { type: "toggle", label: "Has divider", preview: false },
+      contentAlignment: {
+        label: "Logos' alignment",
+        type: "select",
+        options: [
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" },
+        ],
+        preview: "center",
+      },
+      mobileScrollDirection: {
+        type: "select",
+        options: [
+          { label: "Vertical", value: "vertical" },
+          { label: "Horizontal", value: "horizontal" },
+        ],
+        preview: "vertical",
+      },
     },
   },
   contentSchema: {
@@ -170,19 +171,19 @@ export default defineBlock({
       pretitle: {
         type: "text",
         label: "Pretitle",
-        preview: "Lorem ipsum",
+        preview: "",
         isTranslatable: true,
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "Lorem ipsum",
+        preview: "",
         isTranslatable: true,
       },
       subtitle: {
         type: "text",
         label: "Description",
-        preview: "Lorem ipsum dolor sit amet",
+        preview: "We sell more than 500 brands",
         isTranslatable: true,
       },
       buttons: {
@@ -190,13 +191,6 @@ export default defineBlock({
         allowed: ["button"],
         max: 1,
         preview: [
-          {
-            subschema: "button",
-            value: {
-              text: "Button text",
-              link: "https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg",
-            },
-          },
         ],
       },
       logos: {
