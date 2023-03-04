@@ -44,9 +44,7 @@ export interface UseMoneyValue {
  * default-formatted string of the amount with the correct currency indicator, along with some of the parts provided by
  * [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat).
  */
-export const useMoney = (
-  money?: MoneyV2,
-): UseMoneyValue | undefined => {
+export const useMoney = (money?: MoneyV2): UseMoneyValue | undefined => {
   const { locale } = useRequestData();
 
   const options = useMemo(

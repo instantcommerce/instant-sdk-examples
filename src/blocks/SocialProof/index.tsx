@@ -5,7 +5,7 @@ import { Container } from "../../components";
 import { setThemeColors } from "../../config/setThemeColors";
 import { setBlockTheme } from "../../config/themeMapping";
 
-import "../../styles/global.css";
+import "../../styles/global.scss";
 
 const SocialProof = () => {
   const {
@@ -32,7 +32,7 @@ const SocialProof = () => {
         className={cx(
           "logo-container__wrapper",
           mobileScrollDirection === "horizontal" &&
-            "md:w-full -mx-2 md:mx-0 overflow-x-auto md:overflow-x-visible snap-x md:snap-none"
+            "md:w-full -mx-2 md:mx-0 overflow-x-auto md:overflow-x-visible snap-x md:snap-none hide-scrollbars"
         )}
       >
         <div

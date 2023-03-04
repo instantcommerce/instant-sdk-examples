@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import { Button, Overlay, Paragraph, Title } from '../../components';
 import { setThemeColors, setBlockTheme } from '../../config';
-import '../../styles/global.css';
+import '../../styles/global.scss';
 import {
   heroVariantStyles,
   heroWidthStyles,

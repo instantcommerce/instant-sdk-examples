@@ -11,7 +11,7 @@ import { CloseIcon } from "../../components/Icons";
 import { setThemeColors } from "../../config/setThemeColors";
 import { setBlockTheme } from "../../config/themeMapping";
 
-import "../../styles/global.css";
+import "../../styles/global.scss";
 
 const AnnouncementBanner = () => {
   const {
