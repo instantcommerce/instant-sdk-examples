@@ -1,4 +1,4 @@
-export const baseStyles = 'relative flex flex-row justify-center items-center text-center whitespace-no-wrap overflow-hidden';
+export const baseStyles = 'relative flex flex-row justify-center items-center text-center whitespace-no-wrap overflow-hidden transition-all';
 
 export const variantStyles = {
   primary:

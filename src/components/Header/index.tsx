@@ -75,8 +75,8 @@ export const Header = ({
         !!subtitle ? 'order-3' : 'order-2',
         !!subtitle
           ? alignment === 'center' || buttonLocation === 'bottom'
-            ? 'mt-3 md:mt-4'
-            : 'mt-3 md:mt-0 md:ml-auto'
+            ? 'mt-4 md:mt-4'
+            : 'mt-4 md:mt-0 md:ml-auto'
           : alignment === 'center' || buttonLocation === 'bottom'
           ? 'mt-1.5 md:mt-1.5'
           : 'mt-1.5 md:mt-0 md:ml-auto',
