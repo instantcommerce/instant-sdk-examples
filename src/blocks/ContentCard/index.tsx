@@ -1,7 +1,7 @@
-import { defineBlock, useBlockState } from "@instantcommerce/sdk";
+import { defineBlock, Link, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { Container, Button, Overlay } from "../../components";
+import { Container, Overlay, Paragraph, Title } from "../../components";
 import { ArrowRightIcon } from "../../components/Icons";
 import { setBlockTheme, setThemeColors } from "../../config";
 import "../../styles/global.css";
@@ -18,6 +18,8 @@ const ContentCard = () => {
       imageHeight,
       overlayColor,
       overlayOpacity,
+      textColor,
+      linkColor,
       linkType,
       ...headerCustomizations
     },
@@ -31,12 +33,13 @@ const ContentCard = () => {
       wrapperClassName="content-card"
       wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
-      <div className="content-card__container w-full flex flex-col gap-y-2 md:gap-y-0 md:flex-row md:gap-x-4">
+      <div className="content-card__container w-full flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:gap-x-4">
         {cards?.map((card) => (
-          <a
-            href={card?.value?.link?.url}
+              // @ts-ignore
+          <Link
+            to={card?.value?.link?.url}
             className={cx(
-              "content-card__card w-full bg-cover bg-center p-5 flex flex-col relative gap-y-2",
+              "content-card__card group w-full bg-cover bg-center p-5 flex flex-col relative gap-y-1 overflow-hidden",
               contentAlignment === "center"
                 ? "justify-center items-center text-center"
                 : "justify-end",
@@ -46,33 +49,44 @@ const ContentCard = () => {
                 ? "h-[480px]"
                 : "h-[360px]"
             )}
-            style={{ backgroundImage: `url(${card?.value?.image?.filename})` }}
           >
+            {card?.value?.image?.filename && (
+              <img
+                className={cx(
+                  'absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover transition-transform group-hover:scale-105 duration-500'
+                )}
+                src={card?.value?.image?.filename}
+              />
+            )}
+
             {overlayColor && (
               <Overlay color={overlayColor} opacity={overlayOpacity} />
             )}
 
             {!!card?.value?.title && (
-              <div
+              <Title
                 className={cx(
-                  "content-card__title text-white font-semibold relative z-20",
-                  contentSize === "md" && "text-xl",
-                  contentSize === "lg" && "text-2xl",
-                  contentSize === "xl" && "text-3xl"
+                  "content-card__title text-white font-semibold relative z-10",
                 )}
+                size={
+                  contentSize === 'sm'
+                    ? 'xs'
+                    : contentSize === 'md'
+                    ? 'sm'
+                    : 'md'
+                }
+                style={{ ...(!!textColor ? { color: textColor } : {}) }}
               >
                 {card.value.title}
-              </div>
+              </Title>
             )}
 
-            <Button
-              variant="unstyled"
+            <Paragraph
               className={cx(
-                "content-card__button text-white flex items-center text-left relative z-20",
-                contentSize === "md" && "text-xs",
-                contentSize === "lg" && "text-sm",
-                contentSize === "xl" && "text-base"
+                "content-card__button text-white flex items-center text-left relative z-10",
               )}
+              size={contentSize}
+              style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
             >
               {linkType === "left" && (
                 <ArrowRightIcon className="content-card__arrow w-1.5 mr-1.25" />
@@ -81,8 +95,8 @@ const ContentCard = () => {
               {linkType === "right" && (
                 <ArrowRightIcon className="content-card__arrow w-1.5 ml-1.25" />
               )}
-            </Button>
-          </a>
+            </Paragraph>
+          </Link>
         ))}
       </div>
     </Container>
@@ -128,56 +142,6 @@ export default defineBlock({
           { label: "Large", value: "xl" },
         ],
         preview: "lg",
-      },
-      contentAlignment: {
-        type: "select",
-        label: "Card content alignment",
-        options: [
-          { label: "Left", value: "left" },
-          { label: "Center", value: "center" },
-        ],
-        preview: "left",
-      },
-      contentSize: {
-        type: "select",
-        label: "Card text size",
-        options: [
-          { label: "Small", value: "md" },
-          { label: "Medium", value: "lg" },
-          { label: "Large", value: "xl" },
-        ],
-        preview: "lg",
-      },
-      imageHeight: {
-        type: "select",
-        options: [
-          { label: "Small", value: "sm" },
-          { label: "Medium", value: "md" },
-          { label: "Large", value: "lg" },
-        ],
-        preview: "md",
-      },
-      overlayColor: {
-        type: "color",
-        label: "Image overlay color",
-        preview: "#000",
-      },
-      overlayOpacity: {
-        type: "number",
-        label: "Image overlay opacity",
-        min: 0,
-        max: 100,
-        preview: 10,
-      },
-      linkType: {
-        type: "select",
-        label: "Card link arrow",
-        options: [
-          { label: "None", value: "none" },
-          { label: "Left", value: "left" },
-          { label: "Right", value: "right" },
-        ],
-        preview: "left",
       },
       pretitleColor: { type: "color", label: "Pretitle color" },
       titleColor: { type: "color", label: "Title color" },
@@ -225,6 +189,58 @@ export default defineBlock({
       },
       dividerColor: { type: "color", label: "Divider color" },
       hasDivider: { type: "toggle", label: "Has divider", preview: false },
+      imageHeight: {
+        type: "select",
+        options: [
+          { label: "Small", value: "sm" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+        ],
+        preview: "md",
+      },
+      overlayColor: {
+        type: "color",
+        label: "Image overlay color",
+        preview: "#000",
+      },
+      overlayOpacity: {
+        type: "number",
+        label: "Image overlay opacity",
+        min: 0,
+        max: 100,
+        preview: 40,
+      },
+      contentAlignment: {
+        type: "select",
+        label: "Card content alignment",
+        options: [
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" },
+        ],
+        preview: "left",
+      },
+      contentSize: {
+        type: "select",
+        label: "Card text size",
+        options: [
+          { label: "Small", value: "sm" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+        ],
+        preview: "md",
+      },
+      textColor: { type: "color", label: "Text color" },
+      linkColor: { type: "color", label: "Link color" },
+      linkType: {
+        type: "select",
+        label: "Card link arrow",
+        options: [
+          { label: "None", value: "none" },
+          { label: "Left", value: "left" },
+          { label: "Right", value: "right" },
+        ],
+        preview: "left",
+      },
     },
   },
   contentSchema: {
@@ -277,7 +293,7 @@ export default defineBlock({
             subschema: "card",
             value: {
               image:
-                "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg",
+                "https://a.storyblok.com/f/145828/5104x3403/ea3b04ac71/force-majeure-vujikv6pbjq-unsplash.jpg",
               title: "SHOP WOMEN",
               link: "https://instantcommerce.io/",
             },
