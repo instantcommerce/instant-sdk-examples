@@ -41,7 +41,9 @@ export interface ShopifyProducts {
 }
 
 export const productsQuery = gql`
-  query products($query: String) {
+  query products(
+    $query: String
+  ) {
     products(first: 10, query: $query) {
       edges {
         node {
