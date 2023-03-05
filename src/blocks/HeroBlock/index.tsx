@@ -1,9 +1,9 @@
-import { defineBlock, useBlockState } from '@instantcommerce/sdk';
-import cx from 'classnames';
+import { defineBlock, useBlockState } from "@instantcommerce/sdk";
+import cx from "classnames";
 
-import { Button, Overlay, Paragraph, Title } from '../../components';
-import { setThemeColors, setBlockTheme } from '../../config';
-import '../../styles/global.scss';
+import { Button, Overlay, Paragraph, Title } from "../../components";
+import { setThemeColors, setBlockTheme } from "../../config";
+import "../../styles/global.scss";
 import {
   heroVariantStyles,
   heroWidthStyles,
@@ -12,7 +12,7 @@ import {
   heroImageMobileStyles,
   heroVerticalStyles,
   heroHorizontalStyles
-} from './heroStyles';
+} from "./heroStyles";
 
 const HeroBlock = () => {
   const {
@@ -42,7 +42,7 @@ const HeroBlock = () => {
 
   return (
     <section
-      className={cx('relative w-full bg-theme-bg')}
+      className={cx("relative w-full bg-theme-bg")}
       style={{
         ...setThemeColors(),
         ...setBlockTheme(theme),
@@ -51,7 +51,7 @@ const HeroBlock = () => {
     >
       <div
         className={cx(
-          'hidden md:flex bg-cover absolute top-0 bottom-0',
+          "hidden md:flex bg-cover absolute top-0 bottom-0",
           heroImageStyles[variant]
         )}
         style={{ backgroundImage: `url(${image?.filename})` }}
@@ -62,7 +62,7 @@ const HeroBlock = () => {
       </div>
       <div
         className={cx(
-          'flex w-full',
+          "flex w-full",
           heroVariantStyles[variant],
           heroWidthStyles[width],
           heroHeightStyles[height]
@@ -70,7 +70,7 @@ const HeroBlock = () => {
       >
         <div
           className={cx(
-            'flex bg-cover md:!bg-none',
+            "flex bg-cover md:!bg-none",
             heroImageMobileStyles[variant]
           )}
           style={{ backgroundImage: `url(${mobileImage?.filename})` }}
@@ -85,15 +85,15 @@ const HeroBlock = () => {
         </div>
         <div
           className={cx(
-            'flex flex-col px-2 py-6 md:py-100 z-10 sm:max-w-[50%] lg:max-w-[640px] md:flex-1',
-            !(width === 'contained' && variant === 'cover') ? 'md:px-10' : '',
+            "flex flex-col px-2 py-6 md:py-100 z-10 sm:max-w-[50%] lg:max-w-[640px] md:flex-1",
+            !(width === "contained" && variant === "cover") ? "md:px-10" : "",
             heroVerticalStyles[verticalAlign],
             heroHorizontalStyles[horizontalAlign]
           )}
         >
           {pretitle && (
             <Paragraph
-              className={cx('font-medium mb-1 text-theme-pretitle')}
+              className={cx("font-medium mb-1 text-theme-pretitle")}
               size={pretitleSize}
               style={!!pretitleColor ? { color: pretitleColor } : {}}
             >
@@ -103,7 +103,7 @@ const HeroBlock = () => {
 
           {title && (
             <Title
-              className={cx('font-medium leading-snug text-theme-title ')}
+              className={cx("font-medium leading-snug text-theme-title ")}
               size={titleSize}
               style={!!titleColor ? { color: titleColor } : {}}
               variant="display"
@@ -115,7 +115,7 @@ const HeroBlock = () => {
 
           {subtitle && (
             <Paragraph
-              className={cx('mt-2 text-theme-subtitle')}
+              className={cx("mt-2 text-theme-subtitle")}
               size={subtitleSize}
               style={!!subtitleColor ? { color: subtitleColor } : {}}
             >
@@ -125,16 +125,16 @@ const HeroBlock = () => {
 
           {buttons && (
             <div
-              className={cx('hero__buttons-wrapper flex flex-wrap gap-2 mt-4')}
+              className={cx("hero__buttons-wrapper flex flex-wrap gap-2 mt-4")}
             >
               {buttons?.[0]?.value?.text && (
                 <Button
                   size={
-                    ['link', 'linkPrimary', 'linkInverted'].includes(
+                    ["link", "linkPrimary", "linkInverted"].includes(
                       firstButtonType
                     )
-                      ? 'sm'
-                      : 'md'
+                      ? "sm"
+                      : "md"
                   }
                   variant={firstButtonType}
                   to={buttons?.[0]?.value?.link}
@@ -148,11 +148,11 @@ const HeroBlock = () => {
               {buttons?.[1]?.value?.text && (
                 <Button
                   size={
-                    ['link', 'linkPrimary', 'linkInverted'].includes(
+                    ["link", "linkPrimary", "linkInverted"].includes(
                       secondButtonType
                     )
-                      ? 'sm'
-                      : 'md'
+                      ? "sm"
+                      : "md"
                   }
                   variant={secondButtonType}
                   to={buttons?.[1]?.value?.link}
@@ -175,197 +175,197 @@ export default defineBlock({
   customizerSchema: {
     fields: {
       theme: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Light', value: 'themeLight' },
-          { label: 'Gray', value: 'themeGray' },
-          { label: 'Primary light', value: 'themePrimaryLight' },
-          { label: 'Primary', value: 'themePrimary' },
-          { label: 'Dark', value: 'themeDark' }
+          { label: "Light", value: "themeLight" },
+          { label: "Gray", value: "themeGray" },
+          { label: "Primary light", value: "themePrimaryLight" },
+          { label: "Primary", value: "themePrimary" },
+          { label: "Dark", value: "themeDark" }
         ],
-        preview: 'themeDark'
+        preview: "themeDark"
       },
       variant: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Cover', value: 'cover' },
-          { label: 'Image text', value: 'imageText' },
-          { label: 'Text image', value: 'textImage' }
+          { label: "Cover", value: "cover" },
+          { label: "Image text", value: "imageText" },
+          { label: "Text image", value: "textImage" }
         ],
-        preview: 'cover'
+        preview: "cover"
       },
       overlayColor: {
-        type: 'color',
-        label: 'Image overlay color',
-        preview: '#000'
+        type: "color",
+        label: "Image overlay color",
+        preview: "#000"
       },
       overlayOpacity: {
-        type: 'number',
-        label: 'Image overlay opacity',
+        type: "number",
+        label: "Image overlay opacity",
         min: 0,
         max: 100,
         preview: 10
       },
       width: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Boxed', value: 'contained' },
-          { label: 'Full width', value: 'full' }
+          { label: "Boxed", value: "contained" },
+          { label: "Full width", value: "full" }
         ],
-        preview: 'contained'
+        preview: "contained"
       },
       height: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'sm' },
-          { label: 'Medium', value: 'md' },
-          { label: 'Large', value: 'lg' }
+          { label: "Small", value: "sm" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" }
         ],
-        preview: 'md'
+        preview: "md"
       },
       horizontalAlign: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Left', value: 'left' },
-          { label: 'Center', value: 'center' },
-          { label: 'Right', value: 'right' }
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" },
+          { label: "Right", value: "right" }
         ],
-        preview: 'left'
+        preview: "left"
       },
       verticalAlign: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Top', value: 'top' },
-          { label: 'Center', value: 'center' },
-          { label: 'Bottom', value: 'bottom' }
+          { label: "Top", value: "top" },
+          { label: "Center", value: "center" },
+          { label: "Bottom", value: "bottom" }
         ],
-        preview: 'center'
+        preview: "center"
       },
       pretitleSize: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'md' },
-          { label: 'Medium', value: 'lg' },
-          { label: 'Large', value: 'xl' }
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" }
         ],
-        preview: 'md'
+        preview: "md"
       },
       titleSize: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'md' },
-          { label: 'Medium', value: 'lg' },
-          { label: 'Large', value: 'xl' }
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" }
         ],
-        preview: 'lg'
+        preview: "lg"
       },
       subtitleSize: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'md' },
-          { label: 'Medium', value: 'lg' },
-          { label: 'Large', value: 'xl' }
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" }
         ],
-        preview: 'lg'
+        preview: "lg"
       },
-      pretitleColor: { type: 'color', label: 'Pretitle color' },
-      titleColor: { type: 'color', label: 'Title color' },
-      subtitleColor: { type: 'color', label: 'Description color' },
-      backgroundColor: { type: 'color', label: 'Background color' },
+      pretitleColor: { type: "color", label: "Pretitle color" },
+      titleColor: { type: "color", label: "Title color" },
+      subtitleColor: { type: "color", label: "Description color" },
+      backgroundColor: { type: "color", label: "Background color" },
       firstButtonType: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Primary', value: 'primary' },
-          { label: 'Secondary', value: 'secondary' },
-          { label: 'Gray', value: 'gray' },
-          { label: 'Link', value: 'link' },
-          { label: 'Link primary', value: 'linkPrimary' },
-          { label: 'Link inverted', value: 'linkInverted' }
+          { label: "Primary", value: "primary" },
+          { label: "Secondary", value: "secondary" },
+          { label: "Gray", value: "gray" },
+          { label: "Link", value: "link" },
+          { label: "Link primary", value: "linkPrimary" },
+          { label: "Link inverted", value: "linkInverted" }
         ],
-        preview: 'primary'
+        preview: "primary"
       },
       secondButtonType: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Primary', value: 'primary' },
-          { label: 'Secondary', value: 'secondary' },
-          { label: 'Gray', value: 'gray' },
-          { label: 'Link', value: 'link' },
-          { label: 'Link primary', value: 'linkPrimary' },
-          { label: 'Link inverted', value: 'linkInverted' }
+          { label: "Primary", value: "primary" },
+          { label: "Secondary", value: "secondary" },
+          { label: "Gray", value: "gray" },
+          { label: "Link", value: "link" },
+          { label: "Link primary", value: "linkPrimary" },
+          { label: "Link inverted", value: "linkInverted" }
         ],
-        preview: 'linkInverted'
+        preview: "linkInverted"
       },
       buttonCorners: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'None', value: 'none' },
-          { label: 'Small', value: 'xs' },
-          { label: 'Medium', value: 'md' },
-          { label: 'Large', value: 'lg' },
-          { label: 'Full', value: 'full' }
+          { label: "None", value: "none" },
+          { label: "Small", value: "xs" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+          { label: "Full", value: "full" }
         ],
-        preview: 'none'
+        preview: "none"
       },
       buttonWeight: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Regular', value: 'base' },
-          { label: 'Medium', value: 'medium' },
-          { label: 'Bold', value: 'bold' }
+          { label: "Regular", value: "base" },
+          { label: "Medium", value: "medium" },
+          { label: "Bold", value: "bold" }
         ],
-        preview: 'medium'
+        preview: "medium"
       }
     }
   },
   contentSchema: {
     fields: {
       pretitle: {
-        type: 'text',
-        label: 'Pretitle',
-        preview: 'FW22 Collection',
+        type: "text",
+        label: "Pretitle",
+        preview: "FW22 Collection",
         isTranslatable: true
       },
       title: {
-        type: 'text',
-        label: 'Title',
-        preview: 'We bring a new revolution of fashion.',
+        type: "text",
+        label: "Title",
+        preview: "We bring a new revolution of fashion.",
         isTranslatable: true
       },
       subtitle: {
-        type: 'text',
-        label: 'Description',
+        type: "text",
+        label: "Description",
         preview:
-          'Experience every detail with our new fabrics. We made them lightweight yet warm for the coming season.',
+          "Experience every detail with our new fabrics. We made them lightweight yet warm for the coming season.",
         isTranslatable: true
       },
       image: {
-        type: 'image',
+        type: "image",
         preview:
-          'https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg'
+          "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg"
       },
       mobileImage: {
-        type: 'image',
+        type: "image",
         preview:
-          'https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg'
+          "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg"
       },
       buttons: {
-        type: 'subschema',
-        allowed: ['button'],
+        type: "subschema",
+        allowed: ["button"],
         max: 3,
         preview: [
           {
-            subschema: 'button',
+            subschema: "button",
             value: {
-              text: 'Explore the Campaign',
-              link: 'https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg'
+              text: "Explore the Campaign",
+              link: "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg"
             }
           },
           {
-            subschema: 'button',
+            subschema: "button",
             value: {
-              text: 'Discover other campaigns',
-              link: 'https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg'
+              text: "Discover other campaigns",
+              link: "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg"
             }
           }
         ]
@@ -375,15 +375,15 @@ export default defineBlock({
       button: {
         fields: {
           text: {
-            type: 'text',
-            label: 'Text',
+            type: "text",
+            label: "Text",
             isTranslatable: true,
             isRequired: true,
             maxLength: 40
           },
           link: {
-            type: 'link',
-            label: 'Link',
+            type: "link",
+            label: "Link",
             isTranslatable: true,
             isRequired: true
           }
