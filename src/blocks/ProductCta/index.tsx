@@ -113,6 +113,7 @@ const ProductCta = () => {
     <section className={cx("product-cta", width === "contained" && "px-2")}>
       <div
         className={cx(
+          "product-cta__container",
           "section w-full bg-theme-bg flex flex-col",
           width === "contained" && "max-w-7xl mx-auto",
           imageAlignment === "right" && "sm:flex-row-reverse",
@@ -127,6 +128,7 @@ const ProductCta = () => {
         {!!image?.filename && (
           <div
             className={cx(
+              "product-cta__image",
               "flex-1 bg-cover bg-center",
               imageRatio === "portrait" ? "aspect-[4/5]" : "aspect-square"
             )}
@@ -136,6 +138,7 @@ const ProductCta = () => {
 
         <div
           className={cx(
+            "product-cta__content-container",
             "flex-1 h-full py-5 lg:py-14 px-3",
             width === "full" && "sm:px-2",
             contentAlignment === "center" && "self-center",
@@ -146,14 +149,14 @@ const ProductCta = () => {
           <div className="max-w-[352px] mx-auto h-full flex flex-col justify-center">
             <Title
               as="h2"
-              className="text-theme-title"
+              className="product-cta__title text-theme-title"
               style={{ ...(!!titleColor ? { color: titleColor } : {}) }}
             >
               {product?.title}
             </Title>
 
             <Paragraph
-              className="mt-1.5 text-theme-subtitle"
+              className="product-cta__description mt-1.5 text-theme-subtitle"
               style={{
                 ...(!!descriptionColor ? { color: descriptionColor } : {}),
               }}
@@ -162,7 +165,7 @@ const ProductCta = () => {
             </Paragraph>
 
             <div
-              className="mt-1.5 text-theme-text"
+              className="product-cta__price mt-1.5 text-theme-text"
               style={{
                 ...(!!priceColor ? { color: priceColor } : {}),
               }}
@@ -174,7 +177,7 @@ const ProductCta = () => {
               variant={buttonType}
               corners={buttonCorners}
               weight={buttonWeight}
-              className="mt-4"
+              className="product-cta__button mt-4"
               onClick={addToCart}
             >
               {buttonText}
