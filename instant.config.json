@@ -3,6 +3,9 @@
 	"blocks": {
 		"HeroBlock": {
 			"id": "05029722-4477-413d-9234-9686cea1c63b"
+		},
+		"SocialProof": {
+			"id": "4adf1b33-0714-4c17-a250-7d706991cade"
 		}
 	}
 }
