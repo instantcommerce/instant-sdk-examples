@@ -138,7 +138,7 @@ const ProductCta = () => {
 
         <div
           className={cx(
-            "product-cta__content-container",
+            "product-cta__cta-container",
             "flex-1 h-full py-5 lg:py-14 px-3",
             width === "full" && "sm:px-2",
             contentAlignment === "center" && "self-center",
@@ -146,7 +146,7 @@ const ProductCta = () => {
             textAlignment === "center" && "text-center"
           )}
         >
-          <div className="max-w-[352px] mx-auto h-full flex flex-col justify-center">
+          <div className="product-cta__cta-inner-container max-w-[352px] mx-auto h-full flex flex-col justify-center">
             <Title
               as="h2"
               className="product-cta__title text-theme-title"
