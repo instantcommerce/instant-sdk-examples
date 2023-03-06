@@ -58,6 +58,7 @@ const ProductCta = () => {
       textAlignment,
       backgroundColor,
       titleColor,
+      titleSize,
       descriptionColor,
       priceColor,
     },
@@ -149,6 +150,7 @@ const ProductCta = () => {
           <div className="product-cta__cta-inner-container max-w-[352px] mx-auto h-full flex flex-col justify-center">
             <Title
               as="h2"
+              size={titleSize}
               className="product-cta__title text-theme-title"
               style={{ ...(!!titleColor ? { color: titleColor } : {}) }}
             >
@@ -268,6 +270,15 @@ export default defineBlock({
           { label: "Bottom", value: "bottom" },
         ],
         preview: "center",
+      },
+      titleSize: {
+        type: "select",
+        options: [
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" },
+        ],
+        preview: "md",
       },
       textAlignment: {
         type: "select",
