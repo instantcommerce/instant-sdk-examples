@@ -4,6 +4,7 @@ import {
   useBlockState,
   gql,
   useShopifyClient,
+  useCart,
 } from "@instantcommerce/sdk";
 import cx from "classnames";
 import { Button, Paragraph, Title } from "../../components";
@@ -44,21 +45,26 @@ const productQuery = gql`
 
 const ProductCta = () => {
   const {
-    content: { productId, variantID, image },
+    content: { productId, variantId, image, buttonText },
     customizer: {
       theme,
-      variant,
       width,
       buttonType,
+      buttonCorners,
+      buttonWeight,
       imageAlignment,
       imageRatio,
       contentAlignment,
       textAlignment,
       backgroundColor,
+      titleColor,
+      descriptionColor,
+      priceColor,
     },
   } = useBlockState();
 
   const shopifyClient = useShopifyClient();
+  const { addLine } = useCart();
 
   const [product, setProduct] = useState<Product>();
   const [price, setPrice] = useState<string>("");
@@ -75,6 +81,14 @@ const ProductCta = () => {
     }
   };
 
+  const addToCart = async () => {
+    try {
+      addLine({ productId, variantId, quantity: 1, showModalOnSuccess: true });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     if (!!productId) {
       loadProduct(productId);
@@ -83,11 +97,11 @@ const ProductCta = () => {
 
   useEffect(() => {
     if (!!product) {
-      const variant = !!variantID
+      const variant = !!variantId
         ? product?.variants?.edges?.find(
             (p) =>
               p?.node?.id?.split("gid://shopify/ProductVariant/")?.[1] ===
-              variantID
+              variantId
           )
         : product?.variants?.edges?.[0]?.node;
 
@@ -95,33 +109,22 @@ const ProductCta = () => {
     }
   }, [product]);
 
-  console.log(product);
-
-  // price is in what currency ? D:
-  // how to handle variants ?
-  // add to cart functionality missing
-
   return (
     <section className={cx("product-cta", width === "contained" && "px-2")}>
       <div
         className={cx(
           "section w-full bg-theme-bg flex flex-col",
           width === "contained" && "max-w-7xl mx-auto",
-          // "h-[640px]",
           imageAlignment === "right" && "sm:flex-row-reverse",
-          imageAlignment === "left" && "sm:flex-row",
-          imageAlignment === "bg" && "bg-cover py-[92px]"
+          imageAlignment === "left" && "sm:flex-row"
         )}
         style={{
           ...setThemeColors(),
           ...setBlockTheme(theme),
           ...(!!backgroundColor ? { backgroundColor } : {}),
-          ...(imageAlignment === "bg"
-            ? { backgroundImage: `url(${image?.filename})` }
-            : {}),
         }}
       >
-        {!!image?.filename && imageAlignment !== "bg" && (
+        {!!image?.filename && (
           <div
             className={cx(
               "flex-1 bg-cover bg-center",
@@ -137,23 +140,44 @@ const ProductCta = () => {
             width === "full" && "sm:px-2",
             contentAlignment === "center" && "self-center",
             contentAlignment === "bottom" && "self-end",
-            textAlignment === "center" && "text-center",
-            variant === "block" && "bg-theme-bg"
+            textAlignment === "center" && "text-center"
           )}
         >
           <div className="max-w-[352px] mx-auto h-full flex flex-col justify-center">
-            <Title as="h2" className="text-theme-title">
+            <Title
+              as="h2"
+              className="text-theme-title"
+              style={{ ...(!!titleColor ? { color: titleColor } : {}) }}
+            >
               {product?.title}
             </Title>
 
-            <Paragraph className="mt-1.5 text-theme-subtitle">
+            <Paragraph
+              className="mt-1.5 text-theme-subtitle"
+              style={{
+                ...(!!descriptionColor ? { color: descriptionColor } : {}),
+              }}
+            >
               {product?.description}
             </Paragraph>
 
-            <div className="mt-1.5 text-theme-text">{price}</div>
+            <div
+              className="mt-1.5 text-theme-text"
+              style={{
+                ...(!!priceColor ? { color: priceColor } : {}),
+              }}
+            >
+              {price}
+            </div>
 
-            <Button variant={buttonType} className="mt-4">
-              Add to cart
+            <Button
+              variant={buttonType}
+              corners={buttonCorners}
+              weight={buttonWeight}
+              className="mt-4"
+              onClick={addToCart}
+            >
+              {buttonText}
             </Button>
           </div>
         </div>
@@ -177,15 +201,6 @@ export default defineBlock({
         ],
         preview: "themeLight",
       },
-      variant: {
-        type: "select",
-        options: [
-          { label: "Simple", value: "simple" },
-          { label: "Block overlay", value: "block" },
-          { label: "Overlay", value: "overlay" },
-        ],
-        preview: "simple",
-      },
       width: {
         type: "select",
         options: [
@@ -206,12 +221,31 @@ export default defineBlock({
         ],
         preview: "primary",
       },
+      buttonCorners: {
+        type: "select",
+        options: [
+          { label: "None", value: "none" },
+          { label: "Small", value: "xs" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+          { label: "Full", value: "full" },
+        ],
+        preview: "none",
+      },
+      buttonWeight: {
+        type: "select",
+        options: [
+          { label: "Regular", value: "base" },
+          { label: "Medium", value: "medium" },
+          { label: "Bold", value: "bold" },
+        ],
+        preview: "medium",
+      },
       imageAlignment: {
         type: "select",
         options: [
           { label: "Left", value: "left" },
           { label: "Right", value: "right" },
-          { label: "Background", value: "bg" },
         ],
         preview: "left",
       },
@@ -241,6 +275,9 @@ export default defineBlock({
         preview: "left",
       },
       backgroundColor: { type: "color", label: "Background color" },
+      titleColor: { type: "color", label: "Title color" },
+      descriptionColor: { type: "color", label: "Text color" },
+      priceColor: { type: "color", label: "Price color" },
     },
   },
   contentSchema: {
@@ -260,6 +297,11 @@ export default defineBlock({
         label: "Image",
         preview:
           "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
+      },
+      buttonText: {
+        type: "text",
+        label: "Button text",
+        preview: "Add to cart",
       },
     },
   },
