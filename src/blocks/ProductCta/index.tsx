@@ -11,41 +11,11 @@ import { Button, Paragraph, Title } from "../../components";
 
 import { setBlockTheme, setThemeColors } from "../../config";
 import "../../styles/global.scss";
-
-interface Product {
-  title: string;
-  description: string;
-  variants: {
-    edges: any[];
-  };
-}
-
-interface Response {
-  product: Product;
-}
-
-const productQuery = gql`
-  query getProductById($id: ID!) {
-    product(id: $id) {
-      title
-      description
-      ... on Product {
-        variants(first: 100) {
-          edges {
-            node {
-              id
-              price
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+import { Product, productQuery, ProductResponse } from "~/lib/shopify";
 
 const ProductCta = () => {
   const {
-    content: { productId, variantId, image, buttonText },
+    content: { productId, variantId, image, buttonText, title, description },
     customizer: {
       theme,
       width,
@@ -72,9 +42,12 @@ const ProductCta = () => {
 
   const loadProduct = async (id: string) => {
     try {
-      const result = await shopifyClient.request<Response>(productQuery, {
-        id: `gid://shopify/Product/${id}`,
-      });
+      const result = await shopifyClient.request<ProductResponse>(
+        productQuery,
+        {
+          id: `gid://shopify/Product/${id}`,
+        }
+      );
 
       setProduct(result.product);
     } catch (e) {
@@ -109,8 +82,6 @@ const ProductCta = () => {
       setPrice(variant?.node?.price);
     }
   }, [product]);
-
-  console.log(product);
 
   return (
     <section className={cx("product-cta", width === "contained" && "px-2")}>
@@ -158,17 +129,17 @@ const ProductCta = () => {
               className="product-cta__title text-theme-title font-medium"
               style={{ ...(!!titleColor ? { color: titleColor } : {}) }}
             >
-              {product?.title}
+              {!!title ? title : product?.title}
             </Title>
 
-            {!!product?.description && (
+            {(!!description || !!product?.description) && (
               <Paragraph
                 className="product-cta__description mt-1.5 text-theme-subtitle"
                 style={{
                   ...(!!descriptionColor ? { color: descriptionColor } : {}),
                 }}
               >
-                {product?.description}
+                {!!description ? description : product?.description}
               </Paragraph>
             )}
 
@@ -320,6 +291,20 @@ export default defineBlock({
         preview:
           "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
         isRequired: true,
+      },
+      title: {
+        type: "text",
+        label: "Title",
+        preview: "",
+        isRequired: false,
+        isTranslatable: true,
+      },
+      description: {
+        type: "text",
+        label: "Description",
+        preview: "",
+        isRequired: false,
+        isTranslatable: true,
       },
       buttonText: {
         type: "text",
