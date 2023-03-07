@@ -22,7 +22,12 @@ export const productQuery = gql`
           edges {
             node {
               id
-              price
+              priceV2 {
+                ... on MoneyV2 {
+                  amount
+                  currencyCode
+                }
+              }
             }
           }
         }

@@ -7,11 +7,18 @@ import {
   useCart,
 } from "@instantcommerce/sdk";
 import cx from "classnames";
+
+import { useMoney } from "../../hooks";
+import {
+  MoneyV2,
+  Product,
+  productQuery,
+  ProductResponse,
+} from "../../lib/shopify";
 import { Button, Paragraph, Title } from "../../components";
 
 import { setBlockTheme, setThemeColors } from "../../config";
 import "../../styles/global.scss";
-import { Product, productQuery, ProductResponse } from "~/lib/shopify";
 
 const ProductCta = () => {
   const {
@@ -38,7 +45,7 @@ const ProductCta = () => {
   const { addLine } = useCart();
 
   const [product, setProduct] = useState<Product>();
-  const [price, setPrice] = useState<string>("");
+  const [price, setPrice] = useState<MoneyV2>();
 
   const loadProduct = async (id: string) => {
     try {
@@ -79,9 +86,11 @@ const ProductCta = () => {
           )
         : product?.variants?.edges?.[0]?.node;
 
-      setPrice(variant?.node?.price);
+      setPrice(variant?.node?.priceV2);
     }
   }, [product]);
+
+  const money = useMoney(price);
 
   return (
     <section className={cx("product-cta", width === "contained" && "px-2")}>
@@ -143,14 +152,14 @@ const ProductCta = () => {
               </Paragraph>
             )}
 
-            {!!price && (
+            {!!money?.localizedString && (
               <div
                 className="product-cta__price mt-1.5 text-theme-text"
                 style={{
                   ...(!!priceColor ? { color: priceColor } : {}),
                 }}
               >
-                {price}
+                {money?.localizedString}
               </div>
             )}
 
