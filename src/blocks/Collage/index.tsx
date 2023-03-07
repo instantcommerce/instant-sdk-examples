@@ -293,7 +293,6 @@ export default defineBlock({
         label: "CTA text",
         preview: "Discover the collection",
         isTranslatable: true,
-        isRequired: true
       },
       cards: {
         type: "subschema",
@@ -353,20 +352,16 @@ export default defineBlock({
           image: {
             type: "image",
             label: "Image",
-            isTranslatable: false,
-            isRequired: false
           },
           title: {
             type: "text",
             label: "Title",
-            isTranslatable: true,
-            isRequired: true
+            isTranslatable: true
           },
           link: {
             type: "link",
             label: "Link",
-            isTranslatable: true,
-            isRequired: true
+            isTranslatable: true
           }
         }
       }

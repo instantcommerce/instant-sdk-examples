@@ -407,12 +407,13 @@ export default defineBlock({
       productTitles: {
         type: "text",
         label: "Product titles",
+        description: 'Display products matching this title. Can be multiple (comma-separated). Will be hidden if no products are found. ',
         isTranslatable: true
       },
       productTags: {
         type: "text",
         label: "Product tag",
-        preview: "",
+        description: 'Display products matching this tag. Can be multiple (comma-separated). Can be a metafield with a tag as value. Will be hidden if no products are found.',
         isTranslatable: true
       }
     },

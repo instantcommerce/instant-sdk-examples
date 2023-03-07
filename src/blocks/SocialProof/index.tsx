@@ -190,12 +190,11 @@ export default defineBlock({
         type: "subschema",
         allowed: ["button"],
         max: 1,
-        preview: []
       },
       logos: {
         type: "subschema",
         allowed: ["logo"],
-        max: 6,
+        max: 12,
         preview: [
           {
             subschema: "logo",
@@ -263,7 +262,6 @@ export default defineBlock({
           logo: {
             type: "image",
             label: "Logo",
-            isTranslatable: false,
             isRequired: true
           }
         }

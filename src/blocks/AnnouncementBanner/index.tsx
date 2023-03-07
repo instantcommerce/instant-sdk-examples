@@ -29,15 +29,15 @@ const AnnouncementBanner = () => {
       className={cx(
         "announcement-banner__container bg-theme-bg relative w-full py-1.25 text-sm font-medium",
         alignment == "center" ? "text-center" : "text-left",
-        dismissed && "hidden",
+        dismissed && "hidden"
       )}
       style={{
         ...setThemeColors(),
         ...setBlockTheme(theme),
-        ...(!!backgroundColor ? { backgroundColor } : {}),
+        ...(!!backgroundColor ? { backgroundColor } : {})
       }}
     >
-      {(!!hasBackgroundImage && image?.filename) && (
+      {!!hasBackgroundImage && image?.filename && (
         <img
           className={cx(
             "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover"
