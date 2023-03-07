@@ -110,6 +110,8 @@ const ProductCta = () => {
     }
   }, [product]);
 
+  console.log(product);
+
   return (
     <section className={cx("product-cta", width === "contained" && "px-2")}>
       <div
@@ -134,6 +136,8 @@ const ProductCta = () => {
               imageRatio === "portrait" ? "aspect-[4/5]" : "aspect-square"
             )}
             style={{ backgroundImage: `url(${image?.filename})` }}
+            role="img"
+            aria-label={image?.alt || ""}
           />
         )}
 
@@ -315,11 +319,14 @@ export default defineBlock({
         label: "Image",
         preview:
           "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
+        isRequired: true,
       },
       buttonText: {
         type: "text",
         label: "Button text",
         preview: "Add to cart",
+        isTranslatable: true,
+        isRequired: true,
       },
     },
   },
