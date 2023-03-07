@@ -4,7 +4,7 @@ import cx from "classnames";
 import { Container, Overlay, Paragraph, Title } from "../../components";
 import { ArrowRightIcon } from "../../components/Icons";
 import { setBlockTheme, setThemeColors } from "../../config";
-import "../../styles/global.css";
+import "../../styles/global.scss";
 
 const ContentCard = () => {
   const {

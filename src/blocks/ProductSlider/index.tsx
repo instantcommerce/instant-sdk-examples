@@ -1,27 +1,187 @@
-import { defineBlock, useBlockState } from '@instantcommerce/sdk';
+import {
+  defineBlock,
+  useBlockState,
+  useRequestData
+} from "@instantcommerce/sdk";
+import cx from "classnames";
 
-import { Container } from '../../components';
-import { setThemeColors, setBlockTheme } from '../../config';
-import '../../styles/global.css';
+// import { variantStyles as buttonVariantStyles } from '../../components/Button/buttonStyles';
+import { Container, Paragraph, ProductCard } from "../../components";
+import { setThemeColors, setBlockTheme } from "../../config";
+import { ShopifyProducts, productsQuery } from "../../lib/shopify";
+
+import "../../styles/global.scss";
+import "./product-slider.scss";
+
+import { useShopifyClient } from "@instantcommerce/sdk";
+import { useEffect, useState } from "react";
 
 const ProductSlider = () => {
   const {
-    content: { ...headerContent },
-    customizer: { backgroundColor, theme, width, ...headerCustomizations }
+    content: { productTitles, productTags, ...headerContent },
+    customizer: {
+      backgroundColor,
+      theme,
+      width,
+      // product card
+      imageAspectRatio,
+      imageFillBehavior,
+      productLabelPosition,
+      hoverEffect,
+      pretitleType,
+      textAlignment,
+      textSize,
+      descriptionType,
+      sliderButtonType,
+      ...headerCustomizations
+    }
   } = useBlockState();
+  // Coming soon: refs
+  // const sliderRef = useRef<HTMLDivElement>(null);
+  const { locale, country } = useRequestData();
+  const shopifyClient = useShopifyClient();
+
+  const [products, setProducts] = useState<ShopifyProducts["products"]>();
+
+  const loadProductsByTag = async () => {
+    try {
+      let query;
+      const productTagsQuery = productTags
+        ?.split(",")
+        ?.map((tag: string) => `tag:"${tag}"`)
+        ?.join(" OR ");
+      const productTitlesQuery = productTitles
+        ?.split(",")
+        ?.map((title: string) => `title:"${title}"`)
+        ?.join(" OR ");
+
+      if (productTags && productTitles) {
+        query = [productTagsQuery, productTitlesQuery]?.join(" OR ");
+      } else if (productTags) {
+        query = productTagsQuery;
+      } else if (productTitles) {
+        query = productTitlesQuery;
+      }
+
+      const result = await shopifyClient.request<ShopifyProducts>(
+        productsQuery,
+        {
+          query
+        }
+      );
+
+      setProducts(result.products);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    loadProductsByTag();
+  }, [productTags, productTitles]);
+
+  // Coming soon: slider buttons
+  // const onButtonClick = useCallback(
+  //   (type: 'previous' | 'next') => {
+  //     if (sliderRef.current) {
+  //       const slideScrollPosition =
+  //         type === 'next'
+  //           ? sliderRef.current.scrollLeft + 1
+  //           : sliderRef.current.scrollLeft - 1;
+
+  //       sliderRef.current.scrollTo({
+  //         left: slideScrollPosition
+  //       });
+  //     }
+  //   },
+  //   [sliderRef]
+  // );
 
   return (
     <Container
       backgroundColor={backgroundColor}
-      className={width === 'contained' ? 'max-w-7xl' : 'max-w-none'}
-      headerProps={{ ...headerContent, ...headerCustomizations, theme }}
+      className="product-slider !px-0"
+      headerProps={{
+        ...headerContent,
+        ...headerCustomizations,
+        theme,
+        className:
+          width === "contained"
+            ? "max-w-7xl mx-auto px-2"
+            : "max-w-none mx-auto px-2"
+      }}
       wrapperClassName="product-slider"
       wrapperStyle={{
         ...setThemeColors(),
         ...setBlockTheme(theme)
       }}
     >
-      hi
+      {products?.edges && products?.edges?.length > 0 ? (
+        <div
+          className={cx(
+            "slider",
+            width === "contained" ? "slider--contained" : "slider--fullWidth"
+          )}
+        >
+          <div className={cx("slider__inner flex gap-4")} id="product-slider">
+            {products.edges.map((product) => (
+              <ProductCard
+                {...{
+                  imageAspectRatio,
+                  imageFillBehavior,
+                  productLabelPosition,
+                  hoverEffect,
+                  pretitleType,
+                  textAlignment,
+                  textSize,
+                  descriptionType
+                }}
+                product={product?.node}
+                className="min-w-[280px] w-[280px] snap-start"
+                key={product?.node?.id}
+              />
+            ))}
+          </div>
+
+          {/* Coming soon: slider buttons */}
+          {/* <Button
+          variant={sliderButtonType}
+          className="slider__button slider__button--prev"
+          onClick={() => onButtonClick('prev')}
+        >
+          Prev
+        </Button>
+
+        <Button
+          variant={sliderButtonType}
+          className="slider__button slider__button--next"
+          onClick={() => onButtonClick('next')}
+        >
+          Next
+        </Button> */}
+        </div>
+      ) : (
+        <Paragraph
+          as="p"
+          size="md"
+          className={cx(
+            "product-slider__none-found text-theme-subtitle w-full",
+            headerCustomizations?.alignment === "center"
+              ? "text-center"
+              : "text-left",
+            width === "contained"
+              ? "max-w-7xl mx-auto px-2"
+              : "max-w-none mx-auto px-2"
+          )}
+          style={
+            !!headerCustomizations?.subtitleColor
+              ? { color: headerCustomizations?.subtitleColor }
+              : {}
+          }
+        >
+          No products found
+        </Paragraph>
+      )}
     </Container>
   );
 };
@@ -31,138 +191,232 @@ export default defineBlock({
   customizerSchema: {
     fields: {
       theme: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Light', value: 'themeLight' },
-          { label: 'Gray', value: 'themeGray' },
-          { label: 'Primary light', value: 'themePrimaryLight' },
-          { label: 'Primary', value: 'themePrimary' },
-          { label: 'Dark', value: 'themeDark' }
+          { label: "Light", value: "themeLight" },
+          { label: "Gray", value: "themeGray" },
+          { label: "Primary light", value: "themePrimaryLight" },
+          { label: "Primary", value: "themePrimary" },
+          { label: "Dark", value: "themeDark" }
         ],
-        preview: 'themeDark'
+        preview: "themeDark"
       },
       width: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Boxed', value: 'contained' },
-          { label: 'Full width', value: 'full' }
+          { label: "Boxed", value: "contained" },
+          { label: "Full width", value: "full" }
         ],
-        preview: 'contained'
+        preview: "contained"
       },
       headerAlignment: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Left', value: 'left' },
-          { label: 'Center', value: 'center' }
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" }
         ],
-        preview: 'center'
+        preview: "left"
       },
       headerSize: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'md' },
-          { label: 'Medium', value: 'lg' },
-          { label: 'Large', value: 'xl' }
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" }
         ],
-        preview: 'md'
+        preview: "md"
       },
-      pretitleColor: { type: 'color', label: 'Pretitle color' },
-      titleColor: { type: 'color', label: 'Title color' },
-      subtitleColor: { type: 'color', label: 'Description color' },
-      backgroundColor: { type: 'color', label: 'Background color' },
+      pretitleColor: { type: "color", label: "Pretitle color" },
+      titleColor: { type: "color", label: "Title color" },
+      subtitleColor: { type: "color", label: "Description color" },
+      backgroundColor: { type: "color", label: "Background color" },
       buttonType: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Primary', value: 'primary' },
-          { label: 'Secondary', value: 'secondary' },
-          { label: 'Gray', value: 'gray' },
-          { label: 'Link', value: 'link' },
-          { label: 'Link primary', value: 'linkPrimary' },
-          { label: 'Link inverted', value: 'linkInverted' }
+          { label: "Primary", value: "primary" },
+          { label: "Secondary", value: "secondary" },
+          { label: "Gray", value: "gray" },
+          { label: "Link", value: "link" },
+          { label: "Link primary", value: "linkPrimary" },
+          { label: "Link inverted", value: "linkInverted" }
         ],
-        preview: 'primary'
+        preview: "primary"
       },
       buttonCorners: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'None', value: 'none' },
-          { label: 'Small', value: 'xs' },
-          { label: 'Medium', value: 'md' },
-          { label: 'Large', value: 'lg' },
-          { label: 'Full', value: 'full' }
+          { label: "None", value: "none" },
+          { label: "Small", value: "xs" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+          { label: "Full", value: "full" }
         ],
-        preview: 'none'
+        preview: "none"
       },
       buttonWeight: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Regular', value: 'base' },
-          { label: 'Medium', value: 'medium' },
-          { label: 'Bold', value: 'bold' }
+          { label: "Regular", value: "base" },
+          { label: "Medium", value: "medium" },
+          { label: "Bold", value: "bold" }
         ],
-        preview: 'medium'
+        preview: "medium"
       },
       buttonLocation: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Top', value: 'top' },
-          { label: 'Bottom', value: 'bottom' }
+          { label: "Top", value: "top" },
+          { label: "Bottom", value: "bottom" }
         ],
-        preview: 'top'
+        preview: "top"
       },
-      dividerColor: { type: 'color', label: 'Divider color' },
-      hasDivider: { type: 'toggle', label: 'Has divider', preview: true }
+      dividerColor: { type: "color", label: "Divider color" },
+      hasDivider: { type: "toggle", label: "Has divider", preview: false },
+      // Product slider
+      // Coming soon: slider buttons
+      // sliderButtonType: {
+      //   type: 'select',
+      //   options: [
+      //     { label: 'Light', value: 'gray' },
+      //     { label: 'Primary', value: 'primary' },
+      //     { label: 'Secondary', value: 'secondary' },
+      //     { label: 'Dark', value: 'dark' }
+      //   ],
+      //   preview: 'gray'
+      // },
+      // Product card
+      imageAspectRatio: {
+        type: "select",
+        options: [
+          { label: "Landscape", value: "landscape" },
+          { label: "Portrait", value: "portrait" },
+          { label: "Square", value: "square" }
+        ],
+        preview: "square"
+      },
+      imageFillBehavior: {
+        type: "select",
+        options: [
+          { label: "Contain", value: "contain" },
+          { label: "Cover", value: "cover" }
+        ],
+        preview: "cover"
+      },
+      productLabelPosition: {
+        type: "select",
+        options: [
+          { label: "Bottom image", value: "bottomImage" },
+          { label: "Bottom left image", value: "bottomLeftImage" },
+          { label: "Top left image", value: "topLeftImage" },
+          { label: "None", value: "none" }
+        ],
+        preview: "topLeftImage"
+      },
+      hoverEffect: {
+        type: "select",
+        options: [
+          { label: "None", value: "none" },
+          { label: "Second image", value: "secondImage" },
+          { label: "Zoom", value: "zoom" }
+        ],
+        preview: "none"
+      },
+      // hasRating: { type: 'toggle', label: 'Has rating', preview: false },
+      pretitleType: {
+        type: "select",
+        options: [
+          { label: "None", value: "none" },
+          { label: "Product type", value: "productType" },
+          { label: "Vendor", value: "vendor" }
+        ],
+        preview: "vendor"
+      },
+      textAlignment: {
+        type: "select",
+        options: [
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" }
+        ],
+        preview: "left"
+      },
+      textSize: {
+        type: "select",
+        options: [
+          { label: "Small", value: "sm" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" }
+        ],
+        preview: "md"
+      },
+      descriptionType: {
+        type: "select",
+        options: [
+          { label: "Description", value: "description" },
+          { label: "None", value: "none" }
+        ],
+        preview: "none"
+      }
     }
   },
   contentSchema: {
     fields: {
       pretitle: {
-        type: 'text',
-        label: 'Pretitle',
-        preview: 'Hero pretitle',
+        type: "text",
+        label: "Pretitle",
+        preview: "Fresh",
         isTranslatable: true
       },
       title: {
-        type: 'text',
-        label: 'Title',
-        preview: 'Hero title',
+        type: "text",
+        label: "Title",
+        preview: "The new slow fashion collection is here.",
         isTranslatable: true
       },
       subtitle: {
-        type: 'text',
-        label: 'Description',
-        preview:
-          'Hero subtitle dolor sit amet, consectetur adipiscing elit. Cras dui ligula, sollicitudin eu scelerisque non, ullamcorper sit amet massa. Aliquam et neque malesuada, tempus lorem gravida, rutrum urna.',
+        type: "text",
+        label: "Description",
+        preview: "Our new collection is build from softshell materials.",
         isTranslatable: true
       },
       buttons: {
-        type: 'subschema',
-        allowed: ['button'],
+        type: "subschema",
+        allowed: ["button"],
         max: 1,
         preview: [
           {
-            subschema: 'button',
+            subschema: "button",
             value: {
-              text: 'Button text',
-              link: 'https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg'
+              text: "Discover all products",
+              link: "https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg"
             }
           }
         ]
+      },
+      productTitles: {
+        type: "text",
+        label: "Product titles",
+        isTranslatable: true
+      },
+      productTags: {
+        type: "text",
+        label: "Product tag",
+        preview: "",
+        isTranslatable: true
       }
     },
     subschemas: {
       button: {
         fields: {
           text: {
-            type: 'text',
-            label: 'Text',
+            type: "text",
+            label: "Text",
             isTranslatable: true,
             isRequired: true,
             maxLength: 40
           },
           link: {
-            type: 'link',
-            label: 'Link',
+            type: "link",
+            label: "Link",
             isTranslatable: true,
             isRequired: true
           }
