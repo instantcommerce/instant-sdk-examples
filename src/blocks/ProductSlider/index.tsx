@@ -1,20 +1,19 @@
+import { useEffect, useState } from "react";
 import {
   defineBlock,
+  useShopifyClient,
   useBlockState,
   useRequestData
 } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-// import { variantStyles as buttonVariantStyles } from '../../components/Button/buttonStyles';
-import { Container, Paragraph, ProductCard } from "../../components";
-import { setThemeColors, setBlockTheme } from "../../config";
-import { ShopifyProducts, productsQuery } from "../../lib/shopify";
+// import { variantStyles as buttonVariantStyles } from '~/components/Button/buttonStyles';
+import { Container, Paragraph, ProductCard } from "~/components";
+import { setThemeColors, setBlockTheme } from "~/config";
+import { ShopifyProducts, productsQuery } from "~/lib/shopify";
+import "~/styles/global.scss";
 
-import "../../styles/global.scss";
 import "./product-slider.scss";
-
-import { useShopifyClient } from "@instantcommerce/sdk";
-import { useEffect, useState } from "react";
 
 const ProductSlider = () => {
   const {

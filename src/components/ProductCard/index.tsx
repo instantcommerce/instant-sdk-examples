@@ -1,9 +1,9 @@
-import { Link } from '@instantcommerce/sdk';
 import cx from 'classnames';
 
-import { ShopifyProduct } from '../../lib/shopify';
+import { ShopifyProduct } from '~/lib/shopify';
+import { useMoney } from '~/hooks';
+
 import { Button, Paragraph, Title } from '..';
-import { useMoney } from '../../hooks';
 
 type ProductCardProps = {
   className?: string;

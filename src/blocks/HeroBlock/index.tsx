@@ -1,9 +1,10 @@
 import { defineBlock, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { Button, Overlay, Paragraph, Title } from "../../components";
-import { setThemeColors, setBlockTheme } from "../../config";
-import "../../styles/global.scss";
+import { Button, Overlay, Paragraph, Title } from "~/components";
+import { setThemeColors, setBlockTheme } from "~/config";
+import "~/styles/global.scss";
+
 import {
   heroVariantStyles,
   heroWidthStyles,

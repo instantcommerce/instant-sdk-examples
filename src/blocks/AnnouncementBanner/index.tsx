@@ -1,13 +1,11 @@
+import { useState } from "react";
 import { defineBlock, useBlockState, Link } from "@instantcommerce/sdk";
 import cx from "classnames";
-import { useState } from "react";
-import { Paragraph } from "../../components";
-import { CloseIcon } from "../../components/Icons";
 
-import { setThemeColors } from "../../config/setThemeColors";
-import { setBlockTheme } from "../../config/themeMapping";
-
-import "../../styles/global.scss";
+import { Paragraph } from "~/components";
+import { CloseIcon } from "~/components/Icons";
+import { setThemeColors, setBlockTheme } from "~/config";
+import "~/styles/global.scss";
 
 const AnnouncementBanner = () => {
   const {

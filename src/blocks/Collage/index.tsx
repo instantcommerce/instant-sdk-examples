@@ -1,10 +1,11 @@
 import { defineBlock, Link, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { Container, Overlay, Paragraph, Title } from "../../components";
-import { ArrowRightIcon } from "../../components/Icons";
-import { setBlockTheme, setThemeColors } from "../../config";
-import "../../styles/global.css";
+import { Container, Overlay, Paragraph, Title } from "~/components";
+import { ArrowRightIcon } from "~/components/Icons";
+import { setBlockTheme, setThemeColors } from "~/config";
+import "~/styles/global.scss";
+
 import "./collage.scss";
 
 const Collage = () => {
@@ -372,5 +373,5 @@ export default defineBlock({
         }
       }
     }
-  }
+  },
 });

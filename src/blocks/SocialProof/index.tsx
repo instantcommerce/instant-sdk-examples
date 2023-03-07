@@ -1,11 +1,9 @@
 import { defineBlock, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { Container } from "../../components";
-import { setThemeColors } from "../../config/setThemeColors";
-import { setBlockTheme } from "../../config/themeMapping";
-
-import "../../styles/global.scss";
+import { Container } from "~/components";
+import { setThemeColors, setBlockTheme } from "~/config";
+import "~/styles/global.scss";
 
 const SocialProof = () => {
   const {

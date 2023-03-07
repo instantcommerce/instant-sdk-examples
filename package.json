@@ -16,6 +16,7 @@
     "sass": "^1.58.3"
   },
   "devDependencies": {
+    "@types/node": "^18.14.6",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "autoprefixer": "^10.4.13",

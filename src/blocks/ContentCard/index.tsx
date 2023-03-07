@@ -1,10 +1,10 @@
 import { defineBlock, Link, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { Container, Overlay, Paragraph, Title } from "../../components";
-import { ArrowRightIcon } from "../../components/Icons";
-import { setBlockTheme, setThemeColors } from "../../config";
-import "../../styles/global.scss";
+import { Container, Overlay, Paragraph, Title } from "~/components";
+import { ArrowRightIcon } from "~/components/Icons";
+import { setBlockTheme, setThemeColors } from "~/config";
+import "~/styles/global.scss";
 
 const ContentCard = () => {
   const {

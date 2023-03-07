@@ -1,6 +1,7 @@
-import { Link, LinkProps } from '@instantcommerce/sdk';
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import { Link, LinkProps } from '@instantcommerce/sdk';
 import cx from 'classnames';
+
 import {
   baseStyles,
   buttonCornerStyles,
