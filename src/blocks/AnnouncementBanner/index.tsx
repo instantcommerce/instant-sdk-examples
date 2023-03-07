@@ -20,8 +20,8 @@ const AnnouncementBanner = () => {
       backgroundColor,
       textColor,
       linkColor,
-      closeColor
-    }
+      closeColor,
+    },
   } = useBlockState();
 
   const [dismissed, setDismissed] = useState<boolean>(false);
@@ -40,7 +40,7 @@ const AnnouncementBanner = () => {
         ...(!!backgroundColor ? { backgroundColor } : {}),
         ...(!!backgroundImage
           ? { backgroundImage: `url(${image?.filename})` }
-          : {})
+          : {}),
       }}
     >
       <div
@@ -98,38 +98,38 @@ export default defineBlock({
           { label: "Gray", value: "themeGray" },
           { label: "Primary light", value: "themePrimaryLight" },
           { label: "Primary", value: "themePrimary" },
-          { label: "Dark", value: "themeDark" }
+          { label: "Dark", value: "themeDark" },
         ],
-        preview: "themeGray"
+        preview: "themeGray",
       },
       alignment: {
         type: "select",
         options: [
           { label: "Left", value: "left" },
-          { label: "Center", value: "center" }
+          { label: "Center", value: "center" },
         ],
-        preview: "center"
+        preview: "center",
       },
       dismissable: {
         type: "toggle",
-        preview: false
+        preview: false,
       },
       backgroundImage: {
         type: "toggle",
-        preview: false
+        preview: false,
       },
       backgroundColor: { type: "color", label: "Background color" },
       textColor: { type: "color", label: "Text color" },
       linkColor: { type: "color", label: "Link color" },
-      closeColor: { type: "color", label: "Close button color" }
-    }
+      closeColor: { type: "color", label: "Close button color" },
+    },
   },
   contentSchema: {
     fields: {
       text: {
         type: "text",
         label: "Text",
-        preview: "Welcome to our new site!"
+        preview: "Welcome to our new site!",
       },
       links: {
         type: "subschema",
@@ -138,16 +138,16 @@ export default defineBlock({
         preview: [
           {
             subschema: "link",
-            value: { label: "Learn more", link: "https://instantcommerce.io/" }
-          }
-        ]
+            value: { label: "Learn more", link: "https://instantcommerce.io/" },
+          },
+        ],
       },
       image: {
         type: "image",
         label: "Background image",
         preview:
-          "https://a.storyblok.com/f/145828/1440x40/e5735c2906/autumn.png"
-      }
+          "https://a.storyblok.com/f/145828/1440x40/e5735c2906/autumn.png",
+      },
     },
     subschemas: {
       link: {
@@ -156,16 +156,16 @@ export default defineBlock({
             type: "text",
             label: "Label",
             isTranslatable: true,
-            isRequired: true
+            isRequired: true,
           },
           link: {
             type: "text",
             label: "Link",
             isTranslatable: true,
-            isRequired: true
-          }
-        }
-      }
-    }
-  }
+            isRequired: true,
+          },
+        },
+      },
+    },
+  },
 });

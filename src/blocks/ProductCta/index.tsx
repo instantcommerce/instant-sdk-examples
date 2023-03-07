@@ -10,7 +10,7 @@ import cx from "classnames";
 import { Button, Paragraph, Title } from "../../components";
 
 import { setBlockTheme, setThemeColors } from "../../config";
-import "../../styles/global.css";
+import "../../styles/global.scss";
 
 interface Product {
   title: string;
