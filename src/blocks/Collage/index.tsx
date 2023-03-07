@@ -68,9 +68,7 @@ const Collage = () => {
 
             {!!card?.value?.title && (
               <Title
-                className={cx(
-                  "collage__title text-white font-semibold z-10"
-                )}
+                className={cx("collage__title text-white font-semibold z-10")}
                 size={
                   contentSize === "sm"
                     ? "xs"
@@ -373,5 +371,5 @@ export default defineBlock({
         }
       }
     }
-  },
+  }
 });

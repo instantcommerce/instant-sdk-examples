@@ -55,8 +55,16 @@ const HeroBlock = () => {
           "hero__image absolute top-0 bottom-0 hidden md:flex bg-cover",
           heroImageStyles[variant]
         )}
-        style={{ backgroundImage: `url(${image?.filename})` }}
       >
+        {image?.filename && (
+          <img
+            className={cx(
+              "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover"
+            )}
+            alt={image?.alt}
+            src={image?.filename}
+          />
+        )}
         {overlayColor && (
           <Overlay color={overlayColor} opacity={overlayOpacity} />
         )}
@@ -87,14 +95,18 @@ const HeroBlock = () => {
         <div
           className={cx(
             "hero__content flex flex-col md:flex-1 sm:max-w-[50%] px-2 py-6 md:py-10 z-10",
-            !(width === "contained" && variant === "cover") ? "md:px-10 lg:max-w-[768px]" : "lg:max-w-[640px]",
+            !(width === "contained" && variant === "cover")
+              ? "md:px-10 lg:max-w-[768px]"
+              : "lg:max-w-[640px]",
             heroVerticalStyles[verticalAlign],
             heroHorizontalStyles[horizontalAlign]
           )}
         >
           {pretitle && (
             <Paragraph
-              className={cx("hero__pretitle text-theme-pretitle mb-1 font-medium")}
+              className={cx(
+                "hero__pretitle text-theme-pretitle mb-1 font-medium"
+              )}
               size={pretitleSize}
               style={!!pretitleColor ? { color: pretitleColor } : {}}
             >
@@ -104,7 +116,9 @@ const HeroBlock = () => {
 
           {title && (
             <Title
-              className={cx("hero__title text-theme-title font-medium leading-snug")}
+              className={cx(
+                "hero__title text-theme-title font-medium leading-snug"
+              )}
               size={titleSize}
               style={!!titleColor ? { color: titleColor } : {}}
               variant="display"

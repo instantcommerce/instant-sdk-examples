@@ -14,7 +14,7 @@ const AnnouncementBanner = () => {
       theme,
       alignment,
       dismissable,
-      backgroundImage,
+      hasBackgroundImage,
       backgroundColor,
       textColor,
       linkColor,
@@ -30,20 +30,26 @@ const AnnouncementBanner = () => {
         "announcement-banner__container bg-theme-bg relative w-full py-1.25 text-sm font-medium",
         alignment == "center" ? "text-center" : "text-left",
         dismissed && "hidden",
-        backgroundImage && "bg-cover"
       )}
       style={{
         ...setThemeColors(),
         ...setBlockTheme(theme),
         ...(!!backgroundColor ? { backgroundColor } : {}),
-        ...(!!backgroundImage
-          ? { backgroundImage: `url(${image?.filename})` }
-          : {})
       }}
     >
+      {(!!hasBackgroundImage && image?.filename) && (
+        <img
+          className={cx(
+            "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover"
+          )}
+          alt={image?.alt}
+          src={image.filename}
+        />
+      )}
+
       <div
         className={cx(
-          "announcement-banner flex justify-center flex-col sm:flex-row",
+          "announcement-banner relative flex justify-center flex-col sm:flex-row z-10",
           alignment == "center"
             ? "sm:justify-center px-6"
             : "sm:justify-start pl-2 pr-6 md:pl-6"
@@ -112,7 +118,7 @@ export default defineBlock({
         type: "toggle",
         preview: false
       },
-      backgroundImage: {
+      hasBackgroundImage: {
         type: "toggle",
         preview: false
       },
@@ -144,7 +150,7 @@ export default defineBlock({
         type: "image",
         label: "Background image",
         preview:
-          "https://a.storyblok.com/f/145828/1440x40/e5735c2906/autumn.png"
+          "https://a.storyblok.com/f/145828/5085x162/8285ff8859/force-majeure-vujikv6pbjq-unsplash.jpg"
       }
     },
     subschemas: {
