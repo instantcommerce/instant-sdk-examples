@@ -5,8 +5,9 @@ import { Container, Overlay, Paragraph, Title } from "../../components";
 import { ArrowRightIcon } from "../../components/Icons";
 import { setBlockTheme, setThemeColors } from "../../config";
 import "../../styles/global.css";
+import "./collage.scss";
 
-const ContentCard = () => {
+const Collage = () => {
   const {
     content: { cards, cta, ...headerContent },
     customizer: {
@@ -15,6 +16,7 @@ const ContentCard = () => {
       width,
       contentAlignment,
       contentSize,
+      mobileLayout,
       imageHeight,
       overlayColor,
       overlayOpacity,
@@ -30,24 +32,23 @@ const ContentCard = () => {
       backgroundColor={backgroundColor}
       className={width === "contained" ? "max-w-7xl" : "max-w-none"}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
-      wrapperClassName="content-card"
+      wrapperClassName="collage__container"
       wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
-      <div className="content-card__container w-full flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:gap-x-4">
+      <div
+        className={cx(
+          `collage gap-1 md:gap-2 collage--${cards?.length} collage--${mobileLayout} collage--${imageHeight}`
+        )}
+      >
         {cards?.map((card) => (
           // @ts-ignore
           <Link
             to={card?.value?.link?.url}
             className={cx(
-              "content-card__card group w-full bg-cover bg-center p-2 md:p-5 flex flex-col relative gap-y-1 overflow-hidden",
+              "collage__card group w-full bg-cover bg-center p-2 md:p-5 flex flex-col relative gap-y-1 overflow-hidden",
               contentAlignment === "center"
                 ? "justify-center items-center text-center"
-                : "justify-end",
-              imageHeight === "sm"
-                ? "h-[240px]"
-                : imageHeight == "lg"
-                ? "h-[480px]"
-                : "h-[360px]"
+                : "justify-end"
             )}
           >
             {card?.value?.image?.filename && (
@@ -55,6 +56,7 @@ const ContentCard = () => {
                 className={cx(
                   "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover transition-transform group-hover:scale-105 duration-500"
                 )}
+                alt={card?.value?.image?.alt}
                 src={card?.value?.image?.filename}
               />
             )}
@@ -66,7 +68,7 @@ const ContentCard = () => {
             {!!card?.value?.title && (
               <Title
                 className={cx(
-                  "content-card__title text-white font-semibold relative z-10"
+                  "collage__title text-white font-semibold relative z-10"
                 )}
                 size={
                   contentSize === "sm"
@@ -84,17 +86,17 @@ const ContentCard = () => {
             {cta && (
               <Paragraph
                 className={cx(
-                  "content-card__button font-medium text-white flex items-center text-left relative z-10"
+                  "collage__button font-medium text-white flex items-center text-left relative z-10"
                 )}
                 size={contentSize}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
               >
                 {linkType === "left" && (
-                  <ArrowRightIcon className="content-card__arrow w-1.5 mr-1.25" />
+                  <ArrowRightIcon className="collage__arrow w-1.5 mr-1.25" />
                 )}
                 {cta}
                 {linkType === "right" && (
-                  <ArrowRightIcon className="content-card__arrow w-1.5 ml-1.25 transition-transform group-hover:translate-x-0.25" />
+                  <ArrowRightIcon className="collage__arrow w-1.5 ml-1.25 transition-transform group-hover:translate-x-0.25" />
                 )}
               </Paragraph>
             )}
@@ -106,7 +108,7 @@ const ContentCard = () => {
 };
 
 export default defineBlock({
-  component: ContentCard,
+  component: Collage,
   customizerSchema: {
     fields: {
       theme: {
@@ -231,6 +233,15 @@ export default defineBlock({
         ],
         preview: "md"
       },
+      mobileLayout: {
+        type: "select",
+        label: "Mobile layout",
+        options: [
+          { label: "Collage", value: "collage" },
+          { label: "Column", value: "column" }
+        ],
+        preview: "column"
+      },
       textColor: { type: "color", label: "Text color" },
       linkColor: { type: "color", label: "Link color" },
       linkType: {
@@ -250,19 +261,18 @@ export default defineBlock({
       pretitle: {
         type: "text",
         label: "Pretitle",
-        preview: "Winter 2022",
         isTranslatable: true
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "COOL COLLECTIONS",
+        preview: "High tech performancewear",
         isTranslatable: true
       },
       subtitle: {
         type: "text",
         label: "Description",
-        preview: "Shop the latest trends.",
+        preview: "Clothing that is as amibitious as you are.",
         isTranslatable: true
       },
       buttons: {
@@ -289,14 +299,14 @@ export default defineBlock({
       cards: {
         type: "subschema",
         allowed: ["card"],
-        max: 4,
+        max: 3,
         preview: [
           {
             subschema: "card",
             value: {
               image:
                 "https://a.storyblok.com/f/145828/5104x3403/ea3b04ac71/force-majeure-vujikv6pbjq-unsplash.jpg",
-              title: "WOMEN",
+              title: "FW22 WOMEN",
               link: "https://instantcommerce.io/"
             }
           },
@@ -305,7 +315,7 @@ export default defineBlock({
             value: {
               image:
                 "https://a.storyblok.com/f/145828/4390x3245/6fa2d27260/force-majeure-8eu-hahcrhk-unsplash.jpg",
-              title: "MEN",
+              title: "FW22 MEN",
               link: "https://instantcommerce.io/"
             }
           },
@@ -314,7 +324,7 @@ export default defineBlock({
             value: {
               image:
                 "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
-              title: "KIDS",
+              title: "FW22 KIDS",
               link: "https://instantcommerce.io/"
             }
           }
