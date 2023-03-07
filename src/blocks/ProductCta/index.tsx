@@ -142,8 +142,8 @@ const ProductCta = () => {
             "product-cta__cta-container",
             "flex-1 h-full py-5 lg:py-14 px-3",
             width === "full" && "sm:px-2",
-            contentAlignment === "center" && "self-center",
-            contentAlignment === "bottom" && "self-end",
+            contentAlignment === "center" && "sm:self-center",
+            contentAlignment === "bottom" && "sm:self-end",
             textAlignment === "center" && "text-center"
           )}
         >
@@ -157,23 +157,27 @@ const ProductCta = () => {
               {product?.title}
             </Title>
 
-            <Paragraph
-              className="product-cta__description mt-1.5 text-theme-subtitle"
-              style={{
-                ...(!!descriptionColor ? { color: descriptionColor } : {}),
-              }}
-            >
-              {product?.description}
-            </Paragraph>
+            {!!product?.description && (
+              <Paragraph
+                className="product-cta__description mt-1.5 text-theme-subtitle"
+                style={{
+                  ...(!!descriptionColor ? { color: descriptionColor } : {}),
+                }}
+              >
+                {product?.description}
+              </Paragraph>
+            )}
 
-            <div
-              className="product-cta__price mt-1.5 text-theme-text"
-              style={{
-                ...(!!priceColor ? { color: priceColor } : {}),
-              }}
-            >
-              {price}
-            </div>
+            {!!price && (
+              <div
+                className="product-cta__price mt-1.5 text-theme-text"
+                style={{
+                  ...(!!priceColor ? { color: priceColor } : {}),
+                }}
+              >
+                {price}
+              </div>
+            )}
 
             <Button
               variant={buttonType}
