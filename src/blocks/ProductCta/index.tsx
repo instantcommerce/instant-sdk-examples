@@ -64,7 +64,7 @@ const ProductCta = () => {
 
   const addToCart = async () => {
     try {
-      addLine({ productId, variantId, quantity: 1, showModalOnSuccess: true });
+      addLine({ productId: `gid://shopify/Product/${productId}` , variantId: `gid://shopify/ProductVariant/${variantId}`, quantity: 1, showModalOnSuccess: true });
     } catch (e) {
       console.log(e);
     }
@@ -148,7 +148,7 @@ const ProductCta = () => {
                   ...(!!descriptionColor ? { color: descriptionColor } : {}),
                 }}
               >
-                {!!description ? description : product?.description}
+                {!!description ? description : product?.description?.}
               </Paragraph>
             )}
 
