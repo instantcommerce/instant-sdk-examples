@@ -44,7 +44,7 @@ export const Button = ({
 }: ButtonProps) => {
   let hasButtonStyles;
 
-  if (['primary', 'secondary', 'gray'].includes(variant)) {
+  if (['primary', 'secondary', 'gray', 'dark'].includes(variant)) {
     hasButtonStyles = true;
   }
 

@@ -92,14 +92,14 @@ module.exports = {
       '9xl': ['3rem', {}],
       '10xl': ['4rem', {}],
       '11xl': ['5rem', {}],
-      '12xl': ['6rem', {}],
+      '12xl': ['6rem', {}]
     },
     letterSpacing: {
       tighter: '-0.02em',
       tight: '-0.01em',
       normal: '0em',
       wide: '0.01em',
-      wider: '0.02em',
+      wider: '0.02em'
     },
     lineHeight: {
       none: '100%',
@@ -142,8 +142,8 @@ module.exports = {
       12: '96px',
       15: '120px',
       16: '128px',
-      20: '160px',
+      20: '160px'
     }
   },
-  plugins: []
+  plugins: [require('@tailwindcss/line-clamp')]
 };
