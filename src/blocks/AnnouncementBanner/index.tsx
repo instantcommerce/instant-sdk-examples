@@ -27,7 +27,7 @@ const AnnouncementBanner = () => {
   return (
     <div
       className={cx(
-        "announcement-banner relative w-full bg-theme-bg py-1.25 text-sm",
+        "announcement-banner__container bg-theme-bg relative w-full py-1.25 text-sm font-medium",
         alignment == "center" ? "text-center" : "text-left",
         dismissed && "hidden",
         backgroundImage && "bg-cover"
@@ -43,7 +43,7 @@ const AnnouncementBanner = () => {
     >
       <div
         className={cx(
-          "announcement-banner__text-wrapper flex flex-col sm:flex-row mx-auto justify-center",
+          "announcement-banner flex justify-center flex-col sm:flex-row",
           alignment == "center"
             ? "sm:justify-center px-6"
             : "sm:justify-start pl-2 pr-6 md:pl-6"
@@ -51,7 +51,7 @@ const AnnouncementBanner = () => {
       >
         {(!!text || !!links?.[0]?.value?.label) && (
           <Paragraph
-            className="announcement-banner__text font-medium text-sm text-theme-title"
+            className="announcement-banner__text text-theme-title"
             style={{ ...(!!textColor ? { color: textColor } : {}) }}
           >
             {text}
@@ -60,7 +60,7 @@ const AnnouncementBanner = () => {
               <Link
                 to={links[0]?.value?.link}
                 className={cx(
-                  "announcement-banner__link inline sm:ml-1 text-sm font-medium underline text-theme-link transition-opacity hover:opacity-70",
+                  "announcement-banner__link text-theme-link inline sm:ml-1 underline transition-opacity hover:opacity-70",
                   text ? "ml-0.5" : ""
                 )}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
@@ -75,7 +75,7 @@ const AnnouncementBanner = () => {
       {!!dismissable && (
         <button
           onClick={() => setDismissed(true)}
-          className="announcement-banner__icon w-2.5 absolute right-2 top-1/2 -translate-y-1/2 text-theme-icon"
+          className="announcement-banner__icon text-theme-icon w-2.5 absolute right-2 top-1/2 -translate-y-1/2"
           style={{ ...(!!closeColor ? { color: closeColor } : {}) }}
         >
           <CloseIcon />

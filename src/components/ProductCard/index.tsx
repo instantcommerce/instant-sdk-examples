@@ -90,7 +90,7 @@ export const ProductCard = ({
     >
       <div
         className={cx(
-          'relative w-full overflow-hidden mb-2',
+          'product-card__image-container relative w-full overflow-hidden mb-2',
           imageAspectRatio === 'landscape'
             ? 'pt-[66.66%]'
             : imageAspectRatio === 'portrait'
@@ -102,7 +102,7 @@ export const ProductCard = ({
           hoverEffect === 'secondImage' && (
             <img
               className={cx(
-                'absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0',
+                'product-card__image--second-image absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0',
                 imageFillBehavior === 'cover'
                   ? 'object-cover'
                   : 'object-contain'
@@ -113,7 +113,7 @@ export const ProductCard = ({
 
         <img
           className={cx(
-            'absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 opacity-1 transition-transform',
+            'product-card__image absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 opacity-1 transition-transform',
             imageFillBehavior === 'cover' ? 'object-cover' : 'object-contain',
             !!product?.images?.edges[1]?.node?.url &&
               hoverEffect === 'secondImage'

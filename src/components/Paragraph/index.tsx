@@ -27,6 +27,7 @@ export const Paragraph = ({
   return (
     <Component
       className={cx(
+        'paragraph',
         paragraphSizeStyles[size],
         uppercase ? "uppercase tracking-wider" : "",
         ellipsis ? "truncate" : "",

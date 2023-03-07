@@ -38,7 +38,7 @@ const Collage = () => {
     >
       <div
         className={cx(
-          `collage gap-1 md:gap-2 collage--${cards?.length} collage--${mobileLayout} collage--${imageHeight}`
+          `collage collage--${cards?.length} collage--${mobileLayout} collage--${imageHeight} gap-1 md:gap-2`
         )}
       >
         {cards?.map((card) => (
@@ -46,7 +46,7 @@ const Collage = () => {
           <Link
             to={card?.value?.link?.url}
             className={cx(
-              "collage__card group w-full bg-cover bg-center p-2 md:p-5 flex flex-col relative gap-y-1 overflow-hidden",
+              "collage__card group relative w-full flex flex-col p-2 md:p-5 gap-y-1 overflow-hidden",
               contentAlignment === "center"
                 ? "justify-center items-center text-center"
                 : "justify-end"
@@ -69,7 +69,7 @@ const Collage = () => {
             {!!card?.value?.title && (
               <Title
                 className={cx(
-                  "collage__title text-white font-semibold relative z-10"
+                  "collage__title text-white font-semibold z-10"
                 )}
                 size={
                   contentSize === "sm"
@@ -87,7 +87,7 @@ const Collage = () => {
             {cta && (
               <Paragraph
                 className={cx(
-                  "collage__button font-medium text-white flex items-center text-left relative z-10"
+                  "collage__button flex items-center text-white font-medium text-left z-10"
                 )}
                 size={contentSize}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
@@ -194,6 +194,15 @@ export default defineBlock({
       },
       dividerColor: { type: "color", label: "Divider color" },
       hasDivider: { type: "toggle", label: "Has divider", preview: false },
+      mobileLayout: {
+        type: "select",
+        label: "Mobile layout",
+        options: [
+          { label: "Collage", value: "collage" },
+          { label: "Column", value: "column" }
+        ],
+        preview: "column"
+      },
       imageHeight: {
         type: "select",
         options: [
@@ -233,15 +242,6 @@ export default defineBlock({
           { label: "Large", value: "lg" }
         ],
         preview: "md"
-      },
-      mobileLayout: {
-        type: "select",
-        label: "Mobile layout",
-        options: [
-          { label: "Collage", value: "collage" },
-          { label: "Column", value: "column" }
-        ],
-        preview: "column"
       },
       textColor: { type: "color", label: "Text color" },
       linkColor: { type: "color", label: "Link color" },

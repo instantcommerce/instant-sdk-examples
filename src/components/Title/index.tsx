@@ -33,6 +33,7 @@ export const Title = ({
   return (
     <Component
       className={cx(
+        'title',
         titleVariants[variant],
         variant === "heading"
           ? headingSizeStyles[size]

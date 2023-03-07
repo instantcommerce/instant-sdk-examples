@@ -101,17 +101,19 @@ const ProductSlider = () => {
   return (
     <Container
       backgroundColor={backgroundColor}
-      className="product-slider !px-0"
+      className="!px-0"
       headerProps={{
         ...headerContent,
         ...headerCustomizations,
         theme,
-        className:
+        className: cx(
+          'px-2',
           width === "contained"
-            ? "max-w-7xl mx-auto px-2"
-            : "max-w-none mx-auto px-2"
+            ? "max-w-7xl mx-auto"
+            : "max-w-none"
+        )
       }}
-      wrapperClassName="product-slider"
+      wrapperClassName="product-slider__container"
       wrapperStyle={{
         ...setThemeColors(),
         ...setBlockTheme(theme)
@@ -173,13 +175,13 @@ const ProductSlider = () => {
               as="p"
               size="md"
               className={cx(
-                "product-slider__none-found text-theme-subtitle w-full",
+                "product-slider__none-found text-theme-subtitle w-full px-2",
                 headerCustomizations?.alignment === "center"
                   ? "text-center"
                   : "text-left",
                 width === "contained"
-                  ? "max-w-7xl mx-auto px-2"
-                  : "max-w-none mx-auto px-2"
+                  ? "max-w-7xl mx-auto"
+                  : "max-w-none"
               )}
               style={
                 !!headerCustomizations?.subtitleColor

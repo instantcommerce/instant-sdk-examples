@@ -72,7 +72,7 @@ export const Header = ({
       weight={buttonWeight}
       size={size === "md" ? "sm" : "md"}
       className={cx(
-        `header__button whitespace-normal max-w-xs`,
+        `header__button max-w-xs whitespace-normal`,
         !!subtitle ? "order-3" : "order-2",
         !!subtitle
           ? alignment === "center" || buttonLocation === "bottom"
@@ -185,7 +185,16 @@ export const Header = ({
 
       {children}
 
-      {buttonLocation === "bottom" && buttonText && button}
+      <div
+        className={cx(
+          "header__button-container flex w-full",
+          alignment === "center" ? "justify-center" : "justify-start",
+          className
+        )}
+        style={{ ...style }}
+      >
+        {buttonLocation === "bottom" && buttonText && button}
+      </div>
     </>
   );
 };

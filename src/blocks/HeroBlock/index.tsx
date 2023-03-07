@@ -43,7 +43,7 @@ const HeroBlock = () => {
 
   return (
     <section
-      className={cx("relative w-full bg-theme-bg")}
+      className={cx("hero bg-theme-bg relative w-full")}
       style={{
         ...setThemeColors(),
         ...setBlockTheme(theme),
@@ -52,7 +52,7 @@ const HeroBlock = () => {
     >
       <div
         className={cx(
-          "hidden md:flex bg-cover absolute top-0 bottom-0",
+          "hero__image absolute top-0 bottom-0 hidden md:flex bg-cover",
           heroImageStyles[variant]
         )}
         style={{ backgroundImage: `url(${image?.filename})` }}
@@ -63,7 +63,7 @@ const HeroBlock = () => {
       </div>
       <div
         className={cx(
-          "flex w-full",
+          "hero__wrapper flex w-full",
           heroVariantStyles[variant],
           heroWidthStyles[width],
           heroHeightStyles[height]
@@ -71,7 +71,7 @@ const HeroBlock = () => {
       >
         <div
           className={cx(
-            "flex bg-cover md:!bg-none",
+            "hero__image--mobile flex bg-cover md:!bg-none",
             heroImageMobileStyles[variant]
           )}
           style={{ backgroundImage: `url(${mobileImage?.filename})` }}
@@ -86,15 +86,15 @@ const HeroBlock = () => {
         </div>
         <div
           className={cx(
-            "flex flex-col px-2 py-6 md:py-100 z-10 sm:max-w-[50%] lg:max-w-[640px] md:flex-1",
-            !(width === "contained" && variant === "cover") ? "md:px-10" : "",
+            "hero__content flex flex-col md:flex-1 sm:max-w-[50%] px-2 py-6 md:py-10 z-10",
+            !(width === "contained" && variant === "cover") ? "md:px-10 lg:max-w-[768px]" : "lg:max-w-[640px]",
             heroVerticalStyles[verticalAlign],
             heroHorizontalStyles[horizontalAlign]
           )}
         >
           {pretitle && (
             <Paragraph
-              className={cx("font-medium mb-1 text-theme-pretitle")}
+              className={cx("hero__pretitle text-theme-pretitle mb-1 font-medium")}
               size={pretitleSize}
               style={!!pretitleColor ? { color: pretitleColor } : {}}
             >
@@ -104,7 +104,7 @@ const HeroBlock = () => {
 
           {title && (
             <Title
-              className={cx("font-medium leading-snug text-theme-title ")}
+              className={cx("hero__title text-theme-title font-medium leading-snug")}
               size={titleSize}
               style={!!titleColor ? { color: titleColor } : {}}
               variant="display"
@@ -116,7 +116,7 @@ const HeroBlock = () => {
 
           {subtitle && (
             <Paragraph
-              className={cx("mt-2 text-theme-subtitle")}
+              className={cx("hero__subtitle text-theme-subtitle mt-2")}
               size={subtitleSize}
               style={!!subtitleColor ? { color: subtitleColor } : {}}
             >
@@ -126,7 +126,7 @@ const HeroBlock = () => {
 
           {buttons && (
             <div
-              className={cx("hero__buttons-wrapper flex flex-wrap gap-2 mt-4")}
+              className={cx("hero__buttons-wrapper flex flex-wrap mt-4 gap-2")}
             >
               {buttons?.[0]?.value?.text && (
                 <Button
@@ -213,7 +213,7 @@ export default defineBlock({
           { label: "Boxed", value: "contained" },
           { label: "Full width", value: "full" }
         ],
-        preview: "contained"
+        preview: "full"
       },
       height: {
         type: "select",
