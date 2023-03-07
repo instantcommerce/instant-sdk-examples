@@ -42,6 +42,7 @@ const ProductSlider = () => {
   const shopifyClient = useShopifyClient();
 
   const [products, setProducts] = useState<ShopifyProducts["products"]>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const loadProductsByTag = async () => {
     try {
@@ -78,6 +79,7 @@ const ProductSlider = () => {
 
   useEffect(() => {
     loadProductsByTag();
+    setIsLoading(false);
   }, [productTags, productTitles]);
 
   // Coming soon: slider buttons
@@ -116,71 +118,80 @@ const ProductSlider = () => {
         ...setBlockTheme(theme)
       }}
     >
-      {products?.edges && products?.edges?.length > 0 ? (
-        <div
-          className={cx(
-            "slider",
-            width === "contained" ? "slider--contained" : "slider--fullWidth"
-          )}
-        >
-          <div className={cx("slider__inner flex gap-4")} id="product-slider">
-            {products.edges.map((product) => (
-              <ProductCard
-                {...{
-                  imageAspectRatio,
-                  imageFillBehavior,
-                  productLabelPosition,
-                  hoverEffect,
-                  pretitleType,
-                  textAlignment,
-                  textSize,
-                  descriptionType
-                }}
-                product={product?.node}
-                className="min-w-[280px] w-[280px] snap-start"
-                key={product?.node?.id}
-              />
-            ))}
-          </div>
+      {!isLoading && (
+        <>
+          {products?.edges && products?.edges?.length > 0 ? (
+            <div
+              className={cx(
+                "slider",
+                width === "contained"
+                  ? "slider--contained"
+                  : "slider--fullWidth"
+              )}
+            >
+              <div
+                className={cx("slider__inner flex gap-4")}
+                id="product-slider"
+              >
+                {products.edges.map((product) => (
+                  <ProductCard
+                    {...{
+                      imageAspectRatio,
+                      imageFillBehavior,
+                      productLabelPosition,
+                      hoverEffect,
+                      pretitleType,
+                      textAlignment,
+                      textSize,
+                      descriptionType
+                    }}
+                    product={product?.node}
+                    className="min-w-[280px] w-[280px] snap-start"
+                    key={product?.node?.id}
+                  />
+                ))}
+              </div>
 
-          {/* Coming soon: slider buttons */}
-          {/* <Button
-          variant={sliderButtonType}
-          className="slider__button slider__button--prev"
-          onClick={() => onButtonClick('prev')}
-        >
-          Prev
-        </Button>
+              {/* Coming soon: slider buttons */}
+              {/* <Button
+            variant={sliderButtonType}
+            className="slider__button slider__button--prev"
+            onClick={() => onButtonClick('prev')}
+          >
+            Prev
+          </Button>
 
-        <Button
-          variant={sliderButtonType}
-          className="slider__button slider__button--next"
-          onClick={() => onButtonClick('next')}
-        >
-          Next
-        </Button> */}
-        </div>
-      ) : (
-        <Paragraph
-          as="p"
-          size="md"
-          className={cx(
-            "product-slider__none-found text-theme-subtitle w-full",
-            headerCustomizations?.alignment === "center"
-              ? "text-center"
-              : "text-left",
-            width === "contained"
-              ? "max-w-7xl mx-auto px-2"
-              : "max-w-none mx-auto px-2"
+          <Button
+            variant={sliderButtonType}
+            className="slider__button slider__button--next"
+            onClick={() => onButtonClick('next')}
+          >
+            Next
+          </Button> */}
+            </div>
+          ) : (
+            <Paragraph
+              as="p"
+              size="md"
+              className={cx(
+                "product-slider__none-found text-theme-subtitle w-full",
+                headerCustomizations?.alignment === "center"
+                  ? "text-center"
+                  : "text-left",
+                width === "contained"
+                  ? "max-w-7xl mx-auto px-2"
+                  : "max-w-none mx-auto px-2"
+              )}
+              style={
+                !!headerCustomizations?.subtitleColor
+                  ? { color: headerCustomizations?.subtitleColor }
+                  : {}
+              }
+            >
+              No products found
+            </Paragraph>
           )}
-          style={
-            !!headerCustomizations?.subtitleColor
-              ? { color: headerCustomizations?.subtitleColor }
-              : {}
-          }
-        >
-          No products found
-        </Paragraph>
+        </>
       )}
     </Container>
   );
