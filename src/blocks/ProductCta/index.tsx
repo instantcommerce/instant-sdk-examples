@@ -151,7 +151,7 @@ const ProductCta = () => {
             <Title
               as="h2"
               size={titleSize}
-              className="product-cta__title text-theme-title"
+              className="product-cta__title text-theme-title font-medium"
               style={{ ...(!!titleColor ? { color: titleColor } : {}) }}
             >
               {product?.title}
