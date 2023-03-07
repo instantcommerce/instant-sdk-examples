@@ -106,7 +106,7 @@ const ProductCta = () => {
           )
         : product?.variants?.edges?.[0]?.node;
 
-      setPrice(variant?.price);
+      setPrice(variant?.node?.price);
     }
   }, [product]);
 
