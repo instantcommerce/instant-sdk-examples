@@ -113,14 +113,18 @@ const ProductCta = () => {
           ...(!!backgroundColor ? { backgroundColor } : {}),
         }}
       >
-        {!!image?.filename && (
+        {(!!product?.images?.edges?.[0]?.node?.url || !!image?.filename) && (
           <div
             className={cx(
               "product-cta__image",
               "flex-1 bg-cover bg-center",
               imageRatio === "portrait" ? "aspect-[4/5]" : "aspect-square"
             )}
-            style={{ backgroundImage: `url(${image?.filename})` }}
+            style={{
+              backgroundImage: `url(${
+                product?.images?.edges?.[0]?.node?.url || image?.filename
+              })`,
+            }}
             role="img"
             aria-label={image?.alt || ""}
           />
@@ -302,9 +306,7 @@ export default defineBlock({
       image: {
         type: "image",
         label: "Image",
-        preview:
-          "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
-        isRequired: true,
+        preview: "",
       },
       title: {
         type: "text",

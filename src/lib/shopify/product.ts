@@ -3,6 +3,9 @@ import { gql } from "@instantcommerce/sdk";
 export interface Product {
   title: string;
   description: string;
+  images: {
+    edges: any[];
+  };
   variants: {
     edges: any[];
   };
@@ -17,6 +20,16 @@ export const productQuery = gql`
     product(id: $id) {
       title
       description
+      ... on Product {
+        images(first: 1) {
+          edges {
+            node {
+              altText
+              url
+            }
+          }
+        }
+      }
       ... on Product {
         variants(first: 100) {
           edges {
