@@ -282,7 +282,7 @@ export default defineBlock({
           {
             subschema: "button",
             value: {
-              text: "View collections",
+              text: "View collection",
               link: "https://instantcommerce.io/"
             }
           }

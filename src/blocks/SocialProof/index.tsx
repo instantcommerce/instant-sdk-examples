@@ -48,7 +48,6 @@ const SocialProof = () => {
           {logos?.map((logo) => {
             return (
               <img
-                key={logo?.value?.logo?.id}
                 alt={logo?.value?.logo?.alt}
                 className="logo max-h-5 object-contain"
                 src={logo?.value?.logo?.filename?.preview}

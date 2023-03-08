@@ -250,19 +250,18 @@ export default defineBlock({
       pretitle: {
         type: "text",
         label: "Pretitle",
-        preview: "Winter 2022",
         isTranslatable: true
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "COOL COLLECTIONS",
+        preview: "Force majeure",
         isTranslatable: true
       },
       subtitle: {
         type: "text",
         label: "Description",
-        preview: "Shop the latest trends.",
+        preview: "Shop the latest drop.",
         isTranslatable: true
       },
       buttons: {
@@ -273,7 +272,7 @@ export default defineBlock({
           {
             subschema: "button",
             value: {
-              text: "View collections",
+              text: "View collection",
               link: "https://instantcommerce.io/"
             }
           }
@@ -282,7 +281,7 @@ export default defineBlock({
       cta: {
         type: "text",
         label: "CTA text",
-        preview: "Discover the collection",
+        preview: "Discover",
         isTranslatable: true
       },
       cards: {

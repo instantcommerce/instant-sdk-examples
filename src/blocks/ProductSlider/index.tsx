@@ -375,19 +375,18 @@ export default defineBlock({
       pretitle: {
         type: "text",
         label: "Pretitle",
-        preview: "Fresh",
         isTranslatable: true
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "The new slow fashion collection is here.",
+        preview: "Best selling items",
         isTranslatable: true
       },
       subtitle: {
         type: "text",
         label: "Description",
-        preview: "Our new collection is build from softshell materials.",
+        preview: "Our most popular items from softshell materials.",
         isTranslatable: true
       },
       buttons: {
@@ -398,7 +397,7 @@ export default defineBlock({
           {
             subschema: "button",
             value: {
-              text: "Discover all products",
+              text: "Discover all",
               link: "https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg"
             }
           }
