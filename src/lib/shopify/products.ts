@@ -1,4 +1,4 @@
-import { gql } from '@instantcommerce/sdk';
+import { gql } from "@instantcommerce/sdk";
 
 export type MoneyV2 = {
   amount: any;
@@ -42,8 +42,10 @@ export interface ShopifyProducts {
 
 export const productsQuery = gql`
   query products(
+    $country: CountryCode = ZZ
     $query: String
-  ) {
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
     products(first: 10, query: $query) {
       edges {
         node {

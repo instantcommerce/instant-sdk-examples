@@ -66,7 +66,9 @@ const ProductSlider = () => {
       const result = await shopifyClient.request<ShopifyProducts>(
         productsQuery,
         {
-          query
+          query,
+          country,
+          language: locale.toUpperCase()
         }
       );
 
@@ -107,10 +109,8 @@ const ProductSlider = () => {
         ...headerCustomizations,
         theme,
         className: cx(
-          'px-2',
-          width === "contained"
-            ? "max-w-7xl mx-auto"
-            : "max-w-none"
+          "px-2",
+          width === "contained" ? "max-w-7xl mx-auto" : "max-w-none"
         )
       }}
       wrapperClassName="product-slider__container"
@@ -179,9 +179,7 @@ const ProductSlider = () => {
                 headerCustomizations?.alignment === "center"
                   ? "text-center"
                   : "text-left",
-                width === "contained"
-                  ? "max-w-7xl mx-auto"
-                  : "max-w-none"
+                width === "contained" ? "max-w-7xl mx-auto" : "max-w-none"
               )}
               style={
                 !!headerCustomizations?.subtitleColor
@@ -406,13 +404,15 @@ export default defineBlock({
       productTitles: {
         type: "text",
         label: "Product titles",
-        description: 'Display products matching this title. Can be multiple (comma-separated). Will be hidden if no products are found. ',
+        description:
+          "Display products matching this title. Can be multiple (comma-separated). Will be hidden if no products are found. ",
         isTranslatable: true
       },
       productTags: {
         type: "text",
         label: "Product tag",
-        description: 'Display products matching this tag. Can be multiple (comma-separated). Can be a metafield with a tag as value. Will be hidden if no products are found.',
+        description:
+          "Display products matching this tag. Can be multiple (comma-separated). Can be a metafield with a tag as value. Will be hidden if no products are found.",
         isTranslatable: true
       }
     },
