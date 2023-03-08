@@ -1,11 +1,9 @@
 import { defineBlock, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { Container } from "../../components";
-import { setThemeColors } from "../../config/setThemeColors";
-import { setBlockTheme } from "../../config/themeMapping";
-
-import "../../styles/global.scss";
+import { Container } from "~/components";
+import { setThemeColors, setBlockTheme } from "~/config";
+import "~/styles/global.scss";
 
 const SocialProof = () => {
   const {
@@ -50,7 +48,6 @@ const SocialProof = () => {
           {logos?.map((logo) => {
             return (
               <img
-                key={logo?.value?.logo?.id}
                 alt={logo?.value?.logo?.alt}
                 className="logo max-h-5 object-contain"
                 src={logo?.value?.logo?.filename?.preview}
@@ -192,12 +189,11 @@ export default defineBlock({
         type: "subschema",
         allowed: ["button"],
         max: 1,
-        preview: []
       },
       logos: {
         type: "subschema",
         allowed: ["logo"],
-        max: 6,
+        max: 12,
         preview: [
           {
             subschema: "logo",
@@ -265,7 +261,6 @@ export default defineBlock({
           logo: {
             type: "image",
             label: "Logo",
-            isTranslatable: false,
             isRequired: true
           }
         }

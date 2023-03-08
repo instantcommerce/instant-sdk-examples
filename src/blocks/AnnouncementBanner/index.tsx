@@ -1,13 +1,11 @@
+import { useState } from "react";
 import { defineBlock, useBlockState, Link } from "@instantcommerce/sdk";
 import cx from "classnames";
-import { useState } from "react";
-import { Paragraph } from "../../components";
-import { CloseIcon } from "../../components/Icons";
 
-import { setThemeColors } from "../../config/setThemeColors";
-import { setBlockTheme } from "../../config/themeMapping";
-
-import "../../styles/global.scss";
+import { Paragraph } from "~/components";
+import { CloseIcon } from "~/components/Icons";
+import { setThemeColors, setBlockTheme } from "~/config";
+import "~/styles/global.scss";
 
 const AnnouncementBanner = () => {
   const {
@@ -16,7 +14,7 @@ const AnnouncementBanner = () => {
       theme,
       alignment,
       dismissable,
-      backgroundImage,
+      hasBackgroundImage,
       backgroundColor,
       textColor,
       linkColor,
@@ -29,23 +27,29 @@ const AnnouncementBanner = () => {
   return (
     <div
       className={cx(
-        "announcement-banner relative w-full bg-theme-bg py-1.25 text-sm",
+        "announcement-banner__container bg-theme-bg relative w-full py-1.25 text-sm font-medium",
         alignment == "center" ? "text-center" : "text-left",
-        dismissed && "hidden",
-        backgroundImage && "bg-cover"
+        dismissed && "hidden"
       )}
       style={{
         ...setThemeColors(),
         ...setBlockTheme(theme),
-        ...(!!backgroundColor ? { backgroundColor } : {}),
-        ...(!!backgroundImage
-          ? { backgroundImage: `url(${image?.filename})` }
-          : {})
+        ...(!!backgroundColor ? { backgroundColor } : {})
       }}
     >
+      {!!hasBackgroundImage && image?.filename && (
+        <img
+          className={cx(
+            "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover"
+          )}
+          alt={image?.alt}
+          src={image.filename}
+        />
+      )}
+
       <div
         className={cx(
-          "announcement-banner__text-wrapper flex flex-col sm:flex-row mx-auto justify-center",
+          "announcement-banner relative flex justify-center flex-col sm:flex-row z-10",
           alignment == "center"
             ? "sm:justify-center px-6"
             : "sm:justify-start pl-2 pr-6 md:pl-6"
@@ -53,7 +57,7 @@ const AnnouncementBanner = () => {
       >
         {(!!text || !!links?.[0]?.value?.label) && (
           <Paragraph
-            className="announcement-banner__text font-medium text-sm text-theme-title"
+            className="announcement-banner__text text-theme-title"
             style={{ ...(!!textColor ? { color: textColor } : {}) }}
           >
             {text}
@@ -62,7 +66,7 @@ const AnnouncementBanner = () => {
               <Link
                 to={links[0]?.value?.link}
                 className={cx(
-                  "announcement-banner__link inline sm:ml-1 text-sm font-medium underline text-theme-link transition-opacity hover:opacity-70",
+                  "announcement-banner__link text-theme-link inline sm:ml-1 underline transition-opacity hover:opacity-70",
                   text ? "ml-0.5" : ""
                 )}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
@@ -77,7 +81,7 @@ const AnnouncementBanner = () => {
       {!!dismissable && (
         <button
           onClick={() => setDismissed(true)}
-          className="announcement-banner__icon w-2.5 absolute right-2 top-1/2 -translate-y-1/2 text-theme-icon"
+          className="announcement-banner__icon text-theme-icon w-2.5 absolute right-2 top-1/2 -translate-y-1/2"
           style={{ ...(!!closeColor ? { color: closeColor } : {}) }}
         >
           <CloseIcon />
@@ -114,7 +118,7 @@ export default defineBlock({
         type: "toggle",
         preview: false
       },
-      backgroundImage: {
+      hasBackgroundImage: {
         type: "toggle",
         preview: false
       },
@@ -146,7 +150,7 @@ export default defineBlock({
         type: "image",
         label: "Background image",
         preview:
-          "https://a.storyblok.com/f/145828/1440x40/e5735c2906/autumn.png"
+          "https://a.storyblok.com/f/145828/5085x162/8285ff8859/force-majeure-vujikv6pbjq-unsplash.jpg"
       }
     },
     subschemas: {
