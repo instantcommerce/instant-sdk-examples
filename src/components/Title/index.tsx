@@ -1,19 +1,20 @@
-import cx from 'classnames';
-import { AllHTMLAttributes, ElementType } from 'react';
+import { AllHTMLAttributes, ElementType } from "react";
+import cx from "classnames";
+
 import {
   displaySizeStyles,
   headingSizeStyles,
   titleVariants
-} from './titleStyles';
+} from "./titleStyles";
 
 type HTMLProperties = {
   as?: ElementType;
-} & Omit<AllHTMLAttributes<HTMLElement>, 'color' | 'height' | 'width' | 'size'>;
+} & Omit<AllHTMLAttributes<HTMLElement>, "color" | "height" | "width" | "size">;
 
 type TitleProps = {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
   ellipsis?: boolean;
-  variant?: 'display' | 'heading';
+  variant?: "display" | "heading";
   uppercase?: boolean;
 } & HTMLProperties;
 
@@ -22,29 +23,30 @@ export const Title = ({
   children,
   className,
   ellipsis,
-  size = 'md',
-  variant = 'heading',
+  size = "md",
+  variant = "heading",
   uppercase = false,
   ...props
 }: TitleProps) => {
-  const Component = as || 'h4';
+  const Component = as || "h4";
 
   return (
     <Component
       className={cx(
+        'title',
         titleVariants[variant],
-        variant === 'heading'
+        variant === "heading"
           ? headingSizeStyles[size]
           : displaySizeStyles[size],
         uppercase
           ? `uppercase ${
-              variant === 'display' && size === 'xs'
-                ? 'tracking-wider'
-                : variant === 'heading' &&
-                  (size === 'sm' ? 'tracking-wide' : '')
+              variant === "display" && size === "xs"
+                ? "tracking-wider"
+                : variant === "heading" &&
+                  (size === "sm" ? "tracking-wide" : "")
             }`
-          : '',
-        ellipsis ? 'truncate' : '',
+          : "",
+        ellipsis ? "truncate" : "",
         className
       )}
       {...props}

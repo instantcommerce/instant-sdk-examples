@@ -1,10 +1,10 @@
 import { defineBlock, Link, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { Container, Overlay, Paragraph, Title } from "../../components";
-import { ArrowRightIcon } from "../../components/Icons";
-import { setBlockTheme, setThemeColors } from "../../config";
-import "../../styles/global.scss";
+import { Container, Overlay, Paragraph, Title } from "~/components";
+import { ArrowRightIcon } from "~/components/Icons";
+import { setBlockTheme, setThemeColors } from "~/config";
+import "~/styles/global.scss";
 
 const ContentCard = () => {
   const {
@@ -30,16 +30,16 @@ const ContentCard = () => {
       backgroundColor={backgroundColor}
       className={width === "contained" ? "max-w-7xl" : "max-w-none"}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
-      wrapperClassName="content-card"
+      wrapperClassName="content-card__container"
       wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
-      <div className="content-card__container w-full flex flex-col gap-y-4 md:gap-y-0 md:flex-row md:gap-x-4">
+      <div className="content-card flex flex-col md:flex-row w-full gap-y-4 md:gap-y-0 md:gap-x-4">
         {cards?.map((card) => (
           // @ts-ignore
           <Link
             to={card?.value?.link?.url}
             className={cx(
-              "content-card__card group w-full bg-cover bg-center p-2 md:p-5 flex flex-col relative gap-y-1 overflow-hidden",
+              "content-card__card group relative w-full flex flex-col p-2 md:p-5 gap-y-1 overflow-hidden",
               contentAlignment === "center"
                 ? "justify-center items-center text-center"
                 : "justify-end",
@@ -66,7 +66,7 @@ const ContentCard = () => {
             {!!card?.value?.title && (
               <Title
                 className={cx(
-                  "content-card__title text-white font-semibold relative z-10"
+                  "content-card__title text-white font-semibold z-10"
                 )}
                 size={
                   contentSize === "sm"
@@ -84,7 +84,7 @@ const ContentCard = () => {
             {cta && (
               <Paragraph
                 className={cx(
-                  "content-card__button font-medium text-white flex items-center text-left relative z-10"
+                  "content-card__button flex items-center text-white font-medium text-left z-10"
                 )}
                 size={contentSize}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
@@ -250,19 +250,18 @@ export default defineBlock({
       pretitle: {
         type: "text",
         label: "Pretitle",
-        preview: "Winter 2022",
         isTranslatable: true
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "COOL COLLECTIONS",
+        preview: "Force majeure",
         isTranslatable: true
       },
       subtitle: {
         type: "text",
         label: "Description",
-        preview: "Shop the latest trends.",
+        preview: "Shop the latest drop.",
         isTranslatable: true
       },
       buttons: {
@@ -273,7 +272,7 @@ export default defineBlock({
           {
             subschema: "button",
             value: {
-              text: "View collections",
+              text: "View collection",
               link: "https://instantcommerce.io/"
             }
           }
@@ -282,9 +281,8 @@ export default defineBlock({
       cta: {
         type: "text",
         label: "CTA text",
-        preview: "Discover the collection",
-        isTranslatable: true,
-        isRequired: true
+        preview: "Discover",
+        isTranslatable: true
       },
       cards: {
         type: "subschema",
@@ -344,20 +342,16 @@ export default defineBlock({
           image: {
             type: "image",
             label: "Image",
-            isTranslatable: false,
-            isRequired: false
           },
           title: {
             type: "text",
             label: "Title",
-            isTranslatable: true,
-            isRequired: true
+            isTranslatable: true
           },
           link: {
             type: "link",
             label: "Link",
-            isTranslatable: true,
-            isRequired: true
+            isTranslatable: true
           }
         }
       }

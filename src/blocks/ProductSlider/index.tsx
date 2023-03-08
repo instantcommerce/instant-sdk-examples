@@ -1,20 +1,19 @@
+import { useEffect, useState } from "react";
 import {
   defineBlock,
+  useShopifyClient,
   useBlockState,
   useRequestData
 } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-// import { variantStyles as buttonVariantStyles } from '../../components/Button/buttonStyles';
-import { Container, Paragraph, ProductCard } from "../../components";
-import { setThemeColors, setBlockTheme } from "../../config";
-import { ShopifyProducts, productsQuery } from "../../lib/shopify";
+// import { variantStyles as buttonVariantStyles } from '~/components/Button/buttonStyles';
+import { Container, Paragraph, ProductCard } from "~/components";
+import { setThemeColors, setBlockTheme } from "~/config";
+import { ShopifyProducts, productsQuery } from "~/lib/shopify";
+import "~/styles/global.scss";
 
-import "../../styles/global.scss";
 import "./product-slider.scss";
-
-import { useShopifyClient } from "@instantcommerce/sdk";
-import { useEffect, useState } from "react";
 
 const ProductSlider = () => {
   const {
@@ -42,6 +41,7 @@ const ProductSlider = () => {
   const shopifyClient = useShopifyClient();
 
   const [products, setProducts] = useState<ShopifyProducts["products"]>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const loadProductsByTag = async () => {
     try {
@@ -66,7 +66,9 @@ const ProductSlider = () => {
       const result = await shopifyClient.request<ShopifyProducts>(
         productsQuery,
         {
-          query
+          query,
+          country,
+          language: locale.toUpperCase()
         }
       );
 
@@ -78,6 +80,7 @@ const ProductSlider = () => {
 
   useEffect(() => {
     loadProductsByTag();
+    setIsLoading(false);
   }, [productTags, productTitles]);
 
   // Coming soon: slider buttons
@@ -100,87 +103,94 @@ const ProductSlider = () => {
   return (
     <Container
       backgroundColor={backgroundColor}
-      className="product-slider !px-0"
+      className="!px-0"
       headerProps={{
         ...headerContent,
         ...headerCustomizations,
         theme,
-        className:
-          width === "contained"
-            ? "max-w-7xl mx-auto px-2"
-            : "max-w-none mx-auto px-2"
+        className: cx(
+          "px-2",
+          width === "contained" ? "max-w-7xl mx-auto" : "max-w-none"
+        )
       }}
-      wrapperClassName="product-slider"
+      wrapperClassName="product-slider__container"
       wrapperStyle={{
         ...setThemeColors(),
         ...setBlockTheme(theme)
       }}
     >
-      {products?.edges && products?.edges?.length > 0 ? (
-        <div
-          className={cx(
-            "slider",
-            width === "contained" ? "slider--contained" : "slider--fullWidth"
-          )}
-        >
-          <div className={cx("slider__inner flex gap-4")} id="product-slider">
-            {products.edges.map((product) => (
-              <ProductCard
-                {...{
-                  imageAspectRatio,
-                  imageFillBehavior,
-                  productLabelPosition,
-                  hoverEffect,
-                  pretitleType,
-                  textAlignment,
-                  textSize,
-                  descriptionType
-                }}
-                product={product?.node}
-                className="min-w-[280px] w-[280px] snap-start"
-                key={product?.node?.id}
-              />
-            ))}
-          </div>
+      {!isLoading && (
+        <>
+          {products?.edges && products?.edges?.length > 0 ? (
+            <div
+              className={cx(
+                "slider",
+                width === "contained"
+                  ? "slider--contained"
+                  : "slider--fullWidth"
+              )}
+            >
+              <div
+                className={cx("slider__inner flex gap-4")}
+                id="product-slider"
+              >
+                {products.edges.map((product) => (
+                  <ProductCard
+                    {...{
+                      imageAspectRatio,
+                      imageFillBehavior,
+                      productLabelPosition,
+                      hoverEffect,
+                      pretitleType,
+                      textAlignment,
+                      textSize,
+                      descriptionType
+                    }}
+                    product={product?.node}
+                    className="min-w-[280px] w-[280px] snap-start"
+                    key={product?.node?.id}
+                  />
+                ))}
+              </div>
 
-          {/* Coming soon: slider buttons */}
-          {/* <Button
-          variant={sliderButtonType}
-          className="slider__button slider__button--prev"
-          onClick={() => onButtonClick('prev')}
-        >
-          Prev
-        </Button>
+              {/* Coming soon: slider buttons */}
+              {/* <Button
+            variant={sliderButtonType}
+            className="slider__button slider__button--prev"
+            onClick={() => onButtonClick('prev')}
+          >
+            Prev
+          </Button>
 
-        <Button
-          variant={sliderButtonType}
-          className="slider__button slider__button--next"
-          onClick={() => onButtonClick('next')}
-        >
-          Next
-        </Button> */}
-        </div>
-      ) : (
-        <Paragraph
-          as="p"
-          size="md"
-          className={cx(
-            "product-slider__none-found text-theme-subtitle w-full",
-            headerCustomizations?.alignment === "center"
-              ? "text-center"
-              : "text-left",
-            width === "contained"
-              ? "max-w-7xl mx-auto px-2"
-              : "max-w-none mx-auto px-2"
+          <Button
+            variant={sliderButtonType}
+            className="slider__button slider__button--next"
+            onClick={() => onButtonClick('next')}
+          >
+            Next
+          </Button> */}
+            </div>
+          ) : (
+            <Paragraph
+              as="p"
+              size="md"
+              className={cx(
+                "product-slider__none-found text-theme-subtitle w-full px-2",
+                headerCustomizations?.alignment === "center"
+                  ? "text-center"
+                  : "text-left",
+                width === "contained" ? "max-w-7xl mx-auto" : "max-w-none"
+              )}
+              style={
+                !!headerCustomizations?.subtitleColor
+                  ? { color: headerCustomizations?.subtitleColor }
+                  : {}
+              }
+            >
+              No products found
+            </Paragraph>
           )}
-          style={
-            !!headerCustomizations?.subtitleColor
-              ? { color: headerCustomizations?.subtitleColor }
-              : {}
-          }
-        >
-          No products found
-        </Paragraph>
+        </>
       )}
     </Container>
   );
@@ -363,19 +373,18 @@ export default defineBlock({
       pretitle: {
         type: "text",
         label: "Pretitle",
-        preview: "Fresh",
         isTranslatable: true
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "The new slow fashion collection is here.",
+        preview: "Best selling items",
         isTranslatable: true
       },
       subtitle: {
         type: "text",
         label: "Description",
-        preview: "Our new collection is build from softshell materials.",
+        preview: "Our most popular items from softshell materials.",
         isTranslatable: true
       },
       buttons: {
@@ -386,7 +395,7 @@ export default defineBlock({
           {
             subschema: "button",
             value: {
-              text: "Discover all products",
+              text: "Discover all",
               link: "https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg"
             }
           }
@@ -395,12 +404,15 @@ export default defineBlock({
       productTitles: {
         type: "text",
         label: "Product titles",
+        description:
+          "Display products matching this title. Can be multiple (comma-separated). Will be hidden if no products are found. ",
         isTranslatable: true
       },
       productTags: {
         type: "text",
         label: "Product tag",
-        preview: "",
+        description:
+          "Display products matching this tag. Can be multiple (comma-separated). Can be a metafield with a tag as value. Will be hidden if no products are found.",
         isTranslatable: true
       }
     },

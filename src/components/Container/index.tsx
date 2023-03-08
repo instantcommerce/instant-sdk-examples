@@ -1,8 +1,9 @@
-import cx from 'classnames';
-import { AllHTMLAttributes } from 'react';
+import { AllHTMLAttributes } from "react";
+import cx from "classnames";
 
-import { HeaderPropswithSDKSchema, Header } from '..';
-import { themeTypes } from '../../config';
+import { themeTypes } from "~/config";
+
+import { HeaderPropswithSDKSchema, Header } from "..";
 
 type ContainerProps = {
   headerProps?: HeaderPropswithSDKSchema;
@@ -11,7 +12,7 @@ type ContainerProps = {
   wrapperStyle?: any;
   style?: any;
   theme?: themeTypes;
-} & Pick<AllHTMLAttributes<HTMLElement>, 'className' | 'children'>;
+} & Pick<AllHTMLAttributes<HTMLElement>, "className" | "children">;
 
 export const Container = ({
   backgroundColor,
@@ -20,11 +21,11 @@ export const Container = ({
   headerProps,
   style,
   wrapperClassName,
-  wrapperStyle,
+  wrapperStyle
 }: ContainerProps) => (
   // feel free to overwrite the container layout with other classnames
   <section
-    className={cx('section w-full bg-theme-bg', wrapperClassName)}
+    className={cx("section w-full bg-theme-bg", wrapperClassName)}
     style={{
       ...wrapperStyle,
       ...(!!backgroundColor ? { backgroundColor } : {})
@@ -32,7 +33,7 @@ export const Container = ({
   >
     <div
       className={cx(
-        'section-inner flex flex-col w-full mx-auto py-9 px-2',
+        "section-inner flex flex-col w-full mx-auto py-9 px-2",
         className
       )}
       style={{ ...style }}
