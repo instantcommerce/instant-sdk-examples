@@ -16,7 +16,11 @@ export interface ProductResponse {
 }
 
 export const productQuery = gql`
-  query getProductById($id: ID!) {
+  query getProductById(
+    $id: ID!
+    $country: CountryCode = ZZ
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
     product(id: $id) {
       title
       description
