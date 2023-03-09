@@ -5,6 +5,7 @@ import {
   gql,
   useShopifyClient,
   useCart,
+  useRequestData,
 } from "@instantcommerce/sdk";
 import cx from "classnames";
 
@@ -42,6 +43,7 @@ const ProductCta = () => {
   } = useBlockState();
 
   const shopifyClient = useShopifyClient();
+  const { locale, country } = useRequestData();
   const { addLine } = useCart();
 
   const [product, setProduct] = useState<Product>();
@@ -53,6 +55,8 @@ const ProductCta = () => {
         productQuery,
         {
           id: `gid://shopify/Product/${id}`,
+          country,
+          language: locale.toUpperCase(),
         }
       );
 
