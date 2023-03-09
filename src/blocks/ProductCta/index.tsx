@@ -306,19 +306,21 @@ export default defineBlock({
       image: {
         type: "image",
         label: "Image",
-        preview: "",
+        preview:
+          "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "",
+        preview: "This is a really fancy limited edition superb tee",
         isRequired: false,
         isTranslatable: true,
       },
       description: {
         type: "text",
         label: "Description",
-        preview: "",
+        preview:
+          "Release analytics graphical user interface prototype iPhone burn rate. Bootstrapping assets beta gamification deployment conversion seed round.",
         isRequired: false,
         isTranslatable: true,
       },
