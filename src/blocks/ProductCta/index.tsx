@@ -122,7 +122,7 @@ const ProductCta = () => {
             )}
             style={{
               backgroundImage: `url(${
-                product?.images?.edges?.[0]?.node?.url || image?.filename
+                image?.filename || product?.images?.edges?.[0]?.node?.url
               })`,
             }}
             role="img"
