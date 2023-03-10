@@ -9,17 +9,17 @@ import {
 } from "@instantcommerce/sdk";
 import cx from "classnames";
 
-import { useMoney } from "../../hooks";
+import { useMoney } from "~/hooks";
 import {
-  MoneyV2,
-  Product,
+  ProductConnection,
   productQuery,
-  ProductResponse,
-} from "../../lib/shopify";
-import { Button, Paragraph, Title } from "../../components";
+  ShopifyProduct,
+  ShopifyVariant,
+} from "~/lib/shopify";
+import { Button, Paragraph, Title } from "~/components";
 
-import { setBlockTheme, setThemeColors } from "../../config";
-import "../../styles/global.scss";
+import { setBlockTheme, setThemeColors } from "~/config";
+import "~/styles/global.scss";
 
 const ProductCta = () => {
   const {
@@ -54,13 +54,13 @@ const ProductCta = () => {
   const { locale, country } = useRequestData();
   const { addLine } = useCart();
 
-  const [product, setProduct] = useState<Product>();
-  const [price, setPrice] = useState<MoneyV2>();
-  const [available, setAvailable] = useState<boolean>();
+  const [product, setProduct] = useState<ShopifyProduct>();
+  const [variant, setVariant] = useState<ShopifyVariant>();
+  const price = useMoney(variant?.priceV2);
 
   const loadProduct = async (id: string) => {
     try {
-      const result = await shopifyClient.request<ProductResponse>(
+      const result = await shopifyClient.request<ProductConnection>(
         productQuery,
         {
           id: `gid://shopify/Product/${id}`,
@@ -70,6 +70,15 @@ const ProductCta = () => {
       );
 
       setProduct(result.product);
+      setVariant(
+        !!variantId
+          ? result.product?.variants?.edges?.find(
+              (p) =>
+                p?.node?.id?.split("gid://shopify/ProductVariant/")?.[1] ===
+                variantId
+            )?.node
+          : result.product?.variants?.edges?.[0]?.node
+      );
     } catch (e) {
       console.log(e);
     }
@@ -89,28 +98,10 @@ const ProductCta = () => {
   };
 
   useEffect(() => {
-    if (!!productId) {
+    if (productId) {
       loadProduct(productId);
     }
-  }, [productId]);
-
-  useEffect(() => {
-    if (!!product) {
-      const variant = !!variantId
-        ? product?.variants?.edges?.find(
-            (p) =>
-              p?.node?.id?.split("gid://shopify/ProductVariant/")?.[1] ===
-              variantId
-          )
-        : product?.variants?.edges?.[0]?.node;
-
-      setPrice(variant?.node?.priceV2);
-      setAvailable(!!variant?.node?.availableForSale);
-    }
-  }, [product, productId, variantId]);
-
-  const money = useMoney(price);
-  console.log(product);
+  }, [productId, variantId]);
 
   return (
     <section
@@ -178,14 +169,14 @@ const ProductCta = () => {
               </Paragraph>
             )}
 
-            {!!money?.localizedString && (
+            {!!price?.localizedString && (
               <div
-                className="product-cta__price mt-1.5 text-theme-text font-medium"
+                className="product-cta__price mt-1.5 text-theme-highlightedText font-medium"
                 style={{
                   ...(!!priceColor ? { color: priceColor } : {}),
                 }}
               >
-                {money?.localizedString}
+                {price?.localizedString}
               </div>
             )}
 
@@ -195,9 +186,9 @@ const ProductCta = () => {
               weight={buttonWeight}
               className="product-cta__button mt-4"
               onClick={addToCart}
-              disabled={!available}
+              disabled={!variant?.availableForSale}
             >
-              {available ? buttonText : soldOutText}
+              {variant?.availableForSale ? buttonText : soldOutText}
             </Button>
           </div>
         </div>

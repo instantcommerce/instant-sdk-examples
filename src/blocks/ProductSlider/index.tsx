@@ -3,14 +3,14 @@ import {
   defineBlock,
   useShopifyClient,
   useBlockState,
-  useRequestData
+  useRequestData,
 } from "@instantcommerce/sdk";
 import cx from "classnames";
 
 // import { variantStyles as buttonVariantStyles } from '~/components/Button/buttonStyles';
 import { Container, Paragraph, ProductCard } from "~/components";
 import { setThemeColors, setBlockTheme } from "~/config";
-import { ShopifyProducts, productsQuery } from "~/lib/shopify";
+import { ProductsConnection, productsQuery } from "~/lib/shopify";
 import "~/styles/global.scss";
 
 import "./product-slider.scss";
@@ -33,14 +33,14 @@ const ProductSlider = () => {
       descriptionType,
       sliderButtonType,
       ...headerCustomizations
-    }
+    },
   } = useBlockState();
   // Coming soon: refs
   // const sliderRef = useRef<HTMLDivElement>(null);
   const { locale, country } = useRequestData();
   const shopifyClient = useShopifyClient();
 
-  const [products, setProducts] = useState<ShopifyProducts["products"]>();
+  const [products, setProducts] = useState<ProductsConnection["products"]>();
   const [isLoading, setIsLoading] = useState(true);
 
   const loadProductsByTag = async () => {
@@ -63,12 +63,12 @@ const ProductSlider = () => {
         query = productTitlesQuery;
       }
 
-      const result = await shopifyClient.request<ShopifyProducts>(
+      const result = await shopifyClient.request<ProductsConnection>(
         productsQuery,
         {
           query,
           country,
-          language: locale.toUpperCase()
+          language: locale.toUpperCase(),
         }
       );
 
@@ -111,12 +111,12 @@ const ProductSlider = () => {
         className: cx(
           "px-2",
           width === "contained" ? "max-w-7xl mx-auto" : "max-w-none"
-        )
+        ),
       }}
       wrapperClassName="product-slider__container"
       wrapperStyle={{
         ...setThemeColors(),
-        ...setBlockTheme(theme)
+        ...setBlockTheme(theme),
       }}
     >
       {!isLoading && (
@@ -144,7 +144,7 @@ const ProductSlider = () => {
                       pretitleType,
                       textAlignment,
                       textSize,
-                      descriptionType
+                      descriptionType,
                     }}
                     product={product?.node}
                     className="min-w-[280px] w-[280px] snap-start"
@@ -207,34 +207,34 @@ export default defineBlock({
           { label: "Gray", value: "themeGray" },
           { label: "Primary light", value: "themePrimaryLight" },
           { label: "Primary", value: "themePrimary" },
-          { label: "Dark", value: "themeDark" }
+          { label: "Dark", value: "themeDark" },
         ],
-        preview: "themeDark"
+        preview: "themeDark",
       },
       width: {
         type: "select",
         options: [
           { label: "Boxed", value: "contained" },
-          { label: "Full width", value: "full" }
+          { label: "Full width", value: "full" },
         ],
-        preview: "contained"
+        preview: "contained",
       },
       headerAlignment: {
         type: "select",
         options: [
           { label: "Left", value: "left" },
-          { label: "Center", value: "center" }
+          { label: "Center", value: "center" },
         ],
-        preview: "left"
+        preview: "left",
       },
       headerSize: {
         type: "select",
         options: [
           { label: "Small", value: "md" },
           { label: "Medium", value: "lg" },
-          { label: "Large", value: "xl" }
+          { label: "Large", value: "xl" },
         ],
-        preview: "md"
+        preview: "md",
       },
       pretitleColor: { type: "color", label: "Pretitle color" },
       titleColor: { type: "color", label: "Title color" },
@@ -248,9 +248,9 @@ export default defineBlock({
           { label: "Gray", value: "gray" },
           { label: "Link", value: "link" },
           { label: "Link primary", value: "linkPrimary" },
-          { label: "Link inverted", value: "linkInverted" }
+          { label: "Link inverted", value: "linkInverted" },
         ],
-        preview: "primary"
+        preview: "primary",
       },
       buttonCorners: {
         type: "select",
@@ -259,26 +259,26 @@ export default defineBlock({
           { label: "Small", value: "xs" },
           { label: "Medium", value: "md" },
           { label: "Large", value: "lg" },
-          { label: "Full", value: "full" }
+          { label: "Full", value: "full" },
         ],
-        preview: "none"
+        preview: "none",
       },
       buttonWeight: {
         type: "select",
         options: [
           { label: "Regular", value: "base" },
           { label: "Medium", value: "medium" },
-          { label: "Bold", value: "bold" }
+          { label: "Bold", value: "bold" },
         ],
-        preview: "medium"
+        preview: "medium",
       },
       buttonLocation: {
         type: "select",
         options: [
           { label: "Top", value: "top" },
-          { label: "Bottom", value: "bottom" }
+          { label: "Bottom", value: "bottom" },
         ],
-        preview: "top"
+        preview: "top",
       },
       dividerColor: { type: "color", label: "Divider color" },
       hasDivider: { type: "toggle", label: "Has divider", preview: false },
@@ -300,17 +300,17 @@ export default defineBlock({
         options: [
           { label: "Landscape", value: "landscape" },
           { label: "Portrait", value: "portrait" },
-          { label: "Square", value: "square" }
+          { label: "Square", value: "square" },
         ],
-        preview: "square"
+        preview: "square",
       },
       imageFillBehavior: {
         type: "select",
         options: [
           { label: "Contain", value: "contain" },
-          { label: "Cover", value: "cover" }
+          { label: "Cover", value: "cover" },
         ],
-        preview: "cover"
+        preview: "cover",
       },
       productLabelPosition: {
         type: "select",
@@ -318,18 +318,18 @@ export default defineBlock({
           { label: "Bottom image", value: "bottomImage" },
           { label: "Bottom left image", value: "bottomLeftImage" },
           { label: "Top left image", value: "topLeftImage" },
-          { label: "None", value: "none" }
+          { label: "None", value: "none" },
         ],
-        preview: "topLeftImage"
+        preview: "topLeftImage",
       },
       hoverEffect: {
         type: "select",
         options: [
           { label: "None", value: "none" },
           { label: "Second image", value: "secondImage" },
-          { label: "Zoom", value: "zoom" }
+          { label: "Zoom", value: "zoom" },
         ],
-        preview: "none"
+        preview: "none",
       },
       // hasRating: { type: 'toggle', label: 'Has rating', preview: false },
       pretitleType: {
@@ -337,55 +337,55 @@ export default defineBlock({
         options: [
           { label: "None", value: "none" },
           { label: "Product type", value: "productType" },
-          { label: "Vendor", value: "vendor" }
+          { label: "Vendor", value: "vendor" },
         ],
-        preview: "vendor"
+        preview: "vendor",
       },
       textAlignment: {
         type: "select",
         options: [
           { label: "Left", value: "left" },
-          { label: "Center", value: "center" }
+          { label: "Center", value: "center" },
         ],
-        preview: "left"
+        preview: "left",
       },
       textSize: {
         type: "select",
         options: [
           { label: "Small", value: "sm" },
           { label: "Medium", value: "md" },
-          { label: "Large", value: "lg" }
+          { label: "Large", value: "lg" },
         ],
-        preview: "md"
+        preview: "md",
       },
       descriptionType: {
         type: "select",
         options: [
           { label: "Description", value: "description" },
-          { label: "None", value: "none" }
+          { label: "None", value: "none" },
         ],
-        preview: "none"
-      }
-    }
+        preview: "none",
+      },
+    },
   },
   contentSchema: {
     fields: {
       pretitle: {
         type: "text",
         label: "Pretitle",
-        isTranslatable: true
+        isTranslatable: true,
       },
       title: {
         type: "text",
         label: "Title",
         preview: "Best selling items",
-        isTranslatable: true
+        isTranslatable: true,
       },
       subtitle: {
         type: "text",
         label: "Description",
         preview: "Our most popular items from softshell materials.",
-        isTranslatable: true
+        isTranslatable: true,
       },
       buttons: {
         type: "subschema",
@@ -396,25 +396,25 @@ export default defineBlock({
             subschema: "button",
             value: {
               text: "Discover all",
-              link: "https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg"
-            }
-          }
-        ]
+              link: "https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg",
+            },
+          },
+        ],
       },
       productTitles: {
         type: "text",
         label: "Product titles",
         description:
           "Display products matching this title. Can be multiple (comma-separated). Will be hidden if no products are found. ",
-        isTranslatable: true
+        isTranslatable: true,
       },
       productTags: {
         type: "text",
         label: "Product tag",
         description:
           "Display products matching this tag. Can be multiple (comma-separated). Can be a metafield with a tag as value. Will be hidden if no products are found.",
-        isTranslatable: true
-      }
+        isTranslatable: true,
+      },
     },
     subschemas: {
       button: {
@@ -424,16 +424,16 @@ export default defineBlock({
             label: "Text",
             isTranslatable: true,
             isRequired: true,
-            maxLength: 40
+            maxLength: 40,
           },
           link: {
             type: "link",
             label: "Link",
             isTranslatable: true,
-            isRequired: true
-          }
-        }
-      }
-    }
-  }
+            isRequired: true,
+          },
+        },
+      },
+    },
+  },
 });

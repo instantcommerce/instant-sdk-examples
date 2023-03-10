@@ -1,42 +1,7 @@
 import { gql } from "@instantcommerce/sdk";
+import { ShopifyProduct } from "./product";
 
-export type MoneyV2 = {
-  amount: any;
-  currencyCode: any;
-};
-
-type ProductPriceRange = {
-  maxVariantPrice: MoneyV2;
-  minVariantPrice: MoneyV2;
-};
-
-type ImageConnection = {
-  edges: {
-    node: {
-      altText?: string;
-      height?: number;
-      id?: string;
-      url: any;
-      width?: number;
-    };
-  }[];
-};
-
-export interface ShopifyProduct {
-  availableForSale: boolean;
-  compareAtPriceRange: ProductPriceRange;
-  description: string;
-  handle: string;
-  id: string;
-  images: ImageConnection;
-  priceRange: ProductPriceRange;
-  productType: string;
-  tags: string[];
-  title: string;
-  vendor: string;
-}
-
-export interface ShopifyProducts {
+export interface ProductsConnection {
   products: { edges: { node: ShopifyProduct }[] };
 }
 

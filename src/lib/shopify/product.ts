@@ -1,18 +1,50 @@
 import { gql } from "@instantcommerce/sdk";
 
-export interface Product {
-  title: string;
+export type MoneyV2 = {
+  amount: any;
+  currencyCode: any;
+};
+
+type ProductPriceRange = {
+  maxVariantPrice: MoneyV2;
+  minVariantPrice: MoneyV2;
+};
+
+type ImageConnection = {
+  edges: {
+    node: {
+      altText?: string;
+      height?: number;
+      id?: string;
+      url: any;
+      width?: number;
+    };
+  }[];
+};
+
+export type ShopifyVariant = {
+  availableForSale: boolean;
+  id: string;
+  priceV2: MoneyV2;
+};
+
+export interface ShopifyProduct {
+  availableForSale: boolean;
+  compareAtPriceRange: ProductPriceRange;
   description: string;
-  images: {
-    edges: any[];
-  };
-  variants: {
-    edges: any[];
-  };
+  handle: string;
+  id: string;
+  images: ImageConnection;
+  priceRange: ProductPriceRange;
+  productType: string;
+  tags: string[];
+  title: string;
+  vendor: string;
+  variants: { edges: { node: ShopifyVariant }[] };
 }
 
-export interface ProductResponse {
-  product: Product;
+export interface ProductConnection {
+  product: ShopifyProduct;
 }
 
 export const productQuery = gql`
