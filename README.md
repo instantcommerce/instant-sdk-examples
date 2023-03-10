@@ -1,6 +1,6 @@
 # Project Title
 
-This example project with custom tailwind config, theming and components is closely representative of our storefront code. We hope in the future to provide more direct access to our components and admin customisation settings to increase the quality and consistency of the custom SDK blocks to our storefront.
+This example project contains custom tailwind config, theming and components to make the code closely representative of our storefront code. We hope in the future to provide more direct access to our components and admin customisation settings to increase the quality and consistency of the custom SDK blocks to our storefront.
 
 ## Getting Started
 
