@@ -10,7 +10,7 @@ import cx from "classnames";
 // import { variantStyles as buttonVariantStyles } from '~/components/Button/buttonStyles';
 import { Container, Paragraph, ProductCard } from "~/components";
 import { setThemeColors, setBlockTheme } from "~/config";
-import { ShopifyProducts, productsQuery } from "~/lib/shopify";
+import { ProductsConnection, productsQuery } from "~/lib/shopify";
 import "~/styles/global.scss";
 
 import "./product-slider.scss";
@@ -40,7 +40,7 @@ const ProductSlider = () => {
   const { locale, country } = useRequestData();
   const shopifyClient = useShopifyClient();
 
-  const [products, setProducts] = useState<ShopifyProducts["products"]>();
+  const [products, setProducts] = useState<ProductsConnection["products"]>();
   const [isLoading, setIsLoading] = useState(true);
 
   const loadProductsByTag = async () => {
@@ -63,7 +63,7 @@ const ProductSlider = () => {
         query = productTitlesQuery;
       }
 
-      const result = await shopifyClient.request<ShopifyProducts>(
+      const result = await shopifyClient.request<ProductsConnection>(
         productsQuery,
         {
           query,
