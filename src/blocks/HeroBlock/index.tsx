@@ -117,7 +117,7 @@ const HeroBlock = () => {
           {title && (
             <Title
               className={cx(
-                "hero__title text-theme-title font-medium leading-snug"
+                "hero__title text-theme-title font-medium leading-tight"
               )}
               size={titleSize}
               style={!!titleColor ? { color: titleColor } : {}}
