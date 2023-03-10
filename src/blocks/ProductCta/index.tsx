@@ -23,7 +23,15 @@ import "../../styles/global.scss";
 
 const ProductCta = () => {
   const {
-    content: { productId, variantId, image, buttonText, title, description },
+    content: {
+      productId,
+      variantId,
+      image,
+      buttonText,
+      soldOutText,
+      title,
+      description,
+    },
     customizer: {
       theme,
       width,
@@ -48,6 +56,7 @@ const ProductCta = () => {
 
   const [product, setProduct] = useState<Product>();
   const [price, setPrice] = useState<MoneyV2>();
+  const [available, setAvailable] = useState<boolean>();
 
   const loadProduct = async (id: string) => {
     try {
@@ -96,10 +105,12 @@ const ProductCta = () => {
         : product?.variants?.edges?.[0]?.node;
 
       setPrice(variant?.node?.priceV2);
+      setAvailable(!!variant?.node?.availableForSale);
     }
-  }, [product]);
+  }, [product, productId, variantId]);
 
   const money = useMoney(price);
+  console.log(product);
 
   return (
     <section className={cx("product-cta", width === "contained" && "px-2")}>
@@ -167,7 +178,7 @@ const ProductCta = () => {
 
             {!!money?.localizedString && (
               <div
-                className="product-cta__price mt-1.5 text-theme-text"
+                className="product-cta__price mt-1.5 text-theme-text font-medium"
                 style={{
                   ...(!!priceColor ? { color: priceColor } : {}),
                 }}
@@ -182,8 +193,9 @@ const ProductCta = () => {
               weight={buttonWeight}
               className="product-cta__button mt-4"
               onClick={addToCart}
+              disabled={!available}
             >
-              {buttonText}
+              {available ? buttonText : soldOutText}
             </Button>
           </div>
         </div>
@@ -332,6 +344,13 @@ export default defineBlock({
         type: "text",
         label: "Button text",
         preview: "Add to cart",
+        isTranslatable: true,
+        isRequired: true,
+      },
+      soldOutText: {
+        type: "text",
+        label: "Button sold out text",
+        preview: "Sold out",
         isTranslatable: true,
         isRequired: true,
       },

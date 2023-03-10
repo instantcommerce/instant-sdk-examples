@@ -39,6 +39,7 @@ export const productQuery = gql`
           edges {
             node {
               id
+              availableForSale
               priceV2 {
                 ... on MoneyV2 {
                   amount
