@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   defineBlock,
   useBlockState,
-  gql,
   useShopifyClient,
   useCart,
   useRequestData,
@@ -18,7 +17,7 @@ import {
 } from "~/lib/shopify";
 import { Button, Paragraph, Title } from "~/components";
 
-import { setBlockTheme, setThemeColors } from "~/config";
+import { setStoreColors, setSectionTheme } from "~/config";
 import "~/styles/global.scss";
 
 const ProductCta = () => {
@@ -116,8 +115,8 @@ const ProductCta = () => {
           imageAlignment === "left" && "sm:flex-row"
         )}
         style={{
-          ...setThemeColors(),
-          ...setBlockTheme(theme),
+          ...setStoreColors(),
+          ...setSectionTheme(theme),
           ...(!!backgroundColor ? { backgroundColor } : {}),
         }}
       >
