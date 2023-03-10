@@ -105,7 +105,7 @@ const ProductCta = () => {
 
   return (
     <section
-      className={cx("product-cta py-9", width === "contained" && "px-2")}
+      className={cx("product-cta py-[72px]", width === "contained" && "px-4")}
     >
       <div
         className={cx(
@@ -141,8 +141,8 @@ const ProductCta = () => {
         <div
           className={cx(
             "product-cta__cta-container",
-            "flex-1 h-full py-5 lg:py-14 px-3",
-            width === "full" && "sm:px-2",
+            "flex-1 h-full py-10 lg:py-28 px-6",
+            width === "full" && "sm:px-4",
             contentAlignment === "center" && "sm:self-center",
             contentAlignment === "bottom" && "sm:self-end",
             textAlignment === "center" && "text-center"
@@ -160,7 +160,7 @@ const ProductCta = () => {
 
             {(!!description || !!product?.description) && (
               <Paragraph
-                className="product-cta__description mt-1.5 text-theme-subtitle"
+                className="product-cta__description mt-3 text-theme-subtitle"
                 style={{
                   ...(!!descriptionColor ? { color: descriptionColor } : {}),
                 }}
@@ -171,7 +171,7 @@ const ProductCta = () => {
 
             {!!price?.localizedString && (
               <div
-                className="product-cta__price mt-1.5 text-theme-highlightedText font-medium"
+                className="product-cta__price mt-3 text-theme-highlightedText font-medium"
                 style={{
                   ...(!!priceColor ? { color: priceColor } : {}),
                 }}
@@ -184,7 +184,7 @@ const ProductCta = () => {
               variant={buttonType}
               corners={buttonCorners}
               weight={buttonWeight}
-              className="product-cta__button mt-4"
+              className="product-cta__button mt-8"
               onClick={addToCart}
               disabled={!variant?.availableForSale}
             >

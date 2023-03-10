@@ -27,7 +27,7 @@ const AnnouncementBanner = () => {
   return (
     <div
       className={cx(
-        "announcement-banner__container bg-theme-bg relative w-full py-1.25 text-sm font-medium",
+        "announcement-banner__container bg-theme-bg relative w-full py-2.5 text-sm font-medium",
         alignment == "center" ? "text-center" : "text-left",
         dismissed && "hidden"
       )}
@@ -51,8 +51,8 @@ const AnnouncementBanner = () => {
         className={cx(
           "announcement-banner relative flex justify-center flex-col sm:flex-row z-10",
           alignment == "center"
-            ? "sm:justify-center px-6"
-            : "sm:justify-start pl-2 pr-6 md:pl-6"
+            ? "sm:justify-center px-12"
+            : "sm:justify-start pl-4 pr-12 md:pl-12"
         )}
       >
         {(!!text || !!links?.[0]?.value?.label) && (
@@ -66,8 +66,8 @@ const AnnouncementBanner = () => {
               <Link
                 to={links[0]?.value?.link}
                 className={cx(
-                  "announcement-banner__link text-theme-link inline sm:ml-1 underline transition-opacity hover:opacity-70",
-                  text ? "ml-0.5" : ""
+                  "announcement-banner__link text-theme-link inline sm:ml-2 underline transition-opacity hover:opacity-70",
+                  text ? "ml-1" : ""
                 )}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
               >
@@ -81,7 +81,7 @@ const AnnouncementBanner = () => {
       {!!dismissable && (
         <button
           onClick={() => setDismissed(true)}
-          className="announcement-banner__icon text-theme-icon w-2.5 absolute right-2 top-1/2 -translate-y-1/2"
+          className="announcement-banner__icon text-theme-icon w-5 absolute right-4 top-1/2 -translate-y-1/2"
           style={{ ...(!!closeColor ? { color: closeColor } : {}) }}
         >
           <CloseIcon />
