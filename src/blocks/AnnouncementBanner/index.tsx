@@ -27,7 +27,7 @@ const AnnouncementBanner = () => {
   return (
     <div
       className={cx(
-        "announcement-banner__container bg-theme-bg relative w-full py-2.5 text-sm font-medium",
+        "announcement-banner__container bg-theme-bg relative w-full py-2.5 font-medium",
         alignment == "center" ? "text-center" : "text-left",
         dismissed && "hidden"
       )}
@@ -57,6 +57,7 @@ const AnnouncementBanner = () => {
       >
         {(!!text || !!links?.[0]?.value?.label) && (
           <Paragraph
+            size="sm"
             className="announcement-banner__text text-theme-title"
             style={{ ...(!!textColor ? { color: textColor } : {}) }}
           >

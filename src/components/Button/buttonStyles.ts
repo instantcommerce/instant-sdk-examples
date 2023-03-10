@@ -40,9 +40,9 @@ export const buttonWeightStyles = {
 };
 
 export const linkSizeStyles = {
-  sm: "text-sm leading-roomy",
+  sm: "text-sm leading-relaxed",
   md: "text-base leading-loose",
   lg: "text-lg leading-wide",
-  xl: "text-xl tracking-tight leading-roomy",
-  "2xl": "text-xl -tracking-tight leading-roomy",
+  xl: "text-xl tracking-tight leading-relaxed",
+  "2xl": "text-xl -tracking-tight leading-relaxed",
 };
