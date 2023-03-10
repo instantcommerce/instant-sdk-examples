@@ -3,7 +3,7 @@ import cx from "classnames";
 
 import { Container, Overlay, Paragraph, Title } from "~/components";
 import { ArrowRightIcon } from "~/components/Icons";
-import { setBlockTheme, setThemeColors } from "~/config";
+import { setSectionTheme, setStoreColors } from "~/config";
 import "~/styles/global.scss";
 
 const ContentCard = () => {
@@ -31,7 +31,7 @@ const ContentCard = () => {
       className={width === "contained" ? "max-w-7xl" : "max-w-none"}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
       wrapperClassName="content-card__container"
-      wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
+      wrapperStyle={{ ...setStoreColors(), ...setSectionTheme(theme) }}
     >
       <div className="content-card flex flex-col md:flex-row w-full gap-y-4 md:gap-y-0 md:gap-x-4">
         {cards?.map((card) => (

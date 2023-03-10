@@ -9,7 +9,7 @@ import cx from "classnames";
 
 // import { variantStyles as buttonVariantStyles } from '~/components/Button/buttonStyles';
 import { Container, Paragraph, ProductCard } from "~/components";
-import { setThemeColors, setBlockTheme } from "~/config";
+import { setStoreColors, setSectionTheme } from "~/config";
 import { ShopifyProducts, productsQuery } from "~/lib/shopify";
 import "~/styles/global.scss";
 
@@ -115,8 +115,8 @@ const ProductSlider = () => {
       }}
       wrapperClassName="product-slider__container"
       wrapperStyle={{
-        ...setThemeColors(),
-        ...setBlockTheme(theme)
+        ...setStoreColors(),
+        ...setSectionTheme(theme)
       }}
     >
       {!isLoading && (

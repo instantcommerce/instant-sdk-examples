@@ -3,9 +3,8 @@ import cx from "classnames";
 
 import { Container, Overlay, Paragraph, Title } from "~/components";
 import { ArrowRightIcon } from "~/components/Icons";
-import { setBlockTheme, setThemeColors } from "~/config";
-import "~/styles/global.scss";
-
+import { setSectionTheme, setStoreColors } from "~/config";
+import "../../styles/global.scss";
 import "./collage.scss";
 
 const Collage = () => {
@@ -34,7 +33,7 @@ const Collage = () => {
       className={width === "contained" ? "max-w-7xl" : "max-w-none"}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
       wrapperClassName="collage__container"
-      wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
+      wrapperStyle={{ ...setStoreColors(), ...setSectionTheme(theme) }}
     >
       <div
         className={cx(

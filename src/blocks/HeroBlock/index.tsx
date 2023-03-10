@@ -2,7 +2,7 @@ import { defineBlock, useBlockState } from "@instantcommerce/sdk";
 import cx from "classnames";
 
 import { Button, Overlay, Paragraph, Title } from "~/components";
-import { setThemeColors, setBlockTheme } from "~/config";
+import { setStoreColors, setSectionTheme } from "~/config";
 import "~/styles/global.scss";
 
 import {
@@ -45,8 +45,8 @@ const HeroBlock = () => {
     <section
       className={cx("hero bg-theme-bg relative w-full")}
       style={{
-        ...setThemeColors(),
-        ...setBlockTheme(theme),
+        ...setStoreColors(),
+        ...setSectionTheme(theme),
         ...(!!backgroundColor ? { backgroundColor } : {})
       }}
     >

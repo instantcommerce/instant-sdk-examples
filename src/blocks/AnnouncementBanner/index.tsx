@@ -4,7 +4,7 @@ import cx from "classnames";
 
 import { Paragraph } from "~/components";
 import { CloseIcon } from "~/components/Icons";
-import { setThemeColors, setBlockTheme } from "~/config";
+import { setStoreColors, setSectionTheme } from "~/config";
 import "~/styles/global.scss";
 
 const AnnouncementBanner = () => {
@@ -32,8 +32,8 @@ const AnnouncementBanner = () => {
         dismissed && "hidden"
       )}
       style={{
-        ...setThemeColors(),
-        ...setBlockTheme(theme),
+        ...setStoreColors(),
+        ...setSectionTheme(theme),
         ...(!!backgroundColor ? { backgroundColor } : {})
       }}
     >
