@@ -63,7 +63,7 @@ export const Header = ({
   subtitle,
   subtitleColor,
   title,
-  titleColor
+  titleColor,
 }: HeaderProps) => {
   const button = (
     <Button
@@ -76,11 +76,11 @@ export const Header = ({
         !!subtitle ? "order-3" : "order-2",
         !!subtitle
           ? alignment === "center" || buttonLocation === "bottom"
-            ? "mt-4 md:mt-4"
-            : "mt-4 md:mt-0 md:ml-auto"
+            ? "mt-8 md:mt-8"
+            : "mt-8 md:mt-0 md:ml-auto"
           : alignment === "center" || buttonLocation === "bottom"
-          ? "mt-1.5 md:mt-1.5"
-          : "mt-1.5 md:mt-0 md:ml-auto",
+          ? "mt-3 md:mt-3"
+          : "mt-3 md:mt-0 md:ml-auto",
         alignment === "center"
           ? "text-center self-center"
           : buttonLocation === "top"
@@ -99,7 +99,7 @@ export const Header = ({
         className={cx(
           "header w-full",
           alignment === "center" ? "text-center" : "text-left",
-          !!pretitle || !!title || !!subtitle ? "mb-4 md:mb-5" : "mb-0",
+          !!pretitle || !!title || !!subtitle ? "mb-8 md:mb-10" : "mb-0",
           className
         )}
         style={{ ...style }}
@@ -109,7 +109,7 @@ export const Header = ({
             as="h3"
             size="sm"
             className={cx(
-              "header__pretitle text-theme-pretitle mb-1.5 font-medium"
+              "header__pretitle text-theme-pretitle mb-3 font-medium"
             )}
             style={!!pretitleColor ? { color: pretitleColor } : {}}
           >
@@ -156,7 +156,7 @@ export const Header = ({
               alignment === "center"
                 ? "items-center md:flex-col"
                 : "items-start md:flex-row",
-              !!title ? (alignment === "center" ? "mt-1.5" : "mt-1") : "mt-0"
+              !!title ? (alignment === "center" ? "mt-3" : "mt-2") : "mt-0"
             )}
           >
             <Paragraph
@@ -164,7 +164,7 @@ export const Header = ({
               size={size === "md" ? "sm" : "md"}
               className={cx(
                 "header__subtitle text-theme-subtitle max-w-xl order-2 flex-1 pr-0",
-                buttonText && alignment !== "center" ? "md:pr-4" : "md:pr-0"
+                buttonText && alignment !== "center" ? "md:pr-8" : "md:pr-0"
               )}
               style={!!subtitleColor ? { color: subtitleColor } : {}}
             >
@@ -177,7 +177,7 @@ export const Header = ({
 
         {hasDivider && (title || subtitle) && (
           <Divider
-            className="header__divider mt-3 md:mt-4"
+            className="header__divider mt-6 md:mt-8"
             style={!!dividerColor ? { backgroundColor: dividerColor } : {}}
           />
         )}
