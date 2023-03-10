@@ -37,7 +37,7 @@ const Collage = () => {
     >
       <div
         className={cx(
-          `collage collage--${cards?.length} collage--${mobileLayout} collage--${imageHeight} gap-1 md:gap-2`
+          `collage collage--${cards?.length} collage--${mobileLayout} collage--${imageHeight} gap-2 md:gap-4`
         )}
       >
         {cards?.map((card) => (
@@ -45,7 +45,7 @@ const Collage = () => {
           <Link
             to={card?.value?.link?.url}
             className={cx(
-              "collage__card group relative w-full flex flex-col p-2 md:p-5 gap-y-1 overflow-hidden",
+              "collage__card group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden",
               contentAlignment === "center"
                 ? "justify-center items-center text-center"
                 : "justify-end"
@@ -90,11 +90,11 @@ const Collage = () => {
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
               >
                 {linkType === "left" && (
-                  <ArrowRightIcon className="collage__arrow w-1.5 mr-1.25" />
+                  <ArrowRightIcon className="collage__arrow w-3 mr-2.5" />
                 )}
                 {cta}
                 {linkType === "right" && (
-                  <ArrowRightIcon className="collage__arrow w-1.5 ml-1.25 transition-transform group-hover:translate-x-0.25" />
+                  <ArrowRightIcon className="collage__arrow w-3 ml-2.5 transition-transform group-hover:translate-x-0.5" />
                 )}
               </Paragraph>
             )}

@@ -15,7 +15,7 @@ const SocialProof = () => {
       mobileScrollDirection,
       backgroundColor,
       ...headerCustomizations
-    }
+    },
   } = useBlockState();
 
   return (
@@ -30,26 +30,26 @@ const SocialProof = () => {
         className={cx(
           "logo-container__wrapper",
           mobileScrollDirection === "horizontal" &&
-            "md:w-full -mx-2 md:mx-0 overflow-x-auto md:overflow-x-visible snap-x md:snap-none hide-scrollbars"
+            "md:w-full -mx-4 md:mx-0 overflow-x-auto md:overflow-x-visible snap-x md:snap-none hide-scrollbars"
         )}
       >
         <div
           className={cx(
             "logo-container",
-            "flex md:flex-row flex-wrap items-center gap-6",
+            "flex md:flex-row flex-wrap items-center gap-12",
             mobileScrollDirection === "vertical"
               ? "w-full flex-col"
-              : "min-w-max md:min-w-0 md:w-full px-2 md:px-0",
+              : "min-w-max md:min-w-0 md:w-full px-4 md:px-0",
             contentAlignment === "left"
               ? "justify-between"
-              : "justify-center md:gap-x-10"
+              : "justify-center md:gap-x-20"
           )}
         >
           {logos?.map((logo) => {
             return (
               <img
                 alt={logo?.value?.logo?.alt}
-                className="logo max-h-5 object-contain"
+                className="logo max-h-10 object-contain"
                 src={logo?.value?.logo?.filename?.preview}
               />
             );
@@ -71,34 +71,34 @@ export default defineBlock({
           { label: "Gray", value: "themeGray" },
           { label: "Primary light", value: "themePrimaryLight" },
           { label: "Primary", value: "themePrimary" },
-          { label: "Dark", value: "themeDark" }
+          { label: "Dark", value: "themeDark" },
         ],
-        preview: "themeLight"
+        preview: "themeLight",
       },
       containerWidth: {
         type: "select",
         options: [
           { label: "Boxed", value: "contained" },
-          { label: "Full width", value: "full" }
+          { label: "Full width", value: "full" },
         ],
-        preview: "contained"
+        preview: "contained",
       },
       headerAlignment: {
         type: "select",
         options: [
           { label: "Left", value: "left" },
-          { label: "Center", value: "center" }
+          { label: "Center", value: "center" },
         ],
-        preview: "center"
+        preview: "center",
       },
       headerSize: {
         type: "select",
         options: [
           { label: "Small", value: "sm" },
           { label: "Medium", value: "md" },
-          { label: "Large", value: "lg" }
+          { label: "Large", value: "lg" },
         ],
-        preview: "lg"
+        preview: "lg",
       },
       pretitleColor: { type: "color", label: "Pretitle color" },
       titleColor: { type: "color", label: "Title color" },
@@ -112,9 +112,9 @@ export default defineBlock({
           { label: "Gray", value: "gray" },
           { label: "Link", value: "link" },
           { label: "Link primary", value: "linkPrimary" },
-          { label: "Link inverted", value: "linkInverted" }
+          { label: "Link inverted", value: "linkInverted" },
         ],
-        preview: "primary"
+        preview: "primary",
       },
       buttonCorners: {
         type: "select",
@@ -123,26 +123,26 @@ export default defineBlock({
           { label: "Small", value: "xs" },
           { label: "Medium", value: "md" },
           { label: "Large", value: "lg" },
-          { label: "Full", value: "full" }
+          { label: "Full", value: "full" },
         ],
-        preview: "none"
+        preview: "none",
       },
       buttonWeight: {
         type: "select",
         options: [
           { label: "Regular", value: "base" },
           { label: "Medium", value: "medium" },
-          { label: "Bold", value: "bold" }
+          { label: "Bold", value: "bold" },
         ],
-        preview: "medium"
+        preview: "medium",
       },
       buttonLocation: {
         type: "select",
         options: [
           { label: "Top", value: "top" },
-          { label: "Bottom", value: "bottom" }
+          { label: "Bottom", value: "bottom" },
         ],
-        preview: "top"
+        preview: "top",
       },
       dividerColor: { type: "color", label: "Divider color" },
       hasDivider: { type: "toggle", label: "Has divider", preview: false },
@@ -151,19 +151,19 @@ export default defineBlock({
         type: "select",
         options: [
           { label: "Left", value: "left" },
-          { label: "Center", value: "center" }
+          { label: "Center", value: "center" },
         ],
-        preview: "center"
+        preview: "center",
       },
       mobileScrollDirection: {
         type: "select",
         options: [
           { label: "Vertical", value: "vertical" },
-          { label: "Horizontal", value: "horizontal" }
+          { label: "Horizontal", value: "horizontal" },
         ],
-        preview: "vertical"
-      }
-    }
+        preview: "vertical",
+      },
+    },
   },
   contentSchema: {
     fields: {
@@ -171,19 +171,19 @@ export default defineBlock({
         type: "text",
         label: "Pretitle",
         preview: "",
-        isTranslatable: true
+        isTranslatable: true,
       },
       title: {
         type: "text",
         label: "Title",
         preview: "",
-        isTranslatable: true
+        isTranslatable: true,
       },
       subtitle: {
         type: "text",
         label: "Description",
         preview: "We sell more than 500 brands",
-        isTranslatable: true
+        isTranslatable: true,
       },
       buttons: {
         type: "subschema",
@@ -201,9 +201,9 @@ export default defineBlock({
               logo: {
                 type: "image",
                 preview:
-                  "https://a.storyblok.com/f/145828/248x73/cb00a9dc8f/rugg-ed.png"
-              }
-            }
+                  "https://a.storyblok.com/f/145828/248x73/cb00a9dc8f/rugg-ed.png",
+              },
+            },
           },
           {
             subschema: "logo",
@@ -211,9 +211,9 @@ export default defineBlock({
               logo: {
                 type: "image",
                 preview:
-                  "https://a.storyblok.com/f/145828/166x46/05bc6e4e11/hypemode.png"
-              }
-            }
+                  "https://a.storyblok.com/f/145828/166x46/05bc6e4e11/hypemode.png",
+              },
+            },
           },
           {
             subschema: "logo",
@@ -221,9 +221,9 @@ export default defineBlock({
               logo: {
                 type: "image",
                 preview:
-                  "https://a.storyblok.com/f/145828/211x37/386e98b4a8/chalk.png"
-              }
-            }
+                  "https://a.storyblok.com/f/145828/211x37/386e98b4a8/chalk.png",
+              },
+            },
           },
           {
             subschema: "logo",
@@ -231,12 +231,12 @@ export default defineBlock({
               logo: {
                 type: "image",
                 preview:
-                  "https://a.storyblok.com/f/145828/292x30/a9237d40ed/outhouse.png"
-              }
-            }
-          }
-        ]
-      }
+                  "https://a.storyblok.com/f/145828/292x30/a9237d40ed/outhouse.png",
+              },
+            },
+          },
+        ],
+      },
     },
     subschemas: {
       button: {
@@ -246,25 +246,25 @@ export default defineBlock({
             label: "Text",
             isTranslatable: true,
             isRequired: true,
-            maxLength: 40
+            maxLength: 40,
           },
           link: {
             type: "link",
             label: "Link",
             isTranslatable: true,
-            isRequired: true
-          }
-        }
+            isRequired: true,
+          },
+        },
       },
       logo: {
         fields: {
           logo: {
             type: "image",
             label: "Logo",
-            isRequired: true
-          }
-        }
-      }
-    }
-  }
+            isRequired: true,
+          },
+        },
+      },
+    },
+  },
 });
