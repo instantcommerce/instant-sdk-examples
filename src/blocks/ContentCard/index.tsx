@@ -1,10 +1,10 @@
-import { defineBlock, Link, useBlockState } from "@instantcommerce/sdk";
-import cx from "classnames";
+import { defineBlock, Link, useBlockState } from '@instantcommerce/sdk';
+import cx from 'classnames';
 
-import { Container, Overlay, Paragraph, Title } from "~/components";
-import { ArrowRightIcon } from "~/components/Icons";
-import { setBlockTheme, setThemeColors } from "~/config";
-import "~/styles/global.scss";
+import { Container, Overlay, Paragraph, Title } from '~/components';
+import { ArrowRightIcon } from '~/components/Icons';
+import { setBlockTheme, setThemeColors } from '~/config';
+import '~/styles/global.scss';
 
 const ContentCard = () => {
   const {
@@ -22,38 +22,38 @@ const ContentCard = () => {
       linkColor,
       linkType,
       ...headerCustomizations
-    }
+    },
   } = useBlockState();
 
   return (
     <Container
       backgroundColor={backgroundColor}
-      className={width === "contained" ? "max-w-7xl" : "max-w-none"}
+      className={width === 'contained' ? 'max-w-7xl' : 'max-w-none'}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
       wrapperClassName="content-card__container"
       wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
-      <div className="content-card flex flex-col md:flex-row w-full gap-y-4 md:gap-y-0 md:gap-x-4">
+      <div className="content-card flex flex-col md:flex-row w-full gap-y-8 md:gap-y-0 md:gap-x-8">
         {cards?.map((card) => (
           // @ts-ignore
           <Link
             to={card?.value?.link?.url}
             className={cx(
-              "content-card__card group relative w-full flex flex-col p-2 md:p-5 gap-y-1 overflow-hidden",
-              contentAlignment === "center"
-                ? "justify-center items-center text-center"
-                : "justify-end",
-              imageHeight === "sm"
-                ? "h-[240px]"
-                : imageHeight == "lg"
-                ? "h-[480px]"
-                : "h-[360px]"
+              'content-card__card group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden',
+              contentAlignment === 'center'
+                ? 'justify-center items-center text-center'
+                : 'justify-end',
+              imageHeight === 'sm'
+                ? 'h-[240px]'
+                : imageHeight == 'lg'
+                ? 'h-[480px]'
+                : 'h-[360px]'
             )}
           >
             {card?.value?.image?.filename && (
               <img
                 className={cx(
-                  "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover transition-transform group-hover:scale-105 duration-500"
+                  'absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover transition-transform group-hover:scale-105 duration-500'
                 )}
                 src={card?.value?.image?.filename}
               />
@@ -66,14 +66,14 @@ const ContentCard = () => {
             {!!card?.value?.title && (
               <Title
                 className={cx(
-                  "content-card__title text-white font-semibold z-10"
+                  'content-card__title text-white font-semibold z-10'
                 )}
                 size={
-                  contentSize === "sm"
-                    ? "xs"
-                    : contentSize === "md"
-                    ? "sm"
-                    : "md"
+                  contentSize === 'sm'
+                    ? 'xs'
+                    : contentSize === 'md'
+                    ? 'sm'
+                    : 'md'
                 }
                 style={{ ...(!!textColor ? { color: textColor } : {}) }}
               >
@@ -84,17 +84,17 @@ const ContentCard = () => {
             {cta && (
               <Paragraph
                 className={cx(
-                  "content-card__button flex items-center text-white font-medium text-left z-10"
+                  'content-card__button flex items-center text-white font-medium text-left z-10'
                 )}
                 size={contentSize}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
               >
-                {linkType === "left" && (
-                  <ArrowRightIcon className="content-card__arrow w-1.5 mr-1.25" />
+                {linkType === 'left' && (
+                  <ArrowRightIcon className="content-card__arrow w-3 mr-2.5" />
                 )}
                 {cta}
-                {linkType === "right" && (
-                  <ArrowRightIcon className="content-card__arrow w-1.5 ml-1.25 transition-transform group-hover:translate-x-0.25" />
+                {linkType === 'right' && (
+                  <ArrowRightIcon className="content-card__arrow w-3 ml-2.5 transition-transform group-hover:translate-x-0.5" />
                 )}
               </Paragraph>
             )}
@@ -110,251 +110,251 @@ export default defineBlock({
   customizerSchema: {
     fields: {
       theme: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "Light", value: "themeLight" },
-          { label: "Gray", value: "themeGray" },
-          { label: "Primary light", value: "themePrimaryLight" },
-          { label: "Primary", value: "themePrimary" },
-          { label: "Dark", value: "themeDark" }
+          { label: 'Light', value: 'themeLight' },
+          { label: 'Gray', value: 'themeGray' },
+          { label: 'Primary light', value: 'themePrimaryLight' },
+          { label: 'Primary', value: 'themePrimary' },
+          { label: 'Dark', value: 'themeDark' },
         ],
-        preview: "themeLight"
+        preview: 'themeLight',
       },
       width: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "Boxed", value: "contained" },
-          { label: "Full width", value: "full" }
+          { label: 'Boxed', value: 'contained' },
+          { label: 'Full width', value: 'full' },
         ],
-        preview: "contained"
+        preview: 'contained',
       },
       headerAlignment: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "Left", value: "left" },
-          { label: "Center", value: "center" }
+          { label: 'Left', value: 'left' },
+          { label: 'Center', value: 'center' },
         ],
-        preview: "left"
+        preview: 'left',
       },
       headerSize: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "Small", value: "md" },
-          { label: "Medium", value: "lg" },
-          { label: "Large", value: "xl" }
+          { label: 'Small', value: 'md' },
+          { label: 'Medium', value: 'lg' },
+          { label: 'Large', value: 'xl' },
         ],
-        preview: "lg"
+        preview: 'lg',
       },
-      pretitleColor: { type: "color", label: "Pretitle color" },
-      titleColor: { type: "color", label: "Title color" },
-      subtitleColor: { type: "color", label: "Description color" },
-      backgroundColor: { type: "color", label: "Background color" },
+      pretitleColor: { type: 'color', label: 'Pretitle color' },
+      titleColor: { type: 'color', label: 'Title color' },
+      subtitleColor: { type: 'color', label: 'Description color' },
+      backgroundColor: { type: 'color', label: 'Background color' },
       buttonType: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "Primary", value: "primary" },
-          { label: "Secondary", value: "secondary" },
-          { label: "Gray", value: "gray" },
-          { label: "Link", value: "link" },
-          { label: "Link primary", value: "linkPrimary" },
-          { label: "Link inverted", value: "linkInverted" }
+          { label: 'Primary', value: 'primary' },
+          { label: 'Secondary', value: 'secondary' },
+          { label: 'Gray', value: 'gray' },
+          { label: 'Link', value: 'link' },
+          { label: 'Link primary', value: 'linkPrimary' },
+          { label: 'Link inverted', value: 'linkInverted' },
         ],
-        preview: "link"
+        preview: 'link',
       },
       buttonCorners: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "None", value: "none" },
-          { label: "Small", value: "xs" },
-          { label: "Medium", value: "md" },
-          { label: "Large", value: "lg" },
-          { label: "Full", value: "full" }
+          { label: 'None', value: 'none' },
+          { label: 'Small', value: 'xs' },
+          { label: 'Medium', value: 'md' },
+          { label: 'Large', value: 'lg' },
+          { label: 'Full', value: 'full' },
         ],
-        preview: "none"
+        preview: 'none',
       },
       buttonWeight: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "Regular", value: "base" },
-          { label: "Medium", value: "medium" },
-          { label: "Bold", value: "bold" }
+          { label: 'Regular', value: 'base' },
+          { label: 'Medium', value: 'medium' },
+          { label: 'Bold', value: 'bold' },
         ],
-        preview: "medium"
+        preview: 'medium',
       },
       buttonLocation: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "Top", value: "top" },
-          { label: "Bottom", value: "bottom" }
+          { label: 'Top', value: 'top' },
+          { label: 'Bottom', value: 'bottom' },
         ],
-        preview: "top"
+        preview: 'top',
       },
-      dividerColor: { type: "color", label: "Divider color" },
-      hasDivider: { type: "toggle", label: "Has divider", preview: false },
+      dividerColor: { type: 'color', label: 'Divider color' },
+      hasDivider: { type: 'toggle', label: 'Has divider', preview: false },
       imageHeight: {
-        type: "select",
+        type: 'select',
         options: [
-          { label: "Small", value: "sm" },
-          { label: "Medium", value: "md" },
-          { label: "Large", value: "lg" }
+          { label: 'Small', value: 'sm' },
+          { label: 'Medium', value: 'md' },
+          { label: 'Large', value: 'lg' },
         ],
-        preview: "md"
+        preview: 'md',
       },
       overlayColor: {
-        type: "color",
-        label: "Image overlay color",
-        preview: "#000"
+        type: 'color',
+        label: 'Image overlay color',
+        preview: '#000',
       },
       overlayOpacity: {
-        type: "number",
-        label: "Image overlay opacity",
+        type: 'number',
+        label: 'Image overlay opacity',
         min: 0,
         max: 100,
-        preview: 40
+        preview: 40,
       },
       contentAlignment: {
-        type: "select",
-        label: "Card content alignment",
+        type: 'select',
+        label: 'Card content alignment',
         options: [
-          { label: "Left", value: "left" },
-          { label: "Center", value: "center" }
+          { label: 'Left', value: 'left' },
+          { label: 'Center', value: 'center' },
         ],
-        preview: "left"
+        preview: 'left',
       },
       contentSize: {
-        type: "select",
-        label: "Card text size",
+        type: 'select',
+        label: 'Card text size',
         options: [
-          { label: "Small", value: "sm" },
-          { label: "Medium", value: "md" },
-          { label: "Large", value: "lg" }
+          { label: 'Small', value: 'sm' },
+          { label: 'Medium', value: 'md' },
+          { label: 'Large', value: 'lg' },
         ],
-        preview: "md"
+        preview: 'md',
       },
-      textColor: { type: "color", label: "Text color" },
-      linkColor: { type: "color", label: "Link color" },
+      textColor: { type: 'color', label: 'Text color' },
+      linkColor: { type: 'color', label: 'Link color' },
       linkType: {
-        type: "select",
-        label: "Card link arrow",
+        type: 'select',
+        label: 'Card link arrow',
         options: [
-          { label: "None", value: "none" },
-          { label: "Left", value: "left" },
-          { label: "Right", value: "right" }
+          { label: 'None', value: 'none' },
+          { label: 'Left', value: 'left' },
+          { label: 'Right', value: 'right' },
         ],
-        preview: "left"
-      }
-    }
+        preview: 'left',
+      },
+    },
   },
   contentSchema: {
     fields: {
       pretitle: {
-        type: "text",
-        label: "Pretitle",
-        isTranslatable: true
+        type: 'text',
+        label: 'Pretitle',
+        isTranslatable: true,
       },
       title: {
-        type: "text",
-        label: "Title",
-        preview: "Force majeure",
-        isTranslatable: true
+        type: 'text',
+        label: 'Title',
+        preview: 'Force majeure',
+        isTranslatable: true,
       },
       subtitle: {
-        type: "text",
-        label: "Description",
-        preview: "Shop the latest drop.",
-        isTranslatable: true
+        type: 'text',
+        label: 'Description',
+        preview: 'Shop the latest drop.',
+        isTranslatable: true,
       },
       buttons: {
-        type: "subschema",
-        allowed: ["button"],
+        type: 'subschema',
+        allowed: ['button'],
         max: 1,
         preview: [
           {
-            subschema: "button",
+            subschema: 'button',
             value: {
-              text: "View collection",
-              link: "https://instantcommerce.io/"
-            }
-          }
-        ]
+              text: 'View collection',
+              link: 'https://instantcommerce.io/',
+            },
+          },
+        ],
       },
       cta: {
-        type: "text",
-        label: "CTA text",
-        preview: "Discover",
-        isTranslatable: true
+        type: 'text',
+        label: 'CTA text',
+        preview: 'Discover',
+        isTranslatable: true,
       },
       cards: {
-        type: "subschema",
-        allowed: ["card"],
+        type: 'subschema',
+        allowed: ['card'],
         max: 4,
         preview: [
           {
-            subschema: "card",
+            subschema: 'card',
             value: {
               image:
-                "https://a.storyblok.com/f/145828/5104x3403/ea3b04ac71/force-majeure-vujikv6pbjq-unsplash.jpg",
-              title: "WOMEN",
-              link: "https://instantcommerce.io/"
-            }
+                'https://a.storyblok.com/f/145828/5104x3403/ea3b04ac71/force-majeure-vujikv6pbjq-unsplash.jpg',
+              title: 'WOMEN',
+              link: 'https://instantcommerce.io/',
+            },
           },
           {
-            subschema: "card",
+            subschema: 'card',
             value: {
               image:
-                "https://a.storyblok.com/f/145828/4390x3245/6fa2d27260/force-majeure-8eu-hahcrhk-unsplash.jpg",
-              title: "MEN",
-              link: "https://instantcommerce.io/"
-            }
+                'https://a.storyblok.com/f/145828/4390x3245/6fa2d27260/force-majeure-8eu-hahcrhk-unsplash.jpg',
+              title: 'MEN',
+              link: 'https://instantcommerce.io/',
+            },
           },
           {
-            subschema: "card",
+            subschema: 'card',
             value: {
               image:
-                "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
-              title: "KIDS",
-              link: "https://instantcommerce.io/"
-            }
-          }
-        ]
-      }
+                'https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg',
+              title: 'KIDS',
+              link: 'https://instantcommerce.io/',
+            },
+          },
+        ],
+      },
     },
     subschemas: {
       button: {
         fields: {
           text: {
-            type: "text",
-            label: "Text",
+            type: 'text',
+            label: 'Text',
             isTranslatable: true,
             isRequired: true,
-            maxLength: 40
+            maxLength: 40,
           },
           link: {
-            type: "link",
-            label: "Link",
+            type: 'link',
+            label: 'Link',
             isTranslatable: true,
-            isRequired: true
-          }
-        }
+            isRequired: true,
+          },
+        },
       },
       card: {
         fields: {
           image: {
-            type: "image",
-            label: "Image",
+            type: 'image',
+            label: 'Image',
           },
           title: {
-            type: "text",
-            label: "Title",
-            isTranslatable: true
+            type: 'text',
+            label: 'Title',
+            isTranslatable: true,
           },
           link: {
-            type: "link",
-            label: "Link",
-            isTranslatable: true
-          }
-        }
-      }
-    }
-  }
+            type: 'link',
+            label: 'Link',
+            isTranslatable: true,
+          },
+        },
+      },
+    },
+  },
 });
