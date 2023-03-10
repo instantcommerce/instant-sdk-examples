@@ -16,7 +16,7 @@ module.exports = {
           600: 'var(--color-primary-600)',
           700: 'var(--color-primary-700)',
           800: 'var(--color-primary-800)',
-          900: 'var(--color-primary-900)'
+          900: 'var(--color-primary-900)',
         },
         gray: {
           50: 'var(--color-gray-50)',
@@ -28,7 +28,7 @@ module.exports = {
           600: 'var(--color-gray-600)',
           700: 'var(--color-gray-700)',
           800: 'var(--color-gray-800)',
-          900: 'var(--color-gray-900)'
+          900: 'var(--color-gray-900)',
         },
         black: '#000',
         theme: {
@@ -44,9 +44,9 @@ module.exports = {
           border: 'var(--color-border)',
           inactiveElement: 'var(--color-inactiveElement)',
           activeElement: 'var(--color-activeElement)',
-          link: 'var(--color-link)'
-        }
-      }
+          link: 'var(--color-link)',
+        },
+      },
     },
     borderRadius: {
       DEFAULT: '4px',
@@ -55,7 +55,7 @@ module.exports = {
       md: '8px',
       lg: '16px',
       full: '9999px',
-      none: '0'
+      none: '0',
     },
     boxShadow: {
       DEFAULT: '0px 1px 2px rgba(16, 24, 40, 0.05)',
@@ -66,14 +66,14 @@ module.exports = {
       xl: '0px 20px 24px -4px rgba(16, 24, 40, 0.1), 0px 8px 8px -4px rgba(16, 24, 40, 0.04)',
       '2xl': '0px 24px 48px -12px rgba(16, 24, 40, 0.25)',
       '3xl': '0px 32px 64px -12px rgba(16, 24, 40, 0.2)',
-      none: 'none'
+      none: 'none',
     },
     borderWidth: {
       DEFAULT: '1px',
       '1px': '1px',
       '2px': '2px',
       '4px': '4px',
-      none: '0'
+      none: '0',
     },
     fontSize: {
       '2xs': ['0.625rem', {}],
@@ -92,14 +92,14 @@ module.exports = {
       '9xl': ['3rem', {}],
       '10xl': ['4rem', {}],
       '11xl': ['5rem', {}],
-      '12xl': ['6rem', {}]
+      '12xl': ['6rem', {}],
     },
     letterSpacing: {
       tighter: '-0.02em',
       tight: '-0.01em',
       normal: '0em',
       wide: '0.01em',
-      wider: '0.02em'
+      wider: '0.02em',
     },
     lineHeight: {
       none: '100%',
@@ -109,41 +109,15 @@ module.exports = {
       relaxed: '130%',
       roomy: '140%',
       loose: '150%',
-      wide: '155%'
+      wide: '155%',
     },
     screens: {
       sm: '768px',
       md: '1024px',
       lg: '1280px',
       xl: '1440px',
-      '2xl': '1536px'
+      '2xl': '1536px',
     },
-    spacing: {
-      0: '0',
-      0.25: '2px',
-      0.5: '4px',
-      0.75: '6px',
-      1: '8px',
-      1.25: '10px',
-      1.5: '12px',
-      1.75: '14px',
-      2: '16px',
-      2.25: '18px',
-      2.5: '20px',
-      3: '24px',
-      4: '32px',
-      5: '40px',
-      6: '48px',
-      7: '56px',
-      8: '64px',
-      9: '72px',
-      10: '80px',
-      11: '88px',
-      12: '96px',
-      15: '120px',
-      16: '128px',
-      20: '160px'
-    }
   },
-  plugins: [require('@tailwindcss/line-clamp')]
+  plugins: [require('@tailwindcss/line-clamp')],
 };
