@@ -113,7 +113,9 @@ const ProductCta = () => {
   console.log(product);
 
   return (
-    <section className={cx("product-cta", width === "contained" && "px-2")}>
+    <section
+      className={cx("product-cta py-9", width === "contained" && "px-2")}
+    >
       <div
         className={cx(
           "product-cta__container",
@@ -323,12 +325,12 @@ export default defineBlock({
         type: "image",
         label: "Image",
         preview:
-          "https://a.storyblok.com/f/145828/4424x3355/b22d1984af/force-majeure-ggpq78xm8t0-unsplash.jpg",
+          "https://a.storyblok.com/f/145828/3360x1890/b3fc3c826b/image-2.png",
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "This is a really fancy limited edition superb tee",
+        preview: "Minimal black sweater",
         isRequired: false,
         isTranslatable: true,
       },
@@ -336,7 +338,7 @@ export default defineBlock({
         type: "text",
         label: "Description",
         preview:
-          "Release analytics graphical user interface prototype iPhone burn rate. Bootstrapping assets beta gamification deployment conversion seed round.",
+          "Our take on one of the classic essentials. Stylish, minimal, got-to-have.",
         isRequired: false,
         isTranslatable: true,
       },
