@@ -109,7 +109,7 @@ const ProductSlider = () => {
         ...headerCustomizations,
         theme,
         className: cx(
-          "px-2",
+          "px-4",
           width === "contained" ? "max-w-7xl mx-auto" : "max-w-none"
         ),
       }}
@@ -131,7 +131,7 @@ const ProductSlider = () => {
               )}
             >
               <div
-                className={cx("slider__inner flex gap-4")}
+                className={cx("slider__inner flex gap-8")}
                 id="product-slider"
               >
                 {products.edges.map((product) => (
@@ -175,7 +175,7 @@ const ProductSlider = () => {
               as="p"
               size="md"
               className={cx(
-                "product-slider__none-found text-theme-subtitle w-full px-2",
+                "product-slider__none-found text-theme-subtitle w-full px-4",
                 headerCustomizations?.alignment === "center"
                   ? "text-center"
                   : "text-left",
