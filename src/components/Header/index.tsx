@@ -123,7 +123,7 @@ export const Header = ({
               "header__title-wrapper flex w-full flex-col md:items-center",
               alignment === "center"
                 ? "items-center md:flex-col"
-                : "items-start md:flex-row"
+                : "items-baseline md:flex-row"
             )}
           >
             <Title
@@ -155,7 +155,7 @@ export const Header = ({
               "header__subtitle-wrapper flex w-full flex-col",
               alignment === "center"
                 ? "items-center md:flex-col"
-                : "items-start md:flex-row",
+                : "items-baseline md:flex-row",
               !!title ? (alignment === "center" ? "mt-3" : "mt-2") : "mt-0"
             )}
           >
