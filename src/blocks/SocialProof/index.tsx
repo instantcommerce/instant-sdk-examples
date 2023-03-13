@@ -171,19 +171,19 @@ export default defineBlock({
       pretitle: {
         type: "text",
         label: "Pretitle",
-        preview: "",
+        preview: "From A to Z",
         isTranslatable: true,
       },
       title: {
         type: "text",
         label: "Title",
-        preview: "",
+        preview: "Shop by brand",
         isTranslatable: true,
       },
       subtitle: {
         type: "text",
         label: "Description",
-        preview: "We sell more than 500 brands",
+        preview: "We sell more than 500 brands.",
         isTranslatable: true,
       },
       buttons: {

@@ -260,6 +260,7 @@ export default defineBlock({
     fields: {
       pretitle: {
         type: "text",
+        preview: "New in",
         label: "Pretitle",
         isTranslatable: true,
       },
