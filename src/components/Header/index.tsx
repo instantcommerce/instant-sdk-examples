@@ -120,7 +120,7 @@ export const Header = ({
         {!!title && (
           <div
             className={cx(
-              "header__title-wrapper flex w-full flex-col md:items-center",
+              "header__title-wrapper flex w-full flex-col",
               alignment === "center"
                 ? "items-center md:flex-col"
                 : "items-baseline md:flex-row"
