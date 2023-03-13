@@ -14,10 +14,11 @@ export const BASIC_SIZES_LG = [
 export const BUTTON_VARIANTS = [
   { label: "Primary", value: "primary" },
   { label: "Secondary", value: "secondary" },
-  { label: "Gray", value: "gray" },
+  { label: "Light", value: "light" },
+  { label: "Dark", value: "dark" },
   { label: "Link", value: "link" },
   { label: "Link primary", value: "linkPrimary" },
-  { label: "Link inverted", value: "linkInverted" },
+  { label: "Link light", value: "linkLight" },
 ];
 
 export const CONTAINER_WIDTHS = [
