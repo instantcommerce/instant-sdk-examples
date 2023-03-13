@@ -145,7 +145,7 @@ const HeroBlock = () => {
               {buttons?.[0]?.value?.text && (
                 <Button
                   size={
-                    ["link", "linkPrimary", "linkInverted"].includes(
+                    ["link", "linkPrimary", "linkLight"].includes(
                       firstButtonType
                     )
                       ? "sm"
@@ -163,7 +163,7 @@ const HeroBlock = () => {
               {buttons?.[1]?.value?.text && (
                 <Button
                   size={
-                    ["link", "linkPrimary", "linkInverted"].includes(
+                    ["link", "linkPrimary", "linkLight"].includes(
                       secondButtonType
                     )
                       ? "sm"
@@ -292,10 +292,11 @@ export default defineBlock({
         options: [
           { label: "Primary", value: "primary" },
           { label: "Secondary", value: "secondary" },
-          { label: "Gray", value: "gray" },
+          { label: "Light", value: "light" },
+          { label: "Dark", value: "dark" },
           { label: "Link", value: "link" },
           { label: "Link primary", value: "linkPrimary" },
-          { label: "Link inverted", value: "linkInverted" },
+          { label: "Link light", value: "linkLight" },
         ],
         preview: "primary",
       },
@@ -304,12 +305,13 @@ export default defineBlock({
         options: [
           { label: "Primary", value: "primary" },
           { label: "Secondary", value: "secondary" },
-          { label: "Gray", value: "gray" },
+          { label: "Light", value: "light" },
+          { label: "Dark", value: "dark" },
           { label: "Link", value: "link" },
           { label: "Link primary", value: "linkPrimary" },
-          { label: "Link inverted", value: "linkInverted" },
+          { label: "Link light", value: "linkLight" },
         ],
-        preview: "linkInverted",
+        preview: "linkLight",
       },
       buttonCorners: {
         type: "select",
