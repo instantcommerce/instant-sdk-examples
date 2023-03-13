@@ -68,7 +68,6 @@ export default defineBlock({
         type: "select",
         options: [
           { label: "Light", value: "themeLight" },
-          { label: "Gray", value: "themeGray" },
           { label: "Primary light", value: "themePrimaryLight" },
           { label: "Primary", value: "themePrimary" },
           { label: "Dark", value: "themeDark" },
