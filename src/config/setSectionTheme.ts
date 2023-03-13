@@ -14,21 +14,6 @@ export const themes = {
     activeElement: "gray-900",
     link: "gray-900",
   },
-  themePrimaryLight: {
-    bg: "primary-100",
-    bgCard: "white",
-    bgContrast: "primary-200",
-    pretitle: "primary-600",
-    title: "gray-900",
-    subtitle: "gray-600",
-    icon: "gray-800",
-    highlightedText: "gray-800",
-    text: "gray-500",
-    border: "primary-300",
-    inactiveElement: "gray-400",
-    activeElement: "primary-600",
-    link: "primary-600",
-  },
   themePrimary: {
     bg: "primary-700",
     bgCard: "primary-600",
@@ -43,6 +28,21 @@ export const themes = {
     inactiveElement: "gray-300",
     activeElement: "gray-50",
     link: "gray-50",
+  },
+  themePrimaryInverted: {
+    bg: "primary-100",
+    bgCard: "white",
+    bgContrast: "primary-200",
+    pretitle: "primary-600",
+    title: "gray-900",
+    subtitle: "gray-600",
+    icon: "gray-800",
+    highlightedText: "gray-800",
+    text: "gray-500",
+    border: "primary-300",
+    inactiveElement: "gray-400",
+    activeElement: "primary-600",
+    link: "primary-600",
   },
   themeDark: {
     bg: "black",
@@ -63,7 +63,7 @@ export const themes = {
 
 export type themeTypes =
   | "themeLight"
-  | "themePrimaryLight"
+  | "themePrimaryInverted"
   | "themePrimary"
   | "themeDark";
 

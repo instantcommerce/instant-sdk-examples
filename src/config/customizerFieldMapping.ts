@@ -27,7 +27,7 @@ export const CONTAINER_WIDTHS = [
 
 export const Theme = [
   { label: "Light", value: "themeLight" },
-  { label: "Primary light", value: "themePrimaryLight" },
   { label: "Primary", value: "themePrimary" },
+  { label: "Primary inverted", value: "themePrimaryInverted" },
   { label: "Dark", value: "themeDark" },
 ];
