@@ -15,6 +15,7 @@ const ContentCard = () => {
       width,
       contentAlignment,
       contentSize,
+      mobileScrollDirection,
       imageHeight,
       overlayColor,
       overlayOpacity,
@@ -33,73 +34,89 @@ const ContentCard = () => {
       wrapperClassName="content-card__container"
       wrapperStyle={{ ...setThemeColors(), ...setBlockTheme(theme) }}
     >
-      <div className="content-card flex flex-col md:flex-row w-full gap-y-8 md:gap-y-0 md:gap-x-8">
-        {cards?.map((card) => (
-          // @ts-ignore
-          <Link
-            to={card?.value?.link?.url}
-            className={cx(
-              "content-card__card group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden",
-              contentAlignment === "center"
-                ? "justify-center items-center text-center"
-                : "justify-end",
-              imageHeight === "sm"
-                ? "h-[240px]"
-                : imageHeight == "lg"
-                ? "h-[480px]"
-                : "h-[360px]"
-            )}
-          >
-            {card?.value?.image?.filename && (
-              <img
-                className={cx(
-                  "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover transition-transform group-hover:scale-105 duration-500"
-                )}
-                src={card?.value?.image?.filename}
-              />
-            )}
+      <div
+        className={cx(
+          "content-card__wrapper",
+          mobileScrollDirection === "horizontal" &&
+            "md:w-full -mx-4 md:mx-0 overflow-x-auto md:overflow-x-visible snap-x md:snap-none hide-scrollbars"
+        )}
+      >
+        <div
+          className={cx(
+            "content-card flex md:flex-row",
+            mobileScrollDirection === "vertical"
+              ? "w-full flex-col gap-y-8 md:gap-y-0 md:gap-x-8"
+              : "min-w-max md:min-w-0 md:w-full px-4 md:px-0 gap-x-4 md:gap-x-8"
+          )}
+        >
+          {cards?.map((card) => (
+            // @ts-ignore
+            <Link
+              to={card?.value?.link?.url}
+              className={cx(
+                "content-card__card group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden",
+                mobileScrollDirection === "horizontal" && "min-w-[300px]",
+                contentAlignment === "center"
+                  ? "justify-center items-center text-center"
+                  : "justify-end",
+                imageHeight === "sm"
+                  ? "h-[240px]"
+                  : imageHeight == "lg"
+                  ? "h-[480px]"
+                  : "h-[360px]"
+              )}
+            >
+              {card?.value?.image?.filename && (
+                <img
+                  className={cx(
+                    "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover transition-transform group-hover:scale-105 duration-500"
+                  )}
+                  src={card?.value?.image?.filename}
+                />
+              )}
 
-            {overlayColor && (
-              <Overlay color={overlayColor} opacity={overlayOpacity} />
-            )}
+              {overlayColor && (
+                <Overlay color={overlayColor} opacity={overlayOpacity} />
+              )}
 
-            {!!card?.value?.title && (
-              <Title
-                className={cx(
-                  "content-card__title text-white font-semibold z-10"
-                )}
-                size={
-                  contentSize === "sm"
-                    ? "xs"
-                    : contentSize === "md"
-                    ? "sm"
-                    : "md"
-                }
-                style={{ ...(!!textColor ? { color: textColor } : {}) }}
-              >
-                {card.value.title}
-              </Title>
-            )}
+              {!!card?.value?.title && (
+                <Title
+                  className={cx(
+                    "content-card__title text-white font-semibold z-10"
+                  )}
+                  size={
+                    contentSize === "sm"
+                      ? "xs"
+                      : contentSize === "md"
+                      ? "sm"
+                      : "md"
+                  }
+                  style={{ ...(!!textColor ? { color: textColor } : {}) }}
+                >
+                  {card.value.title}
+                </Title>
+              )}
 
-            {cta && (
-              <Paragraph
-                className={cx(
-                  "content-card__button flex items-center text-white font-medium text-left z-10"
-                )}
-                size={contentSize}
-                style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
-              >
-                {linkType === "left" && (
-                  <ArrowRightIcon className="content-card__arrow w-3 mr-2.5" />
-                )}
-                {cta}
-                {linkType === "right" && (
-                  <ArrowRightIcon className="content-card__arrow w-3 ml-2.5 transition-transform group-hover:translate-x-0.5" />
-                )}
-              </Paragraph>
-            )}
-          </Link>
-        ))}
+              {cta && (
+                <Paragraph
+                  className={cx(
+                    "content-card__button flex items-center text-white font-medium text-left z-10"
+                  )}
+                  size={contentSize}
+                  style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
+                >
+                  {linkType === "left" && (
+                    <ArrowRightIcon className="content-card__arrow w-3 mr-2.5" />
+                  )}
+                  {cta}
+                  {linkType === "right" && (
+                    <ArrowRightIcon className="content-card__arrow w-3 ml-2.5 transition-transform group-hover:translate-x-0.5" />
+                  )}
+                </Paragraph>
+              )}
+            </Link>
+          ))}
+        </div>
       </div>
     </Container>
   );
@@ -231,6 +248,15 @@ export default defineBlock({
           { label: "Large", value: "lg" },
         ],
         preview: "md",
+      },
+      mobileScrollDirection: {
+        type: "select",
+        label: "Mobile scroll direction",
+        options: [
+          { label: "Vertical", value: "vertical" },
+          { label: "Horizontal", value: "horizontal" },
+        ],
+        preview: "vertical",
       },
       textColor: { type: "color", label: "Text color" },
       linkColor: { type: "color", label: "Link color" },
