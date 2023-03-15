@@ -45,7 +45,7 @@ const ContentCard = () => {
           className={cx(
             "content-card flex md:flex-row",
             mobileScrollDirection === "vertical"
-              ? "w-full flex-col gap-y-8 md:gap-y-0 md:gap-x-8"
+              ? "w-full flex-col gap-y-4 md:gap-y-0 md:gap-x-8"
               : "min-w-max md:min-w-0 md:w-full px-4 md:px-0 gap-x-4 md:gap-x-8"
           )}
         >
@@ -55,7 +55,8 @@ const ContentCard = () => {
               to={card?.value?.link?.url}
               className={cx(
                 "content-card__card group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden",
-                mobileScrollDirection === "horizontal" && "min-w-[300px]",
+                mobileScrollDirection === "horizontal" &&
+                  "min-w-[296px] md:min-w-0",
                 contentAlignment === "center"
                   ? "justify-center items-center text-center"
                   : "justify-end",
