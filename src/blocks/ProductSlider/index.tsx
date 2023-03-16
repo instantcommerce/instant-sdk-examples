@@ -374,6 +374,7 @@ export default defineBlock({
       pretitle: {
         type: "text",
         label: "Pretitle",
+        preview: "Bestsellers",
         isTranslatable: true,
       },
       title: {
@@ -385,7 +386,7 @@ export default defineBlock({
       subtitle: {
         type: "text",
         label: "Description",
-        preview: "Our most popular items from softshell materials.",
+        preview: "Our most popular items.",
         isTranslatable: true,
       },
       buttons: {
