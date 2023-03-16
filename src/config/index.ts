@@ -1,3 +1,2 @@
-export * from './customizerFieldMapping'
-export * from './setThemeColors'
-export * from './themeMapping'
+export * from "./setStoreColors";
+export * from "./setSectionTheme";

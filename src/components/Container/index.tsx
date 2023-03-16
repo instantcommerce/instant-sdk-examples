@@ -25,17 +25,14 @@ export const Container = ({
 }: ContainerProps) => (
   // feel free to overwrite the container layout with other classnames
   <section
-    className={cx("section w-full bg-theme-bg", wrapperClassName)}
+    className={cx("w-full bg-theme-bg", wrapperClassName)}
     style={{
       ...wrapperStyle,
       ...(!!backgroundColor ? { backgroundColor } : {}),
     }}
   >
     <div
-      className={cx(
-        "section-inner flex flex-col w-full mx-auto py-[72px] px-4",
-        className
-      )}
+      className={cx("flex flex-col w-full mx-auto py-[72px] px-4", className)}
       style={{ ...style }}
     >
       {!!headerProps?.pretitle ||

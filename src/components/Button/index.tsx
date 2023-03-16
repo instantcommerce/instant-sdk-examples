@@ -52,7 +52,6 @@ export const Button = ({
 
   const baseProps = {
     className: cx(
-      "button",
       variant !== "unstyled" ? baseStyles : "",
       variantStyles[variant],
       hasButtonStyles
