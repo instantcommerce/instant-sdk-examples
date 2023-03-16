@@ -9,7 +9,7 @@ import cx from "classnames";
 
 // import { variantStyles as buttonVariantStyles } from '~/components/Button/buttonStyles';
 import { Container, Paragraph, ProductCard } from "~/components";
-import { setThemeColors, setBlockTheme } from "~/config";
+import { setStoreColors, setSectionTheme } from "~/config";
 import { ProductsConnection, productsQuery } from "~/lib/shopify";
 import "~/styles/global.scss";
 
@@ -113,10 +113,9 @@ const ProductSlider = () => {
           width === "contained" ? "max-w-7xl mx-auto" : "max-w-none"
         ),
       }}
-      wrapperClassName="product-slider__container"
       wrapperStyle={{
-        ...setThemeColors(),
-        ...setBlockTheme(theme),
+        ...setStoreColors(),
+        ...setSectionTheme(theme),
       }}
     >
       {!isLoading && (
@@ -130,10 +129,7 @@ const ProductSlider = () => {
                   : "slider--fullWidth"
               )}
             >
-              <div
-                className={cx("slider__inner flex gap-8")}
-                id="product-slider"
-              >
+              <div className={cx("slider__inner flex gap-8")}>
                 {products.edges.map((product) => (
                   <ProductCard
                     {...{
@@ -175,7 +171,7 @@ const ProductSlider = () => {
               as="p"
               size="md"
               className={cx(
-                "product-slider__none-found text-theme-subtitle w-full px-4",
+                "text-theme-subtitle w-full px-4",
                 headerCustomizations?.alignment === "center"
                   ? "text-center"
                   : "text-left",
@@ -204,9 +200,8 @@ export default defineBlock({
         type: "select",
         options: [
           { label: "Light", value: "themeLight" },
-          { label: "Gray", value: "themeGray" },
-          { label: "Primary light", value: "themePrimaryLight" },
           { label: "Primary", value: "themePrimary" },
+          { label: "Primary inverted", value: "themePrimaryInverted" },
           { label: "Dark", value: "themeDark" },
         ],
         preview: "themeDark",

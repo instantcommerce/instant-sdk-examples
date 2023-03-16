@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   defineBlock,
   useBlockState,
-  gql,
   useShopifyClient,
   useCart,
   useRequestData,
@@ -18,7 +17,7 @@ import {
 } from "~/lib/shopify";
 import { Button, Paragraph, Title } from "~/components";
 
-import { setBlockTheme, setThemeColors } from "~/config";
+import { setStoreColors, setSectionTheme } from "~/config";
 import "~/styles/global.scss";
 
 const ProductCta = () => {
@@ -104,27 +103,23 @@ const ProductCta = () => {
   }, [productId, variantId]);
 
   return (
-    <section
-      className={cx("product-cta py-[72px]", width === "contained" && "px-4")}
-    >
+    <section className={cx("py-[72px]", width === "contained" && "px-4")}>
       <div
         className={cx(
-          "product-cta__container",
-          "section w-full bg-theme-bg flex flex-col",
+          "w-full bg-theme-bg flex flex-col",
           width === "contained" && "max-w-7xl mx-auto",
           imageAlignment === "right" && "sm:flex-row-reverse",
           imageAlignment === "left" && "sm:flex-row"
         )}
         style={{
-          ...setThemeColors(),
-          ...setBlockTheme(theme),
+          ...setStoreColors(),
+          ...setSectionTheme(theme),
           ...(!!backgroundColor ? { backgroundColor } : {}),
         }}
       >
         {(!!product?.images?.edges?.[0]?.node?.url || !!image?.filename) && (
           <div
             className={cx(
-              "product-cta__image",
               "flex-1 bg-cover bg-center",
               imageRatio === "portrait" ? "aspect-[4/5]" : "aspect-square"
             )}
@@ -140,7 +135,6 @@ const ProductCta = () => {
 
         <div
           className={cx(
-            "product-cta__cta-container",
             "flex-1 h-full py-10 lg:py-28 px-6",
             width === "full" && "sm:px-4",
             contentAlignment === "center" && "sm:self-center",
@@ -148,11 +142,11 @@ const ProductCta = () => {
             textAlignment === "center" && "text-center"
           )}
         >
-          <div className="product-cta__cta-inner-container max-w-[352px] mx-auto h-full flex flex-col justify-center">
+          <div className="max-w-[352px] mx-auto h-full flex flex-col justify-center">
             <Title
               as="h2"
               size={titleSize}
-              className="product-cta__title text-theme-title font-medium"
+              className="text-theme-title font-medium"
               style={{ ...(!!titleColor ? { color: titleColor } : {}) }}
             >
               {!!title ? title : product?.title}
@@ -160,7 +154,7 @@ const ProductCta = () => {
 
             {(!!description || !!product?.description) && (
               <Paragraph
-                className="product-cta__description mt-3 text-theme-subtitle"
+                className="mt-3 text-theme-subtitle"
                 style={{
                   ...(!!descriptionColor ? { color: descriptionColor } : {}),
                 }}
@@ -171,7 +165,7 @@ const ProductCta = () => {
 
             {!!price?.localizedString && (
               <div
-                className="product-cta__price mt-3 text-theme-highlightedText font-medium"
+                className="mt-3 text-theme-highlightedText font-medium"
                 style={{
                   ...(!!priceColor ? { color: priceColor } : {}),
                 }}
@@ -184,7 +178,7 @@ const ProductCta = () => {
               variant={buttonType}
               corners={buttonCorners}
               weight={buttonWeight}
-              className="product-cta__button mt-8"
+              className="mt-8"
               onClick={addToCart}
               disabled={!variant?.availableForSale}
             >
@@ -205,9 +199,8 @@ export default defineBlock({
         type: "select",
         options: [
           { label: "Light", value: "themeLight" },
-          { label: "Gray", value: "themeGray" },
-          { label: "Primary light", value: "themePrimaryLight" },
           { label: "Primary", value: "themePrimary" },
+          { label: "Primary inverted", value: "themePrimaryInverted" },
           { label: "Dark", value: "themeDark" },
         ],
         preview: "themeLight",

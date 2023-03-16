@@ -4,7 +4,7 @@ import cx from "classnames";
 
 import { Paragraph } from "~/components";
 import { CloseIcon } from "~/components/Icons";
-import { setThemeColors, setBlockTheme } from "~/config";
+import { setStoreColors, setSectionTheme } from "~/config";
 import "~/styles/global.scss";
 
 const AnnouncementBanner = () => {
@@ -25,15 +25,15 @@ const AnnouncementBanner = () => {
   const [dismissed, setDismissed] = useState<boolean>(false);
 
   return (
-    <div
+    <section
       className={cx(
-        "announcement-banner__container bg-theme-bg relative w-full py-2.5 font-medium",
+        "bg-theme-bg relative w-full py-2.5 font-medium",
         alignment == "center" ? "text-center" : "text-left",
         dismissed && "hidden"
       )}
       style={{
-        ...setThemeColors(),
-        ...setBlockTheme(theme),
+        ...setStoreColors(),
+        ...setSectionTheme(theme),
         ...(!!backgroundColor ? { backgroundColor } : {}),
       }}
     >
@@ -49,7 +49,7 @@ const AnnouncementBanner = () => {
 
       <div
         className={cx(
-          "announcement-banner relative flex justify-center flex-col sm:flex-row z-10",
+          "relative flex justify-center flex-col sm:flex-row z-10",
           alignment == "center"
             ? "sm:justify-center px-12"
             : "sm:justify-start pl-4 pr-12 md:pl-12"
@@ -58,7 +58,7 @@ const AnnouncementBanner = () => {
         {(!!text || !!links?.[0]?.value?.label) && (
           <Paragraph
             size="sm"
-            className="announcement-banner__text text-theme-title"
+            className="text-theme-title"
             style={{ ...(!!textColor ? { color: textColor } : {}) }}
           >
             {text}
@@ -67,7 +67,7 @@ const AnnouncementBanner = () => {
               <Link
                 to={links[0]?.value?.link}
                 className={cx(
-                  "announcement-banner__link text-theme-link inline sm:ml-2 underline transition-opacity hover:opacity-70",
+                  "text-theme-link inline sm:ml-2 underline transition-opacity hover:opacity-70",
                   text ? "ml-1" : ""
                 )}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
@@ -82,13 +82,13 @@ const AnnouncementBanner = () => {
       {!!dismissable && (
         <button
           onClick={() => setDismissed(true)}
-          className="announcement-banner__icon text-theme-icon w-5 absolute right-4 top-1/2 -translate-y-1/2"
+          className="text-theme-icon w-5 absolute right-4 top-1/2 -translate-y-1/2"
           style={{ ...(!!closeColor ? { color: closeColor } : {}) }}
         >
           <CloseIcon />
         </button>
       )}
-    </div>
+    </section>
   );
 };
 
@@ -100,12 +100,11 @@ export default defineBlock({
         type: "select",
         options: [
           { label: "Light", value: "themeLight" },
-          { label: "Gray", value: "themeGray" },
-          { label: "Primary light", value: "themePrimaryLight" },
           { label: "Primary", value: "themePrimary" },
+          { label: "Primary inverted", value: "themePrimaryInverted" },
           { label: "Dark", value: "themeDark" },
         ],
-        preview: "themeGray",
+        preview: "themeLight",
       },
       alignment: {
         type: "select",
