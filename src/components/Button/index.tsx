@@ -1,18 +1,29 @@
-import { Link, LinkProps } from '@instantcommerce/sdk';
-import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
-import cx from 'classnames';
-import { baseStyles, buttonSizeStyles, linkSizeStyles, variantStyles } from './buttonStyles';
+import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import { Link, LinkProps } from "@instantcommerce/sdk";
+import cx from "classnames";
+
+import {
+  baseStyles,
+  buttonCornerStyles,
+  buttonSizeStyles,
+  buttonWeightStyles,
+  linkSizeStyles,
+  variantStyles,
+} from "./buttonStyles";
 
 type BaseProps = {
+  corners?: "none" | "xs" | "sm" | "md" | "lg" | "full";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl";
   variant?:
-    | 'primary'
-    | 'secondary'
-    | 'gray'
-    | 'link'
-    | 'linkPrimary'
-    | 'linkInverted'
-    | 'unstyled';
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+    | "primary"
+    | "secondary"
+    | "light"
+    | "dark"
+    | "link"
+    | "linkPrimary"
+    | "linkLight"
+    | "unstyled";
+  weight?: "base" | "medium" | "bold";
 };
 
 type ElementProps =
@@ -22,35 +33,39 @@ type ElementProps =
       HTMLButtonElement
     >;
 
-type ButtonProps = BaseProps & ElementProps;
+export type ButtonProps = BaseProps & ElementProps;
 
 export const Button = ({
   children,
   className,
+  corners = "none",
   size,
-  variant = 'unstyled',
+  variant = "unstyled",
+  weight = "medium",
   ...props
 }: ButtonProps) => {
   let hasButtonStyles;
 
-  if (['primary', 'secondary', 'gray'].includes(variant)) {
+  if (["primary", "secondary", "light", "dark"].includes(variant)) {
     hasButtonStyles = true;
   }
 
   const baseProps = {
     className: cx(
-      variant !== 'unstyled' ? baseStyles : '',
+      variant !== "unstyled" ? baseStyles : "",
       variantStyles[variant],
       hasButtonStyles
-        ? buttonSizeStyles[size || 'md']
+        ? buttonSizeStyles[size || "md"]
         : size
         ? linkSizeStyles[size]
-        : '',
+        : "",
+      buttonCornerStyles[corners],
+      buttonWeightStyles[weight],
       className
-    )
+    ),
   };
 
-  if ('to' in props) {
+  if ("to" in props) {
     return (
       // @ts-ignore
       <Link {...baseProps} to={props?.to}>

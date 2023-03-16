@@ -1,0 +1,155 @@
+.collage {
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  &--sm {
+    height: 400px;
+  }
+
+  &--md {
+    height: 640px;
+  }
+
+  &--lg {
+    height: 800px;
+  }
+
+  &--1 {
+    a:nth-of-type(1) {
+      grid-row: span 2 / span 2;
+      grid-column: span 2 / span 2;
+    }
+  }
+
+  &--2 {
+    a:nth-of-type(1) {
+      grid-row: span 2 / span 2;
+      grid-column: span 1 / span 1;
+    }
+
+    a:nth-of-type(2) {
+      grid-row: span 2 / span 2;
+      grid-column: span 1 / span 1;
+    }
+  }
+
+  &--3 {
+    a:nth-of-type(1) {
+      grid-row: span 2 / span 2;
+      grid-column: span 1 / span 1;
+    }
+
+    a:nth-of-type(2) {
+      grid-row: span 1 / span 1;
+      grid-column: span 1 / span 1;
+    }
+
+    a:nth-of-type(3) {
+      grid-row: span 1 / span 1;
+      grid-column: span 1 / span 1;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    &--1,
+    &--2 {
+      &.collage--sm {
+        height: 200px;
+      }
+
+      &.collage--md {
+        height: 320px;
+      }
+
+      &.collage--lg {
+        height: 440px;
+      }
+    }
+
+    &--3 {
+      &.collage--sm {
+        height: 328px;
+
+        a:nth-of-type(1) {
+          grid-row: span 1 / span 1;
+          grid-column: span 2 / span 2;
+        }
+      }
+
+      &.collage--md {
+        height: 488px;
+      }
+
+      &.collage--lg {
+        height: 568px;
+      }
+
+      &.collage--md, &.collage--lg {
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        a:nth-of-type(1) {
+          grid-row: span 2 / span 2;
+          grid-column: span 2 / span 2;
+        }
+      }
+    }
+
+    &--column {
+      &.collage--1 {
+        a:nth-of-type(1) {
+          grid-row: span 2 / span 2;
+          grid-column: span 2 / span 2;
+        }
+      }
+
+      &.collage--2 {
+        &.collage--sm {
+          height: 408px;
+        }
+
+        &.collage--md {
+          height: 648px;
+        }
+
+        &.collage--lg {
+          height: 888px;
+        }
+
+        a:nth-of-type(1) {
+          grid-row: span 1 / span 1;
+          grid-column: span 2 / span 2;
+        }
+
+        a:nth-of-type(2) {
+          grid-row: span 1 / span 1;
+          grid-column: span 2 / span 2;
+        }
+      }
+
+      &.collage--3 {
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+
+        &.collage--sm {
+          height: 616px;
+        }
+
+        &.collage--md {
+          height: 976px;
+        }
+
+        &.collage--lg {
+          height: 1336px;
+        }
+
+        a:nth-of-type(1) {
+          grid-row: span 1 / span 1;
+          grid-column: span 1 / span 1;
+        }
+      }
+    }
+  }
+}

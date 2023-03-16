@@ -1,13 +1,10 @@
-import { defineBlock, useBlockState, useTheme } from '@instantcommerce/sdk';
-import cx from 'classnames';
+import { defineBlock, useBlockState } from "@instantcommerce/sdk";
+import cx from "classnames";
 
-import { Button } from '../../components/Button';
-import { Overlay } from '../../components/Overlay';
-import { Paragraph } from '../../components/Paragraph';
-import { Title } from '../../components/Title';
-import { setThemeColors } from '../../config/setThemeColors';
-import { setBlockTheme } from '../../config/themeMapping';
-import '../../styles/global.css';
+import { Button, Overlay, Paragraph, Title } from "~/components";
+import { setStoreColors, setSectionTheme } from "~/config";
+import "~/styles/global.scss";
+
 import {
   heroVariantStyles,
   heroWidthStyles,
@@ -15,8 +12,8 @@ import {
   heroImageStyles,
   heroImageMobileStyles,
   heroVerticalStyles,
-  heroHorizontalStyles
-} from './heroStyles';
+  heroHorizontalStyles,
+} from "./heroStyles";
 
 const HeroBlock = () => {
   const {
@@ -38,33 +35,43 @@ const HeroBlock = () => {
       subtitleSize,
       subtitleColor,
       firstButtonType,
-      secondButtonType
-    }
+      secondButtonType,
+      buttonCorners,
+      buttonWeight,
+    },
   } = useBlockState();
 
   return (
-    <div
-      className={cx('relative w-full bg-theme-bg')}
+    <section
+      className={cx("bg-theme-bg relative w-full")}
       style={{
-        ...setThemeColors(),
-        ...setBlockTheme(theme),
-        ...(!!backgroundColor ? { backgroundColor } : {})
+        ...setStoreColors(),
+        ...setSectionTheme(theme),
+        ...(!!backgroundColor ? { backgroundColor } : {}),
       }}
     >
       <div
         className={cx(
-          'hidden md:flex bg-cover absolute top-0 bottom-0',
+          "absolute top-0 bottom-0 hidden md:flex bg-cover",
           heroImageStyles[variant]
         )}
-        style={{ backgroundImage: `url(${image?.filename})` }}
       >
+        {image?.filename && (
+          <img
+            className={cx(
+              "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 object-cover"
+            )}
+            alt={image?.alt}
+            src={image?.filename}
+          />
+        )}
         {overlayColor && (
           <Overlay color={overlayColor} opacity={overlayOpacity} />
         )}
       </div>
       <div
         className={cx(
-          'flex w-full',
+          "flex w-full",
           heroVariantStyles[variant],
           heroWidthStyles[width],
           heroHeightStyles[height]
@@ -72,7 +79,7 @@ const HeroBlock = () => {
       >
         <div
           className={cx(
-            'flex bg-cover md:!bg-none',
+            "flex bg-cover md:!bg-none",
             heroImageMobileStyles[variant]
           )}
           style={{ backgroundImage: `url(${mobileImage?.filename})` }}
@@ -87,15 +94,17 @@ const HeroBlock = () => {
         </div>
         <div
           className={cx(
-            'flex flex-col px-2 py-6 md:py-100 z-10 sm:max-w-[50%] lg:max-w-[640px] md:flex-1',
-            !(width === 'contained' && variant === 'cover') ? 'md:px-10' : '',
+            "flex flex-col md:flex-1 sm:max-w-[50%] px-4 py-12 md:py-20 z-10",
+            !(width === "contained" && variant === "cover")
+              ? "md:px-20 lg:max-w-[768px]"
+              : "lg:max-w-[640px]",
             heroVerticalStyles[verticalAlign],
             heroHorizontalStyles[horizontalAlign]
           )}
         >
           {pretitle && (
             <Paragraph
-              className={cx('font-medium mb-1 text-theme-pretitle')}
+              className={cx("text-theme-pretitle mb-2 font-medium")}
               size={pretitleSize}
               style={!!pretitleColor ? { color: pretitleColor } : {}}
             >
@@ -105,7 +114,7 @@ const HeroBlock = () => {
 
           {title && (
             <Title
-              className={cx('font-medium text-theme-title')}
+              className={cx("text-theme-title font-medium leading-tight")}
               size={titleSize}
               style={!!titleColor ? { color: titleColor } : {}}
               variant="display"
@@ -117,7 +126,7 @@ const HeroBlock = () => {
 
           {subtitle && (
             <Paragraph
-              className={cx('mb-2 text-theme-subtitle')}
+              className={cx("text-theme-subtitle mt-4")}
               size={subtitleSize}
               style={!!subtitleColor ? { color: subtitleColor } : {}}
             >
@@ -126,20 +135,20 @@ const HeroBlock = () => {
           )}
 
           {buttons && (
-            <div
-              className={cx('hero__buttons-wrapper flex flex-wrap gap-2 mt-4')}
-            >
+            <div className={cx("flex flex-wrap mt-8 gap-4")}>
               {buttons?.[0]?.value?.text && (
                 <Button
                   size={
-                    ['link', 'linkPrimary', 'linkInverted'].includes(
+                    ["link", "linkPrimary", "linkLight"].includes(
                       firstButtonType
                     )
-                      ? 'sm'
-                      : 'md'
+                      ? "sm"
+                      : "md"
                   }
                   variant={firstButtonType}
                   to={buttons?.[0]?.value?.link}
+                  corners={buttonCorners}
+                  weight={buttonWeight}
                 >
                   {buttons?.[0]?.value?.text}
                 </Button>
@@ -148,14 +157,16 @@ const HeroBlock = () => {
               {buttons?.[1]?.value?.text && (
                 <Button
                   size={
-                    ['link', 'linkPrimary', 'linkInverted'].includes(
+                    ["link", "linkPrimary", "linkLight"].includes(
                       secondButtonType
                     )
-                      ? 'sm'
-                      : 'md'
+                      ? "sm"
+                      : "md"
                   }
                   variant={secondButtonType}
                   to={buttons?.[1]?.value?.link}
+                  corners={buttonCorners}
+                  weight={buttonWeight}
                 >
                   {buttons?.[1]?.value?.text}
                 </Button>
@@ -164,7 +175,7 @@ const HeroBlock = () => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
@@ -173,200 +184,221 @@ export default defineBlock({
   customizerSchema: {
     fields: {
       theme: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Light', value: 'themeLight' },
-          { label: 'Gray', value: 'themeGray' },
-          { label: 'Primary light', value: 'themePrimaryLight' },
-          { label: 'Primary', value: 'themePrimary' },
-          { label: 'Dark', value: 'themeDark' }
+          { label: "Light", value: "themeLight" },
+          { label: "Primary", value: "themePrimary" },
+          { label: "Primary inverted", value: "themePrimaryInverted" },
+          { label: "Dark", value: "themeDark" },
         ],
-        preview: 'themeDark'
+        preview: "themeDark",
       },
       variant: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Cover', value: 'cover' },
-          { label: 'Image text', value: 'imageText' },
-          { label: 'Text image', value: 'textImage' }
+          { label: "Cover", value: "cover" },
+          { label: "Image text", value: "imageText" },
+          { label: "Text image", value: "textImage" },
         ],
-        preview: 'cover'
+        preview: "cover",
       },
       overlayColor: {
-        type: 'color',
-        label: 'Image overlay color',
-        preview: '#000'
+        type: "color",
+        label: "Image overlay color",
+        preview: "#000",
       },
       overlayOpacity: {
-        type: 'number',
-        label: 'Image overlay opacity',
+        type: "number",
+        label: "Image overlay opacity",
         min: 0,
         max: 100,
-        preview: 10
+        preview: 10,
       },
       width: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Boxed', value: 'contained' },
-          { label: 'Full width', value: 'full' }
+          { label: "Boxed", value: "contained" },
+          { label: "Full width", value: "full" },
         ],
-        preview: 'contained'
+        preview: "full",
       },
       height: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'sm' },
-          { label: 'Medium', value: 'md' },
-          { label: 'Large', value: 'lg' }
+          { label: "Small", value: "sm" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
         ],
-        preview: 'md'
+        preview: "md",
       },
       horizontalAlign: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Left', value: 'left' },
-          { label: 'Center', value: 'center' },
-          { label: 'Right', value: 'right' }
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" },
+          { label: "Right", value: "right" },
         ],
-        preview: 'left'
+        preview: "left",
       },
       verticalAlign: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Top', value: 'top' },
-          { label: 'Center', value: 'center' },
-          { label: 'Bottom', value: 'bottom' }
+          { label: "Top", value: "top" },
+          { label: "Center", value: "center" },
+          { label: "Bottom", value: "bottom" },
         ],
-        preview: 'center'
+        preview: "center",
       },
       pretitleSize: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'md' },
-          { label: 'Medium', value: 'lg' },
-          { label: 'Large', value: 'xl' }
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" },
         ],
-        preview: 'md'
+        preview: "md",
       },
       titleSize: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'md' },
-          { label: 'Medium', value: 'lg' },
-          { label: 'Large', value: 'xl' }
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" },
         ],
-        preview: 'lg'
+        preview: "lg",
       },
       subtitleSize: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Small', value: 'md' },
-          { label: 'Medium', value: 'lg' },
-          { label: 'Large', value: 'xl' }
+          { label: "Small", value: "md" },
+          { label: "Medium", value: "lg" },
+          { label: "Large", value: "xl" },
         ],
-        preview: 'lg'
+        preview: "lg",
       },
-      pretitleColor: { type: 'color', label: 'Pretitle color' },
-      titleColor: { type: 'color', label: 'Title color' },
-      subtitleColor: { type: 'color', label: 'Description color' },
-      backgroundColor: { type: 'color', label: 'Background color' },
+      pretitleColor: { type: "color", label: "Pretitle color" },
+      titleColor: { type: "color", label: "Title color" },
+      subtitleColor: { type: "color", label: "Description color" },
+      backgroundColor: { type: "color", label: "Background color" },
       firstButtonType: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Primary', value: 'primary' },
-          { label: 'Secondary', value: 'secondary' },
-          { label: 'Gray', value: 'gray' },
-          { label: 'Link', value: 'link' },
-          { label: 'Link primary', value: 'linkPrimary' },
-          { label: 'Link inverted', value: 'linkInverted' }
+          { label: "Primary", value: "primary" },
+          { label: "Secondary", value: "secondary" },
+          { label: "Light", value: "light" },
+          { label: "Dark", value: "dark" },
+          { label: "Link", value: "link" },
+          { label: "Link primary", value: "linkPrimary" },
+          { label: "Link light", value: "linkLight" },
         ],
-        preview: 'primary'
+        preview: "primary",
       },
       secondButtonType: {
-        type: 'select',
+        type: "select",
         options: [
-          { label: 'Primary', value: 'primary' },
-          { label: 'Secondary', value: 'secondary' },
-          { label: 'Gray', value: 'gray' },
-          { label: 'Link', value: 'link' },
-          { label: 'Link primary', value: 'linkPrimary' },
-          { label: 'Link inverted', value: 'linkInverted' }
+          { label: "Primary", value: "primary" },
+          { label: "Secondary", value: "secondary" },
+          { label: "Light", value: "light" },
+          { label: "Dark", value: "dark" },
+          { label: "Link", value: "link" },
+          { label: "Link primary", value: "linkPrimary" },
+          { label: "Link light", value: "linkLight" },
         ],
-        preview: 'linkInverted'
-      }
-    }
+        preview: "linkLight",
+      },
+      buttonCorners: {
+        type: "select",
+        options: [
+          { label: "None", value: "none" },
+          { label: "Small", value: "xs" },
+          { label: "Medium", value: "md" },
+          { label: "Large", value: "lg" },
+          { label: "Full", value: "full" },
+        ],
+        preview: "none",
+      },
+      buttonWeight: {
+        type: "select",
+        options: [
+          { label: "Regular", value: "base" },
+          { label: "Medium", value: "medium" },
+          { label: "Bold", value: "bold" },
+        ],
+        preview: "medium",
+      },
+    },
   },
   contentSchema: {
     fields: {
       pretitle: {
-        type: 'text',
-        label: 'Pretitle',
-        preview: 'Hero pretitle',
-        isTranslatable: true
+        type: "text",
+        label: "Pretitle",
+        preview: "FW22 Collection",
+        isTranslatable: true,
       },
       title: {
-        type: 'text',
-        label: 'Title',
-        preview: 'Hero title',
-        isTranslatable: true
+        type: "text",
+        label: "Title",
+        preview: "We bring a new revolution of fashion.",
+        isTranslatable: true,
       },
       subtitle: {
-        type: 'text',
-        label: 'Description',
+        type: "text",
+        label: "Description",
         preview:
-          'Hero subtitle dolor sit amet, consectetur adipiscing elit. Cras dui ligula, sollicitudin eu scelerisque non, ullamcorper sit amet massa. Aliquam et neque malesuada, tempus lorem gravida, rutrum urna.',
-        isTranslatable: true
+          "Experience every detail with our new fabrics. We made them lightweight yet warm for the coming season.",
+        isTranslatable: true,
       },
       image: {
-        type: 'image',
+        type: "image",
         preview:
-          'https://images.unsplash.com/photo-1563693998336-93c10e5d8f91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80'
+          "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg",
       },
       mobileImage: {
-        type: 'image',
+        type: "image",
         preview:
-          'https://images.unsplash.com/photo-1563693998336-93c10e5d8f91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80'
+          "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg",
       },
       buttons: {
-        type: 'subschema',
-        allowed: ['button'],
+        type: "subschema",
+        allowed: ["button"],
         max: 3,
         preview: [
           {
-            subschema: 'button',
+            subschema: "button",
             value: {
-              text: 'Button text',
-              link: 'https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg'
-            }
+              text: "Explore the Campaign",
+              link: "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg",
+            },
           },
           {
-            subschema: 'button',
+            subschema: "button",
             value: {
-              text: 'Second button text',
-              link: 'https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg'
-            }
-          }
-        ]
-      }
+              text: "Discover other campaigns",
+              link: "https://a.storyblok.com/f/145828/2880x1560/ae2a6a0894/dark.jpg",
+            },
+          },
+        ],
+      },
     },
     subschemas: {
       button: {
         fields: {
           text: {
-            type: 'text',
-            label: 'Text',
+            type: "text",
+            label: "Text",
             isTranslatable: true,
             isRequired: true,
-            maxLength: 40
+            maxLength: 40,
           },
           link: {
-            type: 'link',
-            label: 'Link',
+            type: "link",
+            label: "Link",
             isTranslatable: true,
-            isRequired: true
-          }
-        }
-      }
-    }
-  }
+            isRequired: true,
+          },
+        },
+      },
+    },
+  },
 });

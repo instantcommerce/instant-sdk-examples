@@ -28,7 +28,7 @@ const grayscaleColors = {
   s900: '#18181B',
 };
 
-export const setThemeColors = () => {
+export const setStoreColors = () => {
   const { colors } = useTheme();
 
   // remove `s` to match tailwind colors (e.g. s500 -> 500)

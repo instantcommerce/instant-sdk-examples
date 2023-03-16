@@ -1,13 +1,14 @@
-import cx from 'classnames';
-import { AllHTMLAttributes, ElementType } from 'react';
-import { paragraphSizeStyles } from './paragraphStyles';
+import { AllHTMLAttributes, ElementType } from "react";
+import cx from "classnames";
+
+import { paragraphSizeStyles } from "./paragraphStyles";
 
 type HTMLProperties = {
   as?: ElementType;
-} & Omit<AllHTMLAttributes<HTMLElement>, 'color' | 'height' | 'width' | 'size'>;
+} & Omit<AllHTMLAttributes<HTMLElement>, "color" | "height" | "width" | "size">;
 
 type ParagraphProps = {
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  size?: "sm" | "md" | "lg" | "xl" | "2xl";
   ellipsis?: boolean;
   uppercase?: boolean;
 } & HTMLProperties;
@@ -17,18 +18,18 @@ export const Paragraph = ({
   children,
   className,
   ellipsis,
-  size = 'md',
+  size = "md",
   uppercase,
   ...props
 }: ParagraphProps) => {
-  const Component = as || 'p';
+  const Component = as || "p";
 
   return (
     <Component
       className={cx(
         paragraphSizeStyles[size],
-        uppercase ? 'uppercase tracking-wider' : '',
-        ellipsis ? 'truncate' : '',
+        uppercase ? "uppercase tracking-wider" : "",
+        ellipsis ? "truncate" : "",
         className
       )}
       {...props}
