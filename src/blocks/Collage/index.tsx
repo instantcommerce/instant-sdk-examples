@@ -32,7 +32,6 @@ const Collage = () => {
       backgroundColor={backgroundColor}
       className={width === "contained" ? "max-w-7xl" : "max-w-none"}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
-      wrapperClassName="collage__container"
       wrapperStyle={{ ...setStoreColors(), ...setSectionTheme(theme) }}
     >
       <div
@@ -45,7 +44,7 @@ const Collage = () => {
           <Link
             to={card?.value?.link?.url}
             className={cx(
-              "collage__card group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden",
+              "group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden",
               contentAlignment === "center"
                 ? "justify-center items-center text-center"
                 : "justify-end"
@@ -67,7 +66,7 @@ const Collage = () => {
 
             {!!card?.value?.title && (
               <Title
-                className={cx("collage__title text-white font-semibold z-10")}
+                className={cx("text-white font-semibold z-10")}
                 size={
                   contentSize === "sm"
                     ? "xs"
@@ -84,17 +83,17 @@ const Collage = () => {
             {cta && (
               <Paragraph
                 className={cx(
-                  "collage__button flex items-center text-white font-medium text-left z-10"
+                  "flex items-center text-white font-medium text-left z-10"
                 )}
                 size={contentSize}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
               >
                 {linkType === "left" && (
-                  <ArrowRightIcon className="collage__arrow w-3 mr-2.5" />
+                  <ArrowRightIcon className="w-3 mr-2.5" />
                 )}
                 {cta}
                 {linkType === "right" && (
-                  <ArrowRightIcon className="collage__arrow w-3 ml-2.5 transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRightIcon className="w-3 ml-2.5 transition-transform group-hover:translate-x-0.5" />
                 )}
               </Paragraph>
             )}

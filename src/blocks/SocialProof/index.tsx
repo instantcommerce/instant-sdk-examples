@@ -21,21 +21,18 @@ const SocialProof = () => {
   return (
     <Container
       backgroundColor={backgroundColor}
-      wrapperClassName="social-proof"
       className={containerWidth === "contained" ? "max-w-7xl" : "max-w-none"}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
       wrapperStyle={{ ...setStoreColors(), ...setSectionTheme(theme) }}
     >
       <div
         className={cx(
-          "logo-container__wrapper",
           mobileScrollDirection === "horizontal" &&
             "md:w-full -mx-4 md:mx-0 overflow-x-auto md:overflow-x-visible snap-x md:snap-none hide-scrollbars"
         )}
       >
         <div
           className={cx(
-            "logo-container",
             "flex md:flex-row flex-wrap items-center gap-12",
             mobileScrollDirection === "vertical"
               ? "w-full flex-col"
@@ -49,7 +46,7 @@ const SocialProof = () => {
             return (
               <img
                 alt={logo?.value?.logo?.alt}
-                className="logo max-h-10 object-contain"
+                className="max-h-10 object-contain"
                 src={logo?.value?.logo?.filename?.preview}
               />
             );

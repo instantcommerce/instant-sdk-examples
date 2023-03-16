@@ -113,7 +113,6 @@ const ProductSlider = () => {
           width === "contained" ? "max-w-7xl mx-auto" : "max-w-none"
         ),
       }}
-      wrapperClassName="product-slider__container"
       wrapperStyle={{
         ...setStoreColors(),
         ...setSectionTheme(theme),
@@ -130,10 +129,7 @@ const ProductSlider = () => {
                   : "slider--fullWidth"
               )}
             >
-              <div
-                className={cx("slider__inner flex gap-8")}
-                id="product-slider"
-              >
+              <div className={cx("slider__inner flex gap-8")}>
                 {products.edges.map((product) => (
                   <ProductCard
                     {...{
@@ -175,7 +171,7 @@ const ProductSlider = () => {
               as="p"
               size="md"
               className={cx(
-                "product-slider__none-found text-theme-subtitle w-full px-4",
+                "text-theme-subtitle w-full px-4",
                 headerCustomizations?.alignment === "center"
                   ? "text-center"
                   : "text-left",

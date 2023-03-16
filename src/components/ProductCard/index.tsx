@@ -82,7 +82,7 @@ export const ProductCard = ({
   return (
     <Button
       className={cx(
-        "product-card flex flex-col group",
+        "flex flex-col group",
         textAlignment === "center" ? "text-center" : "text-left",
         className
       )}
@@ -90,7 +90,7 @@ export const ProductCard = ({
     >
       <div
         className={cx(
-          "product-card__image-container relative w-full overflow-hidden mb-4",
+          "relative w-full overflow-hidden mb-4",
           imageAspectRatio === "landscape"
             ? "pt-[66.66%]"
             : imageAspectRatio === "portrait"
@@ -102,7 +102,7 @@ export const ProductCard = ({
           hoverEffect === "secondImage" && (
             <img
               className={cx(
-                "product-card__image--second-image absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0",
+                "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0",
                 imageFillBehavior === "cover"
                   ? "object-cover"
                   : "object-contain"
@@ -113,7 +113,7 @@ export const ProductCard = ({
 
         <img
           className={cx(
-            "product-card__image absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 opacity-1 transition-transform",
+            "absolute top-0 left-0 right-0 bottom-0 w-0 h-0 min-w-full max-w-full min-h-full max-h-0 opacity-1 transition-transform",
             imageFillBehavior === "cover" ? "object-cover" : "object-contain",
             !!product?.images?.edges[1]?.node?.url &&
               hoverEffect === "secondImage"
@@ -127,10 +127,7 @@ export const ProductCard = ({
       </div>
 
       {!!pretitleText && (
-        <Paragraph
-          size="sm"
-          className={cx("product-card__pretitle text-theme-text mb-0.5")}
-        >
+        <Paragraph size="sm" className={cx("text-theme-text mb-0.5")}>
           {pretitleText}
         </Paragraph>
       )}
@@ -138,7 +135,7 @@ export const ProductCard = ({
       <Title
         variant="heading"
         size={textSize === "lg" ? "md" : textSize === "md" ? "sm" : "xs"}
-        className={cx("product-card__title text-theme-title font-medium")}
+        className={cx("text-theme-title font-medium")}
       >
         {product.title}
       </Title>
@@ -146,9 +143,7 @@ export const ProductCard = ({
       {!!descriptionText && (
         <Paragraph
           size={textSize === "lg" ? "md" : "sm"}
-          className={cx(
-            "product-card__description text-theme-subtitle mt-0.5 line-clamp-3 break-words"
-          )}
+          className={cx("text-theme-subtitle mt-0.5 line-clamp-3 break-words")}
         >
           {descriptionText}
         </Paragraph>
@@ -156,16 +151,14 @@ export const ProductCard = ({
 
       <div
         className={cx(
-          "product-card__price-wrapper flex",
+          "flex",
           descriptionText ? "mt-4" : "mt-1",
           textAlignment === "center" ? "justify-center" : "justify-start"
         )}
       >
         {!!oldPrice && (
           <Paragraph
-            className={cx(
-              "product-card__price product-card__price--old text-theme-text mr-2 line-through"
-            )}
+            className={cx("text-theme-text mr-2 line-through")}
             size={textSize === "lg" ? "lg" : "md"}
           >
             {oldPrice}
@@ -173,9 +166,7 @@ export const ProductCard = ({
         )}
         <Paragraph
           size={textSize === "lg" ? "lg" : "md"}
-          className={cx(
-            "product-card__price product-card__price--current text-theme-title font-bold"
-          )}
+          className={cx("text-theme-title font-bold")}
         >
           {price}
         </Paragraph>

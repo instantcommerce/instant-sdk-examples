@@ -30,16 +30,15 @@ const ContentCard = () => {
       backgroundColor={backgroundColor}
       className={width === "contained" ? "max-w-7xl" : "max-w-none"}
       headerProps={{ ...headerContent, ...headerCustomizations, theme }}
-      wrapperClassName="content-card__container"
       wrapperStyle={{ ...setStoreColors(), ...setSectionTheme(theme) }}
     >
-      <div className="content-card flex flex-col md:flex-row w-full gap-y-8 md:gap-y-0 md:gap-x-8">
+      <div className="flex flex-col md:flex-row w-full gap-y-8 md:gap-y-0 md:gap-x-8">
         {cards?.map((card) => (
           // @ts-ignore
           <Link
             to={card?.value?.link?.url}
             className={cx(
-              "content-card__card group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden",
+              "group relative w-full flex flex-col p-4 md:p-10 gap-y-2 overflow-hidden",
               contentAlignment === "center"
                 ? "justify-center items-center text-center"
                 : "justify-end",
@@ -65,9 +64,7 @@ const ContentCard = () => {
 
             {!!card?.value?.title && (
               <Title
-                className={cx(
-                  "content-card__title text-white font-semibold z-10"
-                )}
+                className={cx("text-white font-semibold z-10")}
                 size={
                   contentSize === "sm"
                     ? "xs"
@@ -84,17 +81,17 @@ const ContentCard = () => {
             {cta && (
               <Paragraph
                 className={cx(
-                  "content-card__button flex items-center text-white font-medium text-left z-10"
+                  "flex items-center text-white font-medium text-left z-10"
                 )}
                 size={contentSize}
                 style={{ ...(!!linkColor ? { color: linkColor } : {}) }}
               >
                 {linkType === "left" && (
-                  <ArrowRightIcon className="content-card__arrow w-3 mr-2.5" />
+                  <ArrowRightIcon className="w-3 mr-2.5" />
                 )}
                 {cta}
                 {linkType === "right" && (
-                  <ArrowRightIcon className="content-card__arrow w-3 ml-2.5 transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRightIcon className="w-3 ml-2.5 transition-transform group-hover:translate-x-0.5" />
                 )}
               </Paragraph>
             )}
