@@ -6,6 +6,8 @@ This example project contains custom tailwind config, theming and components to 
 
 Read our [documentation about installing, running, and, authenticating the SDK CLI.](https://docs.instantcommerce.io/developer-documentation/getting-started/start#installing-dependencies)
 
+If you use the `instant-sdk-example` project as a starting point, rename "your-organization" in the `instant.config.json` to your organization slug. 
+
 ## Tailwind config
 
 The tailwind config in this example project is a close representation of the variables we use in our storefront. These are subject to change in the storefront.
