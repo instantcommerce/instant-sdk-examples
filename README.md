@@ -12,18 +12,18 @@ The tailwind config in this example project is a close representation of the var
 
 ## Store’s primary and grayscale colors
 
-The `setStoreColors` helper enables easy usage of the store’s primary and grayscale colors. It can be used with tailwind’s colour utilities and/or with css variables.
+The `setStoreColors` helper enables easy usage of the store’s primary and grayscale colors. It can be used with tailwind’s colour utilities and/or with CSS variables.
 
 With tailwind: `className=”bg-primary-500 text-gray-100”`
 
-With css variables:
+With CSS variables:
 
     .section {
       background-color: var(--color-primary-500);
       color: var(--color-gray-100);
     }
 
-This helper fetches the store’s colors and creates new css variables. In addition these variables are assigned to primary and grayscale shades in our tailwind config (`tailwind.config.cjs`).
+This helper fetches the store’s colors and creates new CSS variables. In addition these variables are assigned to primary and grayscale shades in our tailwind config (`tailwind.config.cjs`).
 
 To use `setStoreColors`, simply spread the helper in your section’s style prop:
 
@@ -37,7 +37,7 @@ Most of our native sections have themes to enable fast color customization. To f
 
 Usage with tailwind: `className=”bg-theme-bg text-theme-text”`
 
-With css variables:
+With CSS variables:
 
     .section {
       background-color: var(--color-theme-bg);
