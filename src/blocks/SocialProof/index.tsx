@@ -143,7 +143,7 @@ export default defineBlock({
           { label: "Top", value: "top" },
           { label: "Bottom", value: "bottom" },
         ],
-        preview: "top",
+        preview: "bottom",
       },
       dividerColor: { type: "color", label: "Divider color" },
       hasDivider: { type: "toggle", label: "Has divider", preview: false },
@@ -190,6 +190,15 @@ export default defineBlock({
         type: "subschema",
         allowed: ["button"],
         max: 1,
+        preview: [
+          {
+            subschema: "button",
+            value: {
+              text: "Discover all",
+              link: "https://a.storyblok.com/f/145828/5000x3333/564e281ca1/force-majeure-du8abwm5z2g-unsplash.jpg",
+            },
+          },
+        ],
       },
       logos: {
         type: "subschema",
